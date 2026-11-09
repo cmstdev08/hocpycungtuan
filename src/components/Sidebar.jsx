@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import {
   LayoutDashboard, BookOpen, Code2, PenTool,
   HelpCircle, BookMarked, Award, ChevronLeft, ChevronRight,
-  Timer, Activity
+  Timer, Activity, FileText, Zap, Bug, ArrowLeftRight
 } from 'lucide-react';
 import './Sidebar.css';
 
@@ -14,7 +14,11 @@ const menuItems = [
   { path: '/exercises', icon: PenTool, label: 'Bài tập thực hành' },
   { path: '/quizzes', icon: HelpCircle, label: 'Trắc nghiệm' },
   { path: '/mock-exam', icon: Timer, label: 'Thi thử 45 phút' },
+  { path: '/speed-typing', icon: Zap, label: 'Luyện gõ Code' },
+  { path: '/bughunt', icon: Bug, label: 'Săn lỗi Bug Hunt' },
+  { path: '/converter', icon: ArrowLeftRight, label: 'C++ sang Python' },
   { path: '/visualizer', icon: Activity, label: 'Mô phỏng Code' },
+  { path: '/cheatsheet', icon: FileText, label: 'Cheat Sheet A4' },
   { path: '/dictionary', icon: BookMarked, label: 'Từ điển Python' },
   { path: '/certificate', icon: Award, label: 'Nhận Chứng Chỉ' },
 ];

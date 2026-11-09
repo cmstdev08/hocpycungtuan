@@ -12,6 +12,10 @@ import Dictionary from './pages/Dictionary.jsx';
 import Certificate from './pages/Certificate.jsx';
 import MockExam from './pages/MockExam.jsx';
 import Visualizer from './pages/Visualizer.jsx';
+import CheatSheet from './pages/CheatSheet.jsx';
+import SpeedTyping from './pages/SpeedTyping.jsx';
+import BugHunt from './pages/BugHunt.jsx';
+import CppConverter from './pages/CppConverter.jsx';
 import './styles/global.css';
 
 function App() {
@@ -45,6 +49,10 @@ function App() {
             <Route path="/dictionary" element={<Dictionary />} />
             <Route path="/visualizer" element={<Visualizer />} />
             <Route path="/mock-exam" element={<MockExam />} />
+            <Route path="/cheatsheet" element={<CheatSheet />} />
+            <Route path="/speed-typing" element={<SpeedTyping />} />
+            <Route path="/bughunt" element={<BugHunt />} />
+            <Route path="/converter" element={<CppConverter />} />
             <Route path="/certificate" element={<Certificate />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

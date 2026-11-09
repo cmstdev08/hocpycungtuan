@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
   ArrowLeft, ArrowRight, BookOpen, Code2, FileText,
-  Lightbulb, PenTool, CheckCircle, AlertTriangle, HelpCircle, Target
+  Lightbulb, PenTool, CheckCircle, AlertTriangle, HelpCircle, Target,
+  Volume2, VolumeX, StickyNote, Save
 } from 'lucide-react';
 import { lessons } from '../data/lessons.js';
 import './Lessons.css';
@@ -13,6 +14,9 @@ const LessonDetail = () => {
   const lesson = lessons.find(l => l.id === Number(lessonId));
 
   const [selectedAnswers, setSelectedAnswers] = useState({});
+  const [isPlayingAudio, setIsPlayingAudio] = useState(false);
+  const [userNote, setUserNote] = useState('');
+  const [noteSaved, setNoteSaved] = useState(false);
 
   useEffect(() => {
     if (lesson) {
@@ -20,8 +24,50 @@ const LessonDetail = () => {
       progress.lastLesson = { id: lesson.id, title: lesson.title };
       localStorage.setItem('learningProgress', JSON.stringify(progress));
       setSelectedAnswers({});
+
+      // Lấy note của bài học này
+      const allNotes = JSON.parse(localStorage.getItem('python_lesson_notes') || '{}');
+      setUserNote(allNotes[lesson.id] || '');
+      setNoteSaved(false);
+
+      // Dừng audio nếu đang đọc bài trước
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        setIsPlayingAudio(false);
+      }
     }
   }, [lesson]);
+
+  // AI Voice Reader
+  const toggleAudio = () => {
+    if (!('speechSynthesis' in window)) {
+      alert('Trình duyệt của bạn không hỗ trợ Web Speech API.');
+      return;
+    }
+
+    if (isPlayingAudio) {
+      window.speechSynthesis.cancel();
+      setIsPlayingAudio(false);
+    } else {
+      const textToRead = `Bài học: ${lesson.title}. Mục tiêu bài học: ${lesson.objective || ''}. Lý thuyết: ${lesson.theory}`;
+      const utterance = new SpeechSynthesisUtterance(textToRead);
+      utterance.lang = 'vi-VN';
+      utterance.rate = 1.0;
+      utterance.onend = () => setIsPlayingAudio(false);
+      utterance.onerror = () => setIsPlayingAudio(false);
+      window.speechSynthesis.speak(utterance);
+      setIsPlayingAudio(true);
+    }
+  };
+
+  // Lưu note
+  const handleSaveNote = () => {
+    const allNotes = JSON.parse(localStorage.getItem('python_lesson_notes') || '{}');
+    allNotes[lesson.id] = userNote;
+    localStorage.setItem('python_lesson_notes', JSON.stringify(allNotes));
+    setNoteSaved(true);
+    setTimeout(() => setNoteSaved(false), 2000);
+  };
 
   if (!lesson) {
     return (
@@ -65,8 +111,21 @@ const LessonDetail = () => {
       </div>
 
       {/* Header Info */}
-      <span className="lesson-chapter-label">{lesson.stage} • Chương {lesson.id}</span>
-      <h2>{lesson.title}</h2>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.8rem', marginBottom: '0.5rem' }}>
+        <div>
+          <span className="lesson-chapter-label">{lesson.stage} • Chương {lesson.id}</span>
+          <h2 style={{ margin: 0 }}>{lesson.title}</h2>
+        </div>
+
+        <button
+          className={isPlayingAudio ? 'btn btn-cyan' : 'btn btn-outline'}
+          onClick={toggleAudio}
+          title="Nghe bài giảng âm thanh giọng đọc Tiếng Việt"
+        >
+          {isPlayingAudio ? <VolumeX size={16} /> : <Volume2 size={16} />}
+          {isPlayingAudio ? 'Dừng đọc' : 'Nghe bài giảng'}
+        </button>
+      </div>
 
       {/* 1. Mục tiêu bài học */}
       {lesson.objective && (
@@ -198,6 +257,27 @@ const LessonDetail = () => {
           </div>
         </section>
       )}
+
+      {/* Ghi chú cá nhân */}
+      <section className="lesson-section">
+        <h3><StickyNote size={18} color="var(--color-warning)" /> Ghi chú cá nhân cho bài này</h3>
+        <div className="card">
+          <textarea
+            rows={3}
+            className="search-input"
+            value={userNote}
+            onChange={(e) => setUserNote(e.target.value)}
+            placeholder="Ghi lại các mẹo, công thức hoặc lưu ý của bạn tại đây (sẽ tự động lưu lại trên máy)..."
+            style={{ width: '100%', marginBottom: '0.6rem', padding: '0.8rem', minHeight: 70 }}
+          />
+          <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '0.6rem' }}>
+            {noteSaved && <span style={{ color: 'var(--color-success)', fontSize: '0.85rem' }}>Đã lưu ghi chú!</span>}
+            <button className="btn btn-primary" onClick={handleSaveNote}>
+              <Save size={14} /> Lưu ghi chú
+            </button>
+          </div>
+        </div>
+      </section>
 
       {/* Complete Button */}
       <div className="lesson-actions" style={{ marginTop: '2rem' }}>
