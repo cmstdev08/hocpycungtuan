@@ -1,124 +1,84 @@
 // src/data/samples.js
 export const codeSamples = [
   {
+    id: 'name_age',
+    title: '1. Nhập Tên & Tuổi (Mẫu chuẩn đề bài)',
+    code: `name = input("Nhập tên: ")
+age = int(input("Nhập tuổi: "))
+
+print("Xin chào", name)
+print("Bạn", age, "tuổi")
+`,
+  },
+  {
+    id: 'sum_two_nums',
+    title: '2. Tính tổng hai số (Nhiều input liên tiếp)',
+    code: `print("--- TÍNH TỔNG HAI SỐ NGUYÊN ---")
+a = int(input("a = "))
+b = int(input("b = "))
+print("Tổng =", a + b)
+`,
+  },
+  {
+    id: 'float_calc',
+    title: '3. Nhập số thực Float (Tính chu vi & diện tích)',
+    code: `r = float(input("Nhập bán kính hình tròn r = "))
+pi = 3.14159
+chu_vi = 2 * pi * r
+dien_tich = pi * (r ** 2)
+
+print(f"Chu vi hình tròn: {chu_vi:.2f}")
+print(f"Diện tích hình tròn: {dien_tich:.2f}")
+`,
+  },
+  {
+    id: 'loop_inputs',
+    title: '4. Vòng lặp For liên tục gọi input()',
+    code: `tong = 0
+so_luong = int(input("Bạn muốn nhập bao nhiêu số? "))
+
+for i in range(so_luong):
+    val = float(input(f"Nhập giá trị thứ {i + 1}: "))
+    tong += val
+    print(f"-> Đã ghi nhận {val}, tổng tạm thời: {tong}")
+
+print("=== KẾT QUẢ CUỐI CÙNG ===")
+print("Tổng tất cả các số vừa nhập =", tong)
+`,
+  },
+  {
+    id: 'error_handling',
+    title: '5. Bắt lỗi nhập liệu ZeroDivision & ValueError',
+    code: `try:
+    a = int(input("Nhập tử số: "))
+    b = int(input("Nhập mẫu số: "))
+    print(f"Kết quả {a} / {b} = {a / b}")
+except ZeroDivisionError:
+    print("❌ Lỗi: Không thể chia cho 0!")
+except ValueError:
+    print("❌ Lỗi: Dữ liệu nhập vào phải là số nguyên!")
+`,
+  },
+  {
     id: 'hello',
-    title: '1. Hello World & Print',
-    code: `# Chương trình Python đầu tiên
-print("Xin chào! Chào mừng bạn đến với Python Online Compiler.")
+    title: '6. Hello World & In định dạng',
+    code: `print("Xin chào! Chào mừng bạn đến với Python Interactive Terminal.")
 print("Học lập trình thật thú vị cùng Python! 🚀")
 `,
   },
   {
-    id: 'input',
-    title: '2. Nhập dữ liệu với input()',
-    code: `# Nhập tên và năm sinh từ bàn phím
-ten = input("Nhập tên của bạn: ")
-nam_sinh = int(input("Nhập năm sinh của bạn: "))
-
-tuoi = 2026 - nam_sinh
-print(f"Chào {ten}! Năm nay bạn {tuoi} tuổi.")
-`,
-  },
-  {
-    id: 'if_else',
-    title: '3. Điều kiện If - Else (Kiểm tra chẵn/lẻ)',
-    code: `# Kiểm tra số nguyên âm, dương, chẵn hay lẻ
-n = int(input("Nhập một số nguyên: "))
-
-if n > 0:
-    loai = "dương"
-elif n < 0:
-    loai = "âm"
-else:
-    loai = "bằng 0"
-
-tinh_chat = "chẵn" if n % 2 == 0 else "lẻ"
-print(f"Số {n} là số {loai} và là số {tinh_chat}.")
-`,
-  },
-  {
-    id: 'for_loop',
-    title: '4. Vòng lặp For (Bảng cửu chương)',
-    code: `# In bảng cửu chương 7
-n = 7
-print(f"--- BẢNG CỬU CHƯƠNG {n} ---")
-for i in range(1, 11):
-    print(f"{n} x {i:2d} = {n * i:2d}")
-`,
-  },
-  {
     id: 'list_dict',
-    title: '5. List & Dictionary (Quản lý điểm)',
-    code: `# Quản lý danh sách sinh viên bằng Dictionary trong List
-danh_sach = [
+    title: '7. Quản lý sinh viên với List & Dict',
+    code: `danh_sach = [
     {"ten": "Nguyễn Văn An", "diem": 8.5},
     {"ten": "Trần Thị Bình", "diem": 9.0},
     {"ten": "Lê Văn Cường", "diem": 6.5},
-    {"ten": "Phạm Thị Dung", "diem": 7.0}
 ]
 
 print("=== DANH SÁCH SINH VIÊN ===")
 for sv in danh_sach:
-    xep_loai = "Giỏi" if sv["diem"] >= 8.0 else ("Khá" if sv["diem"] >= 6.5 else "Trung bình")
+    xep_loai = "Giỏi" if sv["diem"] >= 8.0 else "Khá"
     print(f"- {sv['ten']}: {sv['diem']} điểm -> {xep_loai}")
-
-diem_tb = sum(sv["diem"] for sv in danh_sach) / len(danh_sach)
-print(f"\\nĐiểm trung bình lớp: {diem_tb:.2f}")
 `,
   },
-  {
-    id: 'functions',
-    title: '6. Hàm Def (Kiểm tra số nguyên tố)',
-    code: `def la_so_nguyen_to(n):
-    if n < 2:
-        return False
-    for i in range(2, int(n ** 0.5) + 1):
-        if n % i == 0:
-            return False
-    return True
-
-print("Các số nguyên tố từ 1 đến 50:")
-nguyen_to = [x for x in range(1, 51) if la_so_nguyen_to(x)]
-print(nguyen_to)
-`,
-  },
-  {
-    id: 'recursion',
-    title: '7. Đệ quy (Giai thừa & Fibonacci)',
-    code: `def giai_thua(n):
-    if n <= 1:
-        return 1
-    return n * giai_thua(n - 1)
-
-def fibonacci(n):
-    if n <= 0:
-        return 0
-    elif n == 1:
-        return 1
-    return fibonacci(n - 1) + fibonacci(n - 2)
-
-so = 6
-print(f"{so}! (Giai thừa của {so}) = {giai_thua(so)}")
-print(f"Dãy 10 số Fibonacci đầu tiên:")
-print([fibonacci(i) for i in range(10)])
-`,
-  },
-  {
-    id: 'try_except',
-    title: '8. Xử lý ngoại lệ (Try - Except)',
-    code: `print("--- CHƯƠNG TRÌNH PHÉP CHIA AN TOÀN ---")
-try:
-    a = float(input("Nhập số bị chia (a): "))
-    b = float(input("Nhập số chia (b): "))
-    ket_qua = a / b
-except ValueError:
-    print("❌ Lỗi: Bạn phải nhập số hợp lệ!")
-except ZeroDivisionError:
-    print("❌ Lỗi: Không thể chia một số cho 0!")
-else:
-    print(f"✅ Kết quả: {a} / {b} = {ket_qua}")
-finally:
-    print("Hoàn tất phép tính.")
-`,
-  }
 ];

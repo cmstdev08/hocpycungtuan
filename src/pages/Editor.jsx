@@ -2,19 +2,21 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import Editor from '@monaco-editor/react';
 import {
-  Play, RotateCcw, Copy, Trash2, Download,
-  Code2, Terminal as TerminalIcon, Check, Loader2, Sparkles
+  Play, RotateCcw, Copy, Download, Square,
+  Code2, Check, Loader2, Sparkles, Terminal as TerminalIcon
 } from 'lucide-react';
-import { runPythonCode } from '../utils/pyodideRunner.js';
+import InteractiveTerminal from '../components/InteractiveTerminal.jsx';
 import { codeSamples } from '../data/samples.js';
 import { analyzePythonError } from '../utils/aiDebugger.js';
 import { addXP } from '../utils/gamification.js';
 import './Editor.css';
 
 const DEFAULT_CODE = `# Viết code Python của bạn ở đây
-print("Xin chào các bạn sinh viên!")
-ten = input("Bạn tên là gì? ")
-print(f"Rất vui được gặp bạn, {ten}!")
+name = input("Nhập tên: ")
+age = int(input("Nhập tuổi: "))
+
+print("Xin chào", name)
+print("Bạn", age, "tuổi")
 `;
 
 const EditorPage = () => {
@@ -29,12 +31,11 @@ const EditorPage = () => {
     return saved !== null ? saved : DEFAULT_CODE;
   });
 
-  const [output, setOutput] = useState('');
-  const [error, setError] = useState(null);
-  const [status, setStatus] = useState('ready'); // 'ready' | 'running' | 'success' | 'error'
-  const [execTime, setExecTime] = useState(null);
+  const [status, setStatus] = useState('ready'); // 'ready' | 'loading' | 'running' | 'waiting_input' | 'success' | 'error'
+  const [aiDiagnosis, setAiDiagnosis] = useState(null);
   const [copied, setCopied] = useState(false);
   const editorRef = useRef(null);
+  const terminalRef = useRef(null);
 
   // Sync preset if navigate with new state
   useEffect(() => {
@@ -50,26 +51,41 @@ const EditorPage = () => {
     localStorage.setItem('python_recent_code', newCode || '');
   };
 
-  const handleEditorDidMount = (editor) => {
+  const handleEditorDidMount = (editor, monaco) => {
     editorRef.current = editor;
+
+    // Phím tắt Ctrl + Enter (hoặc Cmd + Enter trên Mac) để chạy code
+    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => {
+      handleRun();
+    });
   };
 
-  // Run code with Pyodide
-  const handleRun = async () => {
-    if (status === 'running') return;
-    setStatus('running');
-    setOutput('Đang khởi tạo môi trường Python và thực thi...\n');
-    setError(null);
+  // Run code using the Interactive Terminal
+  const handleRun = () => {
+    if (status === 'running' || status === 'waiting_input') return;
+    setAiDiagnosis(null);
+    if (terminalRef.current) {
+      terminalRef.current.run(code);
+    }
+  };
 
-    const result = await runPythonCode(code);
+  // Stop running execution
+  const handleStop = () => {
+    if (terminalRef.current) {
+      terminalRef.current.stop();
+    }
+  };
 
-    setOutput(result.output);
-    setError(result.error);
-    setExecTime(result.executionTime);
-    setStatus(result.success ? 'success' : 'error');
-
-    if (result.success) {
+  // Callback when execution completes
+  const handleExecutionDone = ({ success, error }) => {
+    if (success) {
       addXP(15, 'first_run');
+      setAiDiagnosis(null);
+    } else if (error) {
+      const diag = analyzePythonError(error, code);
+      if (diag) {
+        setAiDiagnosis(diag);
+      }
     }
   };
 
@@ -77,9 +93,10 @@ const EditorPage = () => {
     if (window.confirm('Bạn có chắc muốn đặt lại code về mặc định không?')) {
       setCode(DEFAULT_CODE);
       localStorage.setItem('python_recent_code', DEFAULT_CODE);
-      setOutput('');
-      setError(null);
-      setStatus('ready');
+      setAiDiagnosis(null);
+      if (terminalRef.current) {
+        terminalRef.current.clear();
+      }
     }
   };
 
@@ -91,13 +108,6 @@ const EditorPage = () => {
     } catch {
       alert('Không thể sao chép code.');
     }
-  };
-
-  const handleClearOutput = () => {
-    setOutput('');
-    setError(null);
-    setStatus('ready');
-    setExecTime(null);
   };
 
   const handleDownload = () => {
@@ -117,23 +127,25 @@ const EditorPage = () => {
     if (sample) {
       setCode(sample.code);
       localStorage.setItem('python_recent_code', sample.code);
-      setOutput('');
-      setError(null);
-      setStatus('ready');
+      setAiDiagnosis(null);
+      if (terminalRef.current) {
+        terminalRef.current.clear();
+      }
     }
   };
 
   // Check current dark/light mode
   const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
   const monacoTheme = currentTheme === 'dark' ? 'vs-dark' : 'light';
+  const isRunning = status === 'running' || status === 'waiting_input';
 
   return (
     <div className="compiler-container">
       {/* Top Header & Toolbar */}
       <div className="compiler-header">
         <div className="compiler-title-group">
-          <h2><Code2 size={24} color="var(--color-primary)" /> Python Online Compiler</h2>
-          <p>Trình biên dịch Python chạy trực tiếp trên trình duyệt bằng WebAssembly (Pyodide)</p>
+          <h2><Code2 size={24} color="var(--color-primary)" /> Python Online Compiler & Terminal</h2>
+          <p>Terminal tương tác trực tiếp với input() giống VS Code / PyCharm (WebAssembly Pyodide)</p>
         </div>
 
         <div className="compiler-toolbar">
@@ -146,22 +158,30 @@ const EditorPage = () => {
             ))}
           </select>
 
-          <button
-            className="btn btn-primary"
-            onClick={handleRun}
-            disabled={status === 'running'}
-            title="Chạy code (Pyodide WebAssembly)"
-          >
-            {status === 'running' ? (
-              <>
-                <Loader2 size={16} className="spin-animate" /> Đang chạy...
-              </>
-            ) : (
-              <>
-                <Play size={16} /> Chạy Code
-              </>
-            )}
-          </button>
+          {isRunning ? (
+            <button
+              className="btn"
+              onClick={handleStop}
+              style={{
+                background: 'var(--color-danger, #ef4444)',
+                color: '#ffffff',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 6
+              }}
+              title="Dừng chương trình ngay lập tức"
+            >
+              <Square size={16} fill="currentColor" /> Dừng (Stop)
+            </button>
+          ) : (
+            <button
+              className="btn btn-primary"
+              onClick={handleRun}
+              title="Chạy code (Phím tắt: Ctrl + Enter)"
+            >
+              <Play size={16} /> Chạy Code
+            </button>
+          )}
         </div>
       </div>
 
@@ -210,74 +230,38 @@ const EditorPage = () => {
           </div>
         </div>
 
-        {/* Terminal Panel */}
-        <div className="panel-terminal">
-          <div className="panel-bar">
-            <div className="panel-title">
-              <TerminalIcon size={16} color="var(--color-primary)" />
-              <span>Terminal Output</span>
-              {status === 'running' && (
-                <span className="terminal-status-badge badge-running">Đang thực thi...</span>
-              )}
-              {status === 'success' && (
-                <span className="terminal-status-badge badge-success">Thành công</span>
-              )}
-              {status === 'error' && (
-                <span className="terminal-status-badge badge-error">Có lỗi</span>
-              )}
+        {/* Interactive Terminal Panel */}
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100%', minHeight: 0 }}>
+          <div style={{ flex: 1, minHeight: 0 }}>
+            <InteractiveTerminal
+              ref={terminalRef}
+              onStatusChange={setStatus}
+              onExecutionDone={handleExecutionDone}
+            />
+          </div>
+
+          {/* AI Debugger Diagnosis Card (if error occurs) */}
+          {aiDiagnosis && (
+            <div style={{
+              marginTop: '0.8rem',
+              padding: '0.8rem 1rem',
+              background: 'rgba(6, 182, 212, 0.1)',
+              border: '1.5px solid var(--color-cyan)',
+              borderRadius: 8,
+              fontSize: '0.85rem',
+              lineHeight: 1.6,
+              color: 'var(--color-text)',
+              animation: 'fadeIn 0.25s ease'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'var(--color-cyan)', fontWeight: 700, marginBottom: 4 }}>
+                <Sparkles size={16} /> Bác sĩ AI Python chẩn đoán: {aiDiagnosis.title}
+              </div>
+              <p style={{ margin: '0 0 0.4rem 0' }}>{aiDiagnosis.explanation}</p>
+              <div style={{ background: 'rgba(0,0,0,0.2)', padding: '0.4rem 0.6rem', borderRadius: 4, color: '#38bdf8' }}>
+                💡 <strong>Lời khuyên khắc phục:</strong> {aiDiagnosis.suggestion}
+              </div>
             </div>
-
-            <button className="btn-ghost" onClick={handleClearOutput} title="Xóa màn hình console">
-              <Trash2 size={16} />
-            </button>
-          </div>
-
-          <div className="terminal-surface">
-            {!output && !error && status === 'ready' && (
-              <span className="terminal-empty">
-                Nhấn nút "Chạy Code" để thực thi chương trình Python của bạn...
-              </span>
-            )}
-
-            {output && <div className="terminal-stdout">{output}</div>}
-            {error && (
-              <div>
-                <div className="terminal-stderr">{error}</div>
-                {(() => {
-                  const aiAnalysis = analyzePythonError(error, code);
-                  if (!aiAnalysis) return null;
-                  return (
-                    <div style={{
-                      marginTop: '0.8rem',
-                      padding: '0.8rem',
-                      background: 'rgba(6, 182, 212, 0.12)',
-                      border: '1px solid var(--color-cyan)',
-                      borderRadius: 6,
-                      fontSize: '0.85rem',
-                      lineHeight: 1.6,
-                      color: 'var(--color-text)'
-                    }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'var(--color-cyan)', fontWeight: 700, marginBottom: 4 }}>
-                        <Sparkles size={16} /> Bác sĩ AI Python chẩn đoán: {aiAnalysis.title}
-                      </div>
-                      <p style={{ margin: '0 0 0.4rem 0' }}>{aiAnalysis.explanation}</p>
-                      <div style={{ background: 'rgba(0,0,0,0.2)', padding: '0.4rem 0.6rem', borderRadius: 4, color: '#38bdf8' }}>
-                        💡 <strong>Lời khuyên khắc phục:</strong> {aiAnalysis.suggestion}
-                      </div>
-                    </div>
-                  );
-                })()}
-              </div>
-            )}
-
-            {execTime !== null && (
-              <div className="terminal-footer-meta">
-                <span>⏱ Thời gian thực thi: {execTime} ms</span>
-                <span>•</span>
-                <span>Pyodide WebAssembly Python 3.12</span>
-              </div>
-            )}
-          </div>
+          )}
         </div>
       </div>
     </div>
