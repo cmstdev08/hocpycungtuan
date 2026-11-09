@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Sidebar from './components/Sidebar.jsx';
 import Navbar from './components/Navbar.jsx';
+import ErrorBoundary from './components/ErrorBoundary.jsx';
 import Home from './pages/Home.jsx';
 import Lessons from './pages/Lessons.jsx';
 import LessonDetail from './pages/LessonDetail.jsx';
@@ -39,23 +40,25 @@ function App() {
       <div className="main-content">
         <Navbar toggleTheme={toggleTheme} theme={theme} toggleSidebar={toggleSidebar} />
         <div className="page-container">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/lessons" element={<Lessons />} />
-            <Route path="/lessons/:lessonId" element={<LessonDetail />} />
-            <Route path="/editor" element={<EditorPage />} />
-            <Route path="/exercises" element={<Exercises />} />
-            <Route path="/quizzes" element={<Quizzes />} />
-            <Route path="/dictionary" element={<Dictionary />} />
-            <Route path="/visualizer" element={<Visualizer />} />
-            <Route path="/mock-exam" element={<MockExam />} />
-            <Route path="/cheatsheet" element={<CheatSheet />} />
-            <Route path="/speed-typing" element={<SpeedTyping />} />
-            <Route path="/bughunt" element={<BugHunt />} />
-            <Route path="/converter" element={<CppConverter />} />
-            <Route path="/certificate" element={<Certificate />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
+          <ErrorBoundary>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/lessons" element={<Lessons />} />
+              <Route path="/lessons/:lessonId" element={<LessonDetail />} />
+              <Route path="/editor" element={<EditorPage />} />
+              <Route path="/exercises" element={<Exercises />} />
+              <Route path="/quizzes" element={<Quizzes />} />
+              <Route path="/dictionary" element={<Dictionary />} />
+              <Route path="/visualizer" element={<Visualizer />} />
+              <Route path="/mock-exam" element={<MockExam />} />
+              <Route path="/cheatsheet" element={<CheatSheet />} />
+              <Route path="/speed-typing" element={<SpeedTyping />} />
+              <Route path="/bughunt" element={<BugHunt />} />
+              <Route path="/converter" element={<CppConverter />} />
+              <Route path="/certificate" element={<Certificate />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </ErrorBoundary>
         </div>
       </div>
     </div>

@@ -85,6 +85,18 @@ export function getUserProfile() {
     if (!saved) return defaultProfile;
     const profile = JSON.parse(saved);
 
+    // Đảm bảo các trường luôn hợp lệ
+    if (!profile || typeof profile !== 'object') return defaultProfile;
+    if (!Array.isArray(profile.unlockedBadges)) {
+      profile.unlockedBadges = [];
+    }
+    profile.xp = typeof profile.xp === 'number' ? profile.xp : 0;
+    profile.streak = typeof profile.streak === 'number' ? profile.streak : 1;
+    profile.fullName = profile.fullName || 'Sinh viên Python';
+    if (!profile.lastActiveDate) {
+      profile.lastActiveDate = new Date().toISOString().split('T')[0];
+    }
+
     // Cập nhật streak theo ngày
     const today = new Date().toISOString().split('T')[0];
     if (profile.lastActiveDate !== today) {
