@@ -12,8 +12,8 @@ const Lessons = () => {
   return (
     <div className="lessons-page">
       <div className="lessons-header">
-        <h2>Khóa học Python</h2>
-        <p>12 chương từ cơ bản đến nâng cao. Mỗi bài gồm lý thuyết, ví dụ minh họa và bài tập thực hành.</p>
+        <h2>Khóa học Python - Cơ sở lập trình</h2>
+        <p>Lộ trình 13 chương chuẩn hóa từ cơ bản đến nâng cao. Mỗi chương gồm mục tiêu, lý thuyết, cú pháp, ví dụ, giải thích, cảnh báo lỗi và bài tập thực hành.</p>
       </div>
 
       <div className="lessons-list">
