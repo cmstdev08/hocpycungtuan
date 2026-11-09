@@ -249,9 +249,9 @@ const Exercises = () => {
             {selectedExercise.testCases && selectedExercise.testCases.length > 0 && (
               <div className="problem-testcase-preview">
                 <strong>Ví dụ minh họa:</strong>
-                <pre style={{ margin: '0.2rem 0', fontFamily: 'monospace' }}>
+                <pre style={{ margin: '0.2rem 0', fontFamily: 'monospace', whiteSpace: 'pre-wrap' }}>
                   {selectedExercise.testCases[0].input ? `Input:\n${selectedExercise.testCases[0].input}\n\n` : ''}
-                  Output kỳ vọng:\n{selectedExercise.testCases[0].expectedOutput}
+                  {`Output kỳ vọng:\n${selectedExercise.testCases[0].expectedOutput}`}
                 </pre>
               </div>
             )}

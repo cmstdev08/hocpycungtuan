@@ -129,8 +129,21 @@ const BugHunt = () => {
           Ải {currentStage.stage}: {currentStage.title}
         </h4>
         <p style={{ margin: '0 0 0.6rem 0', fontSize: '0.92rem' }}>{currentStage.description}</p>
-        <div style={{ fontSize: '0.82rem', color: 'var(--color-text-secondary)' }}>
-          Output kỳ vọng: <code>{currentStage.expectedOutput}</code>
+        <div style={{ fontSize: '0.82rem', color: 'var(--color-text-secondary)', marginTop: '0.4rem' }}>
+          <strong>Output kỳ vọng:</strong>
+          <pre style={{
+            margin: '0.3rem 0 0 0',
+            padding: '0.4rem 0.6rem',
+            background: 'var(--color-code-bg)',
+            border: '1px solid var(--color-border)',
+            borderRadius: 4,
+            fontFamily: 'monospace',
+            fontSize: '0.82rem',
+            whiteSpace: 'pre-wrap',
+            color: 'var(--color-cyan)',
+          }}>
+            {currentStage.expectedOutput}
+          </pre>
         </div>
       </div>
 

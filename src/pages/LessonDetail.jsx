@@ -134,7 +134,7 @@ const LessonDetail = () => {
             <h4 style={{ display: 'flex', alignItems: 'center', gap: 6, margin: '0 0 0.4rem 0', color: 'var(--color-cyan)' }}>
               <Target size={18} /> 1. Mục tiêu bài học
             </h4>
-            <p style={{ margin: 0, fontSize: '0.92rem', lineHeight: 1.6 }}>{lesson.objective}</p>
+            <p style={{ margin: 0, fontSize: '0.92rem', lineHeight: 1.6, whiteSpace: 'pre-line' }}>{lesson.objective}</p>
           </div>
         </section>
       )}
@@ -185,7 +185,7 @@ const LessonDetail = () => {
       <section className="lesson-section">
         <h3><PenTool size={18} /> 7. Bài tập thực hành</h3>
         <div className="card">
-          <p style={{ marginBottom: '1rem', fontWeight: 500 }}>{lesson.exercise}</p>
+          <p style={{ marginBottom: '1rem', fontWeight: 500, whiteSpace: 'pre-line' }}>{lesson.exercise}</p>
           <button
             className="btn btn-primary"
             onClick={() => navigate('/editor', { state: { presetCode: lesson.sampleCode } })}
