@@ -1,0 +1,174 @@
+/* src/pages/Editor.css */
+.compiler-container {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: calc(100vh - var(--navbar-height) - 4rem);
+  min-height: 550px;
+}
+
+.compiler-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.compiler-title-group h2 {
+  font-size: 1.4rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.compiler-title-group p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+.compiler-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.sample-select {
+  background: var(--color-input-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-sm);
+  padding: 0.55rem 0.8rem;
+  font-size: 0.85rem;
+  outline: none;
+  cursor: pointer;
+  max-width: 260px;
+}
+
+/* Main Split View */
+.compiler-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Editor Panel */
+.panel-editor, .panel-terminal {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  background: var(--color-card);
+  box-shadow: var(--shadow-sm);
+}
+
+.panel-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 1rem;
+  background: var(--color-input-bg);
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.panel-title {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.editor-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.editor-surface {
+  flex: 1;
+  min-height: 0;
+}
+
+/* Terminal Panel */
+.terminal-surface {
+  flex: 1;
+  background: #090d16;
+  color: #38bdf8;
+  padding: 1rem;
+  overflow-y: auto;
+  font-family: 'Fira Code', 'Cascadia Code', 'JetBrains Mono', Consolas, monospace;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+  user-select: text;
+}
+
+.terminal-status-badge {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.badge-ready { background: rgba(100, 116, 139, 0.2); color: #94a3b8; }
+.badge-running { background: rgba(37, 99, 235, 0.2); color: #60a5fa; }
+.badge-success { background: rgba(34, 197, 94, 0.2); color: #4ade80; }
+.badge-error { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+
+.terminal-empty {
+  color: #64748b;
+  font-style: italic;
+}
+
+.terminal-stdout {
+  color: #e2e8f0;
+}
+
+.terminal-stderr {
+  color: #f87171;
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.8rem;
+  background: rgba(239, 68, 68, 0.1);
+  border-left: 3px solid #ef4444;
+  border-radius: 4px;
+}
+
+.terminal-footer-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-top: 0.8rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 900px) {
+  .compiler-container {
+    height: auto;
+  }
+  .compiler-main {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  .panel-editor {
+    height: 380px;
+  }
+  .panel-terminal {
+    height: 280px;
+  }
+}
