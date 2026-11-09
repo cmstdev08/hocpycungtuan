@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Zap, RotateCcw, Trophy, Award, Flame } from 'lucide-react';
+import { Zap, RotateCcw, Trophy } from 'lucide-react';
 import { addXP } from '../utils/gamification.js';
 
 const TYPING_SNIPPETS = [
@@ -21,7 +21,7 @@ const SpeedTyping = () => {
   const [completed, setCompleted] = useState(false);
   const inputRef = useRef(null);
 
-  const targetText = TYPING_SNIPPETS[snippetIdx];
+  const targetText = TYPING_SNIPPETS[snippetIdx] || '';
 
   const handleStartOver = () => {
     setInputVal('');
@@ -60,7 +60,11 @@ const SpeedTyping = () => {
       const finalWpm = elapsedMins > 0 ? Math.round(words / elapsedMins) : 80;
       setWpm(finalWpm);
       setCompleted(true);
-      addXP(25);
+      try {
+        addXP(25);
+      } catch (err) {
+        console.warn('Lỗi lưu XP:', err);
+      }
     }
   };
 
@@ -141,7 +145,7 @@ const SpeedTyping = () => {
           onChange={handleChange}
           disabled={completed}
           placeholder="Nhấp vào đây và bắt đầu gõ thật nhanh đoạn code mẫu bên trên..."
-          style={{ width: '100%', fontFamily: 'monospace', fontSize: '1rem', lineHeight: 1.6, padding: '0.8rem', height: 90 }}
+          style={{ width: '100%', fontFamily: 'monospace', fontSize: '1rem', lineHeight: 1.6, padding: '0.8rem', minHeight: 90 }}
         />
       </div>
 
