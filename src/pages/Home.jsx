@@ -2,14 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   BookOpen, CheckCircle, BarChart3, ArrowRight,
-  Clock, Zap, Target, TrendingUp
+  Clock, Zap, Target, TrendingUp, Flame, Trophy, Download, Upload
 } from 'lucide-react';
 import { lessons } from '../data/lessons.js';
+import { getUserProfile, calculateLevel, BADGES } from '../utils/gamification.js';
+import { exportProgressJSON, importProgressJSON } from '../utils/backup.js';
 import './Home.css';
 
 const Home = () => {
   const navigate = useNavigate();
   const [progress, setProgress] = useState({ completedLessons: [], lastLesson: null });
+  const [profile, setProfile] = useState(getUserProfile());
 
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem('learningProgress')) || {};
@@ -19,7 +22,23 @@ const Home = () => {
       completedExercises: completedEx,
       lastLesson: saved.lastLesson || null,
     });
+    setProfile(getUserProfile());
   }, []);
+
+  const lvl = calculateLevel(profile.xp || 0);
+
+  const handleImport = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    importProgressJSON(
+      file,
+      () => {
+        alert('Khôi phục tiến độ thành công! Trang web sẽ làm mới.');
+        window.location.reload();
+      },
+      () => alert('File sao lưu không hợp lệ!')
+    );
+  };
 
   const totalLessons = lessons.length;
   const completedCount = progress.completedLessons.length;
@@ -38,12 +57,66 @@ const Home = () => {
       {/* Hero greeting */}
       <section className="hero-greeting">
         <div className="hero-content">
-          <h2>Xin chào! Chào mừng bạn đến với <span className="gradient-text">Python Learning</span> 👋</h2>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.8rem', marginBottom: '0.8rem' }}>
+            <h2 style={{ margin: 0 }}>
+              Xin chào! Chào mừng bạn đến với <span className="gradient-text">Python Learning</span> 👋
+            </h2>
+            <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'center' }}>
+              <span style={{ background: 'rgba(239,68,68,0.15)', color: '#ef4444', padding: '0.3rem 0.6rem', borderRadius: 20, fontSize: '0.85rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 4 }}>
+                <Flame size={16} /> {profile.streak || 1} ngày Streak
+              </span>
+              <span style={{ background: 'rgba(245,158,11,0.15)', color: '#f59e0b', padding: '0.3rem 0.6rem', borderRadius: 20, fontSize: '0.85rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 4 }}>
+                <Trophy size={16} /> Level {lvl.level}: {lvl.title} ({profile.xp || 0} XP)
+              </span>
+            </div>
+          </div>
           <p>Nền tảng tự học Python miễn phí dành cho sinh viên. Học lý thuyết, viết code và chạy thử ngay trên trình duyệt.</p>
-          <button className="btn btn-primary" onClick={continueLearning}>
-            <Zap size={16} />
-            {progress.lastLesson ? 'Tiếp tục học' : 'Bắt đầu học ngay'}
-          </button>
+          <div style={{ display: 'flex', gap: '0.8rem', flexWrap: 'wrap', alignItems: 'center' }}>
+            <button className="btn btn-primary" onClick={continueLearning}>
+              <Zap size={16} />
+              {progress.lastLesson ? 'Tiếp tục học' : 'Bắt đầu học ngay'}
+            </button>
+            <button className="btn btn-outline" onClick={exportProgressJSON} title="Tải file sao lưu dữ liệu tiến độ học">
+              <Download size={14} /> Sao lưu tiến độ (.JSON)
+            </button>
+            <label className="btn btn-ghost" style={{ cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 4 }} title="Khôi phục tiến độ từ file JSON">
+              <Upload size={14} /> Khôi phục tiến độ
+              <input type="file" accept=".json" onChange={handleImport} style={{ display: 'none' }} />
+            </label>
+          </div>
+        </div>
+      </section>
+
+      {/* Huy hiệu danh dự */}
+      <section style={{ marginBottom: '1.5rem' }}>
+        <h3 className="section-title">Huy hiệu thành tích đã mở khóa</h3>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.8rem' }}>
+          {BADGES.map((b) => {
+            const isUnlocked = profile.unlockedBadges?.includes(b.id);
+            return (
+              <div
+                key={b.id}
+                className="card"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.8rem',
+                  padding: '0.8rem 1rem',
+                  opacity: isUnlocked ? 1 : 0.45,
+                  filter: isUnlocked ? 'none' : 'grayscale(80%)',
+                  border: isUnlocked ? '1.5px solid var(--color-cyan)' : '1px solid var(--color-border)',
+                }}
+              >
+                <div style={{ fontSize: '1.8rem' }}>{b.icon}</div>
+                <div>
+                  <strong style={{ fontSize: '0.88rem', display: 'block' }}>{b.title}</strong>
+                  <span style={{ fontSize: '0.74rem', color: 'var(--color-text-secondary)', lineHeight: 1.3, display: 'block' }}>
+                    {b.desc}
+                  </span>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </section>
 

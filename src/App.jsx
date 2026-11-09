@@ -9,6 +9,9 @@ import EditorPage from './pages/Editor.jsx';
 import Exercises from './pages/Exercises.jsx';
 import Quizzes from './pages/Quizzes.jsx';
 import Dictionary from './pages/Dictionary.jsx';
+import Certificate from './pages/Certificate.jsx';
+import MockExam from './pages/MockExam.jsx';
+import Visualizer from './pages/Visualizer.jsx';
 import './styles/global.css';
 
 function App() {
@@ -40,6 +43,9 @@ function App() {
             <Route path="/exercises" element={<Exercises />} />
             <Route path="/quizzes" element={<Quizzes />} />
             <Route path="/dictionary" element={<Dictionary />} />
+            <Route path="/visualizer" element={<Visualizer />} />
+            <Route path="/mock-exam" element={<MockExam />} />
+            <Route path="/certificate" element={<Certificate />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>

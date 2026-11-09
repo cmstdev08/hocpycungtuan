@@ -7,6 +7,8 @@ import {
 } from 'lucide-react';
 import { runPythonCode } from '../utils/pyodideRunner.js';
 import { codeSamples } from '../data/samples.js';
+import { analyzePythonError } from '../utils/aiDebugger.js';
+import { addXP } from '../utils/gamification.js';
 import './Editor.css';
 
 const DEFAULT_CODE = `# Viết code Python của bạn ở đây
@@ -65,6 +67,10 @@ const EditorPage = () => {
     setError(result.error);
     setExecTime(result.executionTime);
     setStatus(result.success ? 'success' : 'error');
+
+    if (result.success) {
+      addXP(15, 'first_run');
+    }
   };
 
   const handleReset = () => {
@@ -234,7 +240,35 @@ const EditorPage = () => {
             )}
 
             {output && <div className="terminal-stdout">{output}</div>}
-            {error && <div className="terminal-stderr">{error}</div>}
+            {error && (
+              <div>
+                <div className="terminal-stderr">{error}</div>
+                {(() => {
+                  const aiAnalysis = analyzePythonError(error, code);
+                  if (!aiAnalysis) return null;
+                  return (
+                    <div style={{
+                      marginTop: '0.8rem',
+                      padding: '0.8rem',
+                      background: 'rgba(6, 182, 212, 0.12)',
+                      border: '1px solid var(--color-cyan)',
+                      borderRadius: 6,
+                      fontSize: '0.85rem',
+                      lineHeight: 1.6,
+                      color: 'var(--color-text)'
+                    }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'var(--color-cyan)', fontWeight: 700, marginBottom: 4 }}>
+                        <Sparkles size={16} /> Bác sĩ AI Python chẩn đoán: {aiAnalysis.title}
+                      </div>
+                      <p style={{ margin: '0 0 0.4rem 0' }}>{aiAnalysis.explanation}</p>
+                      <div style={{ background: 'rgba(0,0,0,0.2)', padding: '0.4rem 0.6rem', borderRadius: 4, color: '#38bdf8' }}>
+                        💡 <strong>Lời khuyên khắc phục:</strong> {aiAnalysis.suggestion}
+                      </div>
+                    </div>
+                  );
+                })()}
+              </div>
+            )}
 
             {execTime !== null && (
               <div className="terminal-footer-meta">

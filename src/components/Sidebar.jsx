@@ -2,7 +2,8 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   LayoutDashboard, BookOpen, Code2, PenTool,
-  HelpCircle, BookMarked, ChevronLeft, ChevronRight
+  HelpCircle, BookMarked, Award, ChevronLeft, ChevronRight,
+  Timer, Activity
 } from 'lucide-react';
 import './Sidebar.css';
 
@@ -12,7 +13,10 @@ const menuItems = [
   { path: '/editor', icon: Code2, label: 'Python Compiler' },
   { path: '/exercises', icon: PenTool, label: 'Bài tập thực hành' },
   { path: '/quizzes', icon: HelpCircle, label: 'Trắc nghiệm' },
+  { path: '/mock-exam', icon: Timer, label: 'Thi thử 45 phút' },
+  { path: '/visualizer', icon: Activity, label: 'Mô phỏng Code' },
   { path: '/dictionary', icon: BookMarked, label: 'Từ điển Python' },
+  { path: '/certificate', icon: Award, label: 'Nhận Chứng Chỉ' },
 ];
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
