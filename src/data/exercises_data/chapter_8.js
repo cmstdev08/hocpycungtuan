@@ -1,26 +1,24 @@
-// Danh sách bài tập Chương 8: List, Tuple, Set và Dictionary
+// Danh sách bài tập Chương 8: List, Tuple, Set và Dictionary (25 bài)
 export const chapter8Exercises = [
   {
     "id": 135,
     "code": "CH08_01",
     "chapterId": 8,
     "chapterName": "List, Tuple, Set và Dictionary",
-    "title": "Cấu trúc dữ liệu List & Dict 1",
+    "title": "Tổng và trung bình cộng danh sách",
     "difficulty": "Dễ",
-    "appliedKnowledge": "List, Tuple, Set, Dictionary, append, pop, sort, get.",
-    "description": "Thao tác trên danh sách mảng 1 chiều, sắp xếp, lọc phần tử, thống kê và bảng ánh xạ Dictionary.",
-    "inputDesc": "Danh sách các số hoặc từ khóa.",
-    "outputDesc": "Danh sách hoặc giá trị sau khi tổng hợp.",
-    "exampleIO": "Input: 3\n1\n5\n2\nOutput: 5 1",
-    "hint": "Dùng max() và min() trên danh sách.",
-    "sampleSolution": "n = int(input())\narr = [int(input()) for _ in range(n)]\nprint(f\"{max(arr)} {min(arr)}\")",
-    "initialCode": "n = int(input())\n",
+    "appliedKnowledge": "sum(), len() và nhập danh sách số nguyên.",
+    "description": "Nhập vào số nguyên n (n > 0), tiếp theo là n số nguyên mỗi số trên một dòng (hoặc trên một dòng cách nhau bởi dấu cách). Hãy tính và in ra: Dòng 1 là Tổng các phần tử, Dòng 2 là Trung bình cộng làm tròn 2 chữ số thập phân.",
+    "inputDesc": "Dòng 1: n. Tiếp theo là n số nguyên (hoặc một dòng chứa các số cách nhau bởi khoảng trắng).",
+    "outputDesc": "Dòng 1: Tổng (số nguyên). Dòng 2: Trung bình cộng dạng x.xx.",
+    "exampleIO": "Input:\n4\n10\n20\n30\n40\nOutput:\n100\n25.00",
+    "hint": "Dùng sys.stdin.read().split() hoặc đọc n rồi đọc các phần tử còn lại vào list.",
+    "sampleSolution": "import sys\nparts = sys.stdin.read().split()\nif parts:\n    n = int(parts[0])\n    nums = [float(x) for x in parts[1:n+1]]\n    total = sum(nums)\n    avg = total / n if n > 0 else 0\n    print(int(total) if total.is_integer() else total)\n    print(f\"{avg:.2f}\")",
+    "initialCode": "import sys\n# Đọc n và n số nguyên, tính tổng và TBC\n",
     "testCases": [
-      {
-        "input": "3\n1\n5\n2",
-        "expectedOutput": "5 1",
-        "description": "Max 5, Min 1"
-      }
+      { "input": "4\n10\n20\n30\n40", "expectedOutput": "100\n25.00", "description": "4 số nguyên tròn chục" },
+      { "input": "3\n5\n7\n8", "expectedOutput": "20\n6.67", "description": "3 số nguyên có TBC lẻ" },
+      { "input": "1\n100", "expectedOutput": "100\n100.00", "description": "Chỉ có 1 phần tử" }
     ]
   },
   {
@@ -28,22 +26,20 @@ export const chapter8Exercises = [
     "code": "CH08_02",
     "chapterId": 8,
     "chapterName": "List, Tuple, Set và Dictionary",
-    "title": "Cấu trúc dữ liệu List & Dict 2",
+    "title": "Phần tử lớn nhất và nhỏ nhất kèm vị trí",
     "difficulty": "Dễ",
-    "appliedKnowledge": "List, Tuple, Set, Dictionary, append, pop, sort, get.",
-    "description": "Thao tác trên danh sách mảng 1 chiều, sắp xếp, lọc phần tử, thống kê và bảng ánh xạ Dictionary.",
-    "inputDesc": "Danh sách các số hoặc từ khóa.",
-    "outputDesc": "Danh sách hoặc giá trị sau khi tổng hợp.",
-    "exampleIO": "Input: 3\n1\n5\n2\nOutput: 5 1",
-    "hint": "Dùng max() và min() trên danh sách.",
-    "sampleSolution": "n = int(input())\narr = [int(input()) for _ in range(n)]\nprint(f\"{max(arr)} {min(arr)}\")",
-    "initialCode": "n = int(input())\n",
+    "appliedKnowledge": "Hàm max(), min() và phương thức list.index().",
+    "description": "Nhập vào một danh sách các số nguyên cách nhau bởi dấu cách. Hãy in ra phần tử lớn nhất cùng vị trí (chỉ số index bắt đầu từ 0) của nó, và phần tử nhỏ nhất cùng vị trí của nó. Nếu có nhiều phần tử bằng nhau, lấy vị trí xuất hiện đầu tiên.",
+    "inputDesc": "Một dòng chứa danh sách các số nguyên cách nhau bởi dấu cách.",
+    "outputDesc": "Dòng 1: Max: <giá trị> tai index <chỉ số>. Dòng 2: Min: <giá trị> tai index <chỉ số>.",
+    "exampleIO": "Input:\n12 5 89 3 89 2\nOutput:\nMax: 89 tai index 2\nMin: 2 tai index 5",
+    "hint": "Đọc nums = [int(x) for x in input().split()]. Tìm max_val = max(nums), min_val = min(nums) và dùng nums.index().",
+    "sampleSolution": "nums = [int(x) for x in input().split()]\nmax_val = max(nums)\nmin_val = min(nums)\nprint(f\"Max: {max_val} tai index {nums.index(max_val)}\")\nprint(f\"Min: {min_val} tai index {nums.index(min_val)}\")",
+    "initialCode": "nums = [int(x) for x in input().split()]\n# Tìm max, min và index đầu tiên\n",
     "testCases": [
-      {
-        "input": "3\n1\n5\n2",
-        "expectedOutput": "5 1",
-        "description": "Max 5, Min 1"
-      }
+      { "input": "12 5 89 3 89 2", "expectedOutput": "Max: 89 tai index 2\nMin: 2 tai index 5", "description": "Dãy có 2 giá trị max 89" },
+      { "input": "10 20 30", "expectedOutput": "Max: 30 tai index 2\nMin: 10 tai index 0", "description": "Dãy tăng dần" },
+      { "input": "7", "expectedOutput": "Max: 7 tai index 0\nMin: 7 tai index 0", "description": "1 phần tử duy nhất" }
     ]
   },
   {
@@ -51,22 +47,20 @@ export const chapter8Exercises = [
     "code": "CH08_03",
     "chapterId": 8,
     "chapterName": "List, Tuple, Set và Dictionary",
-    "title": "Cấu trúc dữ liệu List & Dict 3",
+    "title": "Đếm số phần tử chẵn và lẻ",
     "difficulty": "Dễ",
-    "appliedKnowledge": "List, Tuple, Set, Dictionary, append, pop, sort, get.",
-    "description": "Thao tác trên danh sách mảng 1 chiều, sắp xếp, lọc phần tử, thống kê và bảng ánh xạ Dictionary.",
-    "inputDesc": "Danh sách các số hoặc từ khóa.",
-    "outputDesc": "Danh sách hoặc giá trị sau khi tổng hợp.",
-    "exampleIO": "Input: 3\n1\n5\n2\nOutput: 5 1",
-    "hint": "Dùng max() và min() trên danh sách.",
-    "sampleSolution": "n = int(input())\narr = [int(input()) for _ in range(n)]\nprint(f\"{max(arr)} {min(arr)}\")",
-    "initialCode": "n = int(input())\n",
+    "appliedKnowledge": "Duyệt danh sách và kiểm tra điều kiện x % 2.",
+    "description": "Nhập vào một danh sách số nguyên trên một dòng, cách nhau bởi dấu cách. Hãy đếm xem có bao nhiêu số chẵn và bao nhiêu số lẻ trong danh sách.",
+    "inputDesc": "Một dòng chứa các số nguyên.",
+    "outputDesc": "In ra: <số lượng số chẵn> <số lượng số lẻ>.",
+    "exampleIO": "Input:\n1 2 3 4 5 6 7\nOutput:\n3 4",
+    "hint": "Số chẵn khi x % 2 == 0, số lẻ khi x % 2 != 0.",
+    "sampleSolution": "nums = [int(x) for x in input().split()]\nevens = sum(1 for x in nums if x % 2 == 0)\nodds = len(nums) - evens\nprint(evens, odds)",
+    "initialCode": "nums = [int(x) for x in input().split()]\n# Đếm số chẵn và số lẻ\n",
     "testCases": [
-      {
-        "input": "3\n1\n5\n2",
-        "expectedOutput": "5 1",
-        "description": "Max 5, Min 1"
-      }
+      { "input": "1 2 3 4 5 6 7", "expectedOutput": "3 4", "description": "3 chẵn (2,4,6) và 4 lẻ (1,3,5,7)" },
+      { "input": "2 4 6 8", "expectedOutput": "4 0", "description": "Toàn bộ chẵn" },
+      { "input": "1 3 5", "expectedOutput": "0 3", "description": "Toàn bộ lẻ" }
     ]
   },
   {
@@ -74,22 +68,20 @@ export const chapter8Exercises = [
     "code": "CH08_04",
     "chapterId": 8,
     "chapterName": "List, Tuple, Set và Dictionary",
-    "title": "Cấu trúc dữ liệu List & Dict 4",
+    "title": "Đảo ngược danh sách",
     "difficulty": "Dễ",
-    "appliedKnowledge": "List, Tuple, Set, Dictionary, append, pop, sort, get.",
-    "description": "Thao tác trên danh sách mảng 1 chiều, sắp xếp, lọc phần tử, thống kê và bảng ánh xạ Dictionary.",
-    "inputDesc": "Danh sách các số hoặc từ khóa.",
-    "outputDesc": "Danh sách hoặc giá trị sau khi tổng hợp.",
-    "exampleIO": "Input: 3\n1\n5\n2\nOutput: 5 1",
-    "hint": "Dùng max() và min() trên danh sách.",
-    "sampleSolution": "n = int(input())\narr = [int(input()) for _ in range(n)]\nprint(f\"{max(arr)} {min(arr)}\")",
-    "initialCode": "n = int(input())\n",
+    "appliedKnowledge": "Phương thức reverse() hoặc slicing [::-1].",
+    "description": "Nhập vào danh sách các phần tử (chuỗi hoặc số) cách nhau bởi dấu cách. Hãy in danh sách đó theo thứ tự đảo ngược, các phần tử cách nhau bởi dấu cách.",
+    "inputDesc": "Một dòng chứa các phần tử cách nhau bởi dấu cách.",
+    "outputDesc": "In danh sách đảo ngược trên 1 dòng.",
+    "exampleIO": "Input:\napple banana orange kiwi\nOutput:\nkiwi orange banana apple",
+    "hint": "Dùng items = input().split() rồi in ' '.join(items[::-1]).",
+    "sampleSolution": "items = input().split()\nprint(' '.join(items[::-1]))",
+    "initialCode": "items = input().split()\n# In danh sách đảo ngược\n",
     "testCases": [
-      {
-        "input": "3\n1\n5\n2",
-        "expectedOutput": "5 1",
-        "description": "Max 5, Min 1"
-      }
+      { "input": "apple banana orange kiwi", "expectedOutput": "kiwi orange banana apple", "description": "Danh sách quả" },
+      { "input": "10 20 30 40 50", "expectedOutput": "50 40 30 20 10", "description": "Danh sách số" },
+      { "input": "one", "expectedOutput": "one", "description": "1 phần tử" }
     ]
   },
   {
@@ -97,22 +89,20 @@ export const chapter8Exercises = [
     "code": "CH08_05",
     "chapterId": 8,
     "chapterName": "List, Tuple, Set và Dictionary",
-    "title": "Cấu trúc dữ liệu List & Dict 5",
+    "title": "Lọc các số dương (List Comprehension)",
     "difficulty": "Dễ",
-    "appliedKnowledge": "List, Tuple, Set, Dictionary, append, pop, sort, get.",
-    "description": "Thao tác trên danh sách mảng 1 chiều, sắp xếp, lọc phần tử, thống kê và bảng ánh xạ Dictionary.",
-    "inputDesc": "Danh sách các số hoặc từ khóa.",
-    "outputDesc": "Danh sách hoặc giá trị sau khi tổng hợp.",
-    "exampleIO": "Input: 3\n1\n5\n2\nOutput: 5 1",
-    "hint": "Dùng max() và min() trên danh sách.",
-    "sampleSolution": "n = int(input())\narr = [int(input()) for _ in range(n)]\nprint(f\"{max(arr)} {min(arr)}\")",
-    "initialCode": "n = int(input())\n",
+    "appliedKnowledge": "List Comprehension có điều kiện if.",
+    "description": "Nhập vào một danh sách các số nguyên. Hãy lọc ra tất cả các số dương (> 0) trong danh sách và in chúng ra theo thứ tự xuất hiện ban đầu, cách nhau bởi dấu cách. Nếu không có số dương nào, in 'EMPTY'.",
+    "inputDesc": "Một dòng chứa các số nguyên cách nhau bởi dấu cách.",
+    "outputDesc": "Dãy các số dương hoặc 'EMPTY'.",
+    "exampleIO": "Input:\n-3 5 -1 0 8 12 -7\nOutput:\n5 8 12",
+    "hint": "pos = [x for x in nums if x > 0]. Nếu pos rỗng thì in 'EMPTY'.",
+    "sampleSolution": "nums = [int(x) for x in input().split()]\npos = [str(x) for x in nums if x > 0]\nif pos:\n    print(' '.join(pos))\nelse:\n    print('EMPTY')",
+    "initialCode": "nums = [int(x) for x in input().split()]\n# Lọc các số dương\n",
     "testCases": [
-      {
-        "input": "3\n1\n5\n2",
-        "expectedOutput": "5 1",
-        "description": "Max 5, Min 1"
-      }
+      { "input": "-3 5 -1 0 8 12 -7", "expectedOutput": "5 8 12", "description": "Có số âm, số 0 và số dương" },
+      { "input": "-5 -10 -2", "expectedOutput": "EMPTY", "description": "Không có số dương nào" },
+      { "input": "1 2 3", "expectedOutput": "1 2 3", "description": "Toàn bộ là số dương" }
     ]
   },
   {
@@ -120,22 +110,20 @@ export const chapter8Exercises = [
     "code": "CH08_06",
     "chapterId": 8,
     "chapterName": "List, Tuple, Set và Dictionary",
-    "title": "Cấu trúc dữ liệu List & Dict 6",
-    "difficulty": "Dễ",
-    "appliedKnowledge": "List, Tuple, Set, Dictionary, append, pop, sort, get.",
-    "description": "Thao tác trên danh sách mảng 1 chiều, sắp xếp, lọc phần tử, thống kê và bảng ánh xạ Dictionary.",
-    "inputDesc": "Danh sách các số hoặc từ khóa.",
-    "outputDesc": "Danh sách hoặc giá trị sau khi tổng hợp.",
-    "exampleIO": "Input: 3\n1\n5\n2\nOutput: 5 1",
-    "hint": "Dùng max() và min() trên danh sách.",
-    "sampleSolution": "n = int(input())\narr = [int(input()) for _ in range(n)]\nprint(f\"{max(arr)} {min(arr)}\")",
-    "initialCode": "n = int(input())\n",
+    "title": "Xóa phần tử trùng lặp giữ nguyên thứ tự",
+    "difficulty": "Trung bình",
+    "appliedKnowledge": "Duyệt danh sách và sử dụng cấu trúc lưu vết (visited list hoặc dict.fromkeys).",
+    "description": "Nhập vào một danh sách các phần tử. Hãy loại bỏ các phần tử trùng lặp và giữ nguyên thứ tự xuất hiện đầu tiên của từng phần tử.",
+    "inputDesc": "Một dòng chứa các phần tử cách nhau bởi dấu cách.",
+    "outputDesc": "Danh sách sau khi loại bỏ trùng lặp, cách nhau bởi dấu cách.",
+    "exampleIO": "Input:\n1 3 2 1 4 3 5 2\nOutput:\n1 3 2 4 5",
+    "hint": "Có thể dùng list(dict.fromkeys(items)) để giữ thứ tự mà loại trùng lặp cực nhanh.",
+    "sampleSolution": "items = input().split()\nunique = list(dict.fromkeys(items))\nprint(' '.join(unique))",
+    "initialCode": "items = input().split()\n# Xóa phần tử trùng lặp giữ nguyên thứ tự\n",
     "testCases": [
-      {
-        "input": "3\n1\n5\n2",
-        "expectedOutput": "5 1",
-        "description": "Max 5, Min 1"
-      }
+      { "input": "1 3 2 1 4 3 5 2", "expectedOutput": "1 3 2 4 5", "description": "Các số lặp lại 1, 3, 2" },
+      { "input": "a b c a d e b", "expectedOutput": "a b c d e", "description": "Danh sách chữ cái lặp lại" },
+      { "input": "x x x x", "expectedOutput": "x", "description": "Tất cả đều giống nhau" }
     ]
   },
   {
@@ -143,22 +131,20 @@ export const chapter8Exercises = [
     "code": "CH08_07",
     "chapterId": 8,
     "chapterName": "List, Tuple, Set và Dictionary",
-    "title": "Cấu trúc dữ liệu List & Dict 7",
+    "title": "Sắp xếp danh sách tăng dần và giảm dần",
     "difficulty": "Dễ",
-    "appliedKnowledge": "List, Tuple, Set, Dictionary, append, pop, sort, get.",
-    "description": "Thao tác trên danh sách mảng 1 chiều, sắp xếp, lọc phần tử, thống kê và bảng ánh xạ Dictionary.",
-    "inputDesc": "Danh sách các số hoặc từ khóa.",
-    "outputDesc": "Danh sách hoặc giá trị sau khi tổng hợp.",
-    "exampleIO": "Input: 3\n1\n5\n2\nOutput: 5 1",
-    "hint": "Dùng max() và min() trên danh sách.",
-    "sampleSolution": "n = int(input())\narr = [int(input()) for _ in range(n)]\nprint(f\"{max(arr)} {min(arr)}\")",
-    "initialCode": "n = int(input())\n",
+    "appliedKnowledge": "Hàm sorted() hoặc phương thức list.sort().",
+    "description": "Nhập vào một danh sách các số nguyên. Dòng 1 in ra danh sách sắp xếp tăng dần; Dòng 2 in ra danh sách sắp xếp giảm dần. Các phần tử trên mỗi dòng cách nhau bởi dấu cách.",
+    "inputDesc": "Một dòng chứa các số nguyên.",
+    "outputDesc": "Dòng 1: Thứ tự tăng dần. Dòng 2: Thứ tự giảm dần.",
+    "exampleIO": "Input:\n9 3 7 1 5\nOutput:\n1 3 5 7 9\n9 7 5 3 1",
+    "hint": "Dùng sorted(nums) và sorted(nums, reverse=True).",
+    "sampleSolution": "nums = [int(x) for x in input().split()]\nasc = sorted(nums)\ndesc = sorted(nums, reverse=True)\nprint(' '.join(map(str, asc)))\nprint(' '.join(map(str, desc)))",
+    "initialCode": "nums = [int(x) for x in input().split()]\n# In dãy tăng dần và giảm dần\n",
     "testCases": [
-      {
-        "input": "3\n1\n5\n2",
-        "expectedOutput": "5 1",
-        "description": "Max 5, Min 1"
-      }
+      { "input": "9 3 7 1 5", "expectedOutput": "1 3 5 7 9\n9 7 5 3 1", "description": "5 số nguyên" },
+      { "input": "-5 10 0 -2 8", "expectedOutput": "-5 -2 0 8 10\n10 8 0 -2 -5", "description": "Có số âm và số 0" },
+      { "input": "42", "expectedOutput": "42\n42", "description": "1 số duy nhất" }
     ]
   },
   {
@@ -166,22 +152,20 @@ export const chapter8Exercises = [
     "code": "CH08_08",
     "chapterId": 8,
     "chapterName": "List, Tuple, Set và Dictionary",
-    "title": "Cấu trúc dữ liệu List & Dict 8",
-    "difficulty": "Dễ",
-    "appliedKnowledge": "List, Tuple, Set, Dictionary, append, pop, sort, get.",
-    "description": "Thao tác trên danh sách mảng 1 chiều, sắp xếp, lọc phần tử, thống kê và bảng ánh xạ Dictionary.",
-    "inputDesc": "Danh sách các số hoặc từ khóa.",
-    "outputDesc": "Danh sách hoặc giá trị sau khi tổng hợp.",
-    "exampleIO": "Input: 3\n1\n5\n2\nOutput: 5 1",
-    "hint": "Dùng max() và min() trên danh sách.",
-    "sampleSolution": "n = int(input())\narr = [int(input()) for _ in range(n)]\nprint(f\"{max(arr)} {min(arr)}\")",
-    "initialCode": "n = int(input())\n",
+    "title": "Tìm phần tử lớn thứ nhì",
+    "difficulty": "Trung bình",
+    "appliedKnowledge": "Tập hợp loại bỏ phần tử trùng và sắp xếp tìm vị trí.",
+    "description": "Nhập vào một danh sách các số nguyên. Hãy tìm giá trị lớn thứ nhì (khác biệt so với giá trị lớn nhất). Nếu danh sách không có giá trị lớn thứ nhì (tất cả các số bằng nhau hoặc chỉ có 1 số), in 'NOT FOUND'.",
+    "inputDesc": "Một dòng chứa các số nguyên cách nhau bởi dấu cách.",
+    "outputDesc": "In ra giá trị lớn thứ nhì hoặc 'NOT FOUND'.",
+    "exampleIO": "Input:\n10 20 20 15 5\nOutput:\n15",
+    "hint": "Chuyển thành set(nums) để lấy các giá trị phân biệt. Sắp xếp giảm dần, nếu len >= 2 thì lấy phần tử ở index 1.",
+    "sampleSolution": "nums = [int(x) for x in input().split()]\nunique = sorted(list(set(nums)), reverse=True)\nif len(unique) >= 2:\n    print(unique[1])\nelse:\n    print('NOT FOUND')",
+    "initialCode": "nums = [int(x) for x in input().split()]\n# Tìm số lớn thứ nhì\n",
     "testCases": [
-      {
-        "input": "3\n1\n5\n2",
-        "expectedOutput": "5 1",
-        "description": "Max 5, Min 1"
-      }
+      { "input": "10 20 20 15 5", "expectedOutput": "15", "description": "20 lớn nhất, 15 lớn nhì" },
+      { "input": "5 5 5 5", "expectedOutput": "NOT FOUND", "description": "Tất cả các số bằng nhau" },
+      { "input": "100 50", "expectedOutput": "50", "description": "2 số phân biệt" }
     ]
   },
   {
@@ -189,22 +173,20 @@ export const chapter8Exercises = [
     "code": "CH08_09",
     "chapterId": 8,
     "chapterName": "List, Tuple, Set và Dictionary",
-    "title": "Cấu trúc dữ liệu List & Dict 9",
+    "title": "Tách danh sách thành số âm và không âm",
     "difficulty": "Dễ",
-    "appliedKnowledge": "List, Tuple, Set, Dictionary, append, pop, sort, get.",
-    "description": "Thao tác trên danh sách mảng 1 chiều, sắp xếp, lọc phần tử, thống kê và bảng ánh xạ Dictionary.",
-    "inputDesc": "Danh sách các số hoặc từ khóa.",
-    "outputDesc": "Danh sách hoặc giá trị sau khi tổng hợp.",
-    "exampleIO": "Input: 3\n1\n5\n2\nOutput: 5 1",
-    "hint": "Dùng max() và min() trên danh sách.",
-    "sampleSolution": "n = int(input())\narr = [int(input()) for _ in range(n)]\nprint(f\"{max(arr)} {min(arr)}\")",
-    "initialCode": "n = int(input())\n",
+    "appliedKnowledge": "Lọc danh sách theo điều kiện so sánh 0.",
+    "description": "Nhập vào một danh sách các số nguyên. Hãy phân tách danh sách thành 2 danh sách con: Dòng 1 chứa các số âm (< 0), Dòng 2 chứa các số không âm (>= 0). Các số giữ nguyên thứ tự xuất hiện ban đầu.",
+    "inputDesc": "Một dòng chứa các số nguyên.",
+    "outputDesc": "Dòng 1: Danh sách số âm. Dòng 2: Danh sách số không âm.",
+    "exampleIO": "Input:\n-5 3 -2 0 7 -1 4\nOutput:\n-5 -2 -1\n3 0 7 4",
+    "hint": "negs = [str(x) for x in nums if x < 0] và non_negs = [str(x) for x in nums if x >= 0].",
+    "sampleSolution": "nums = [int(x) for x in input().split()]\nnegs = [str(x) for x in nums if x < 0]\nnon_negs = [str(x) for x in nums if x >= 0]\nprint(' '.join(negs))\nprint(' '.join(non_negs))",
+    "initialCode": "nums = [int(x) for x in input().split()]\n# Tách số âm và không âm\n",
     "testCases": [
-      {
-        "input": "3\n1\n5\n2",
-        "expectedOutput": "5 1",
-        "description": "Max 5, Min 1"
-      }
+      { "input": "-5 3 -2 0 7 -1 4", "expectedOutput": "-5 -2 -1\n3 0 7 4", "description": "Hỗn hợp âm, dương và 0" },
+      { "input": "-1 -2 -3", "expectedOutput": "-1 -2 -3\n", "description": "Toàn bộ số âm" },
+      { "input": "1 2 3", "expectedOutput": "\n1 2 3", "description": "Toàn bộ số dương" }
     ]
   },
   {
@@ -212,22 +194,20 @@ export const chapter8Exercises = [
     "code": "CH08_10",
     "chapterId": 8,
     "chapterName": "List, Tuple, Set và Dictionary",
-    "title": "Cấu trúc dữ liệu List & Dict 10",
+    "title": "Đếm số lần xuất hiện của phần tử x",
     "difficulty": "Dễ",
-    "appliedKnowledge": "List, Tuple, Set, Dictionary, append, pop, sort, get.",
-    "description": "Thao tác trên danh sách mảng 1 chiều, sắp xếp, lọc phần tử, thống kê và bảng ánh xạ Dictionary.",
-    "inputDesc": "Danh sách các số hoặc từ khóa.",
-    "outputDesc": "Danh sách hoặc giá trị sau khi tổng hợp.",
-    "exampleIO": "Input: 3\n1\n5\n2\nOutput: 5 1",
-    "hint": "Dùng max() và min() trên danh sách.",
-    "sampleSolution": "n = int(input())\narr = [int(input()) for _ in range(n)]\nprint(f\"{max(arr)} {min(arr)}\")",
-    "initialCode": "n = int(input())\n",
+    "appliedKnowledge": "Phương thức list.count(x).",
+    "description": "Nhập vào 2 dòng: Dòng 1 là danh sách các số nguyên cách nhau bởi dấu cách; Dòng 2 là số nguyên x cần tìm. Hãy in ra số lần xuất hiện của x trong danh sách.",
+    "inputDesc": "Dòng 1: Danh sách số. Dòng 2: Số nguyên x.",
+    "outputDesc": "In ra số lần xuất hiện.",
+    "exampleIO": "Input:\n1 2 3 2 4 2 5\n2\nOutput:\n3",
+    "hint": "Sử dụng nums.count(x).",
+    "sampleSolution": "nums = [int(v) for v in input().split()]\nx = int(input())\nprint(nums.count(x))",
+    "initialCode": "nums = [int(v) for v in input().split()]\nx = int(input())\n# Đếm số lần x xuất hiện\n",
     "testCases": [
-      {
-        "input": "3\n1\n5\n2",
-        "expectedOutput": "5 1",
-        "description": "Max 5, Min 1"
-      }
+      { "input": "1 2 3 2 4 2 5\n2", "expectedOutput": "3", "description": "Số 2 xuất hiện 3 lần" },
+      { "input": "10 20 30\n99", "expectedOutput": "0", "description": "Không tìm thấy x" },
+      { "input": "7 7 7 7\n7", "expectedOutput": "4", "description": "Tất cả đều là 7" }
     ]
   },
   {
@@ -235,22 +215,20 @@ export const chapter8Exercises = [
     "code": "CH08_11",
     "chapterId": 8,
     "chapterName": "List, Tuple, Set và Dictionary",
-    "title": "Cấu trúc dữ liệu List & Dict 11",
-    "difficulty": "Trung bình",
-    "appliedKnowledge": "List, Tuple, Set, Dictionary, append, pop, sort, get.",
-    "description": "Thao tác trên danh sách mảng 1 chiều, sắp xếp, lọc phần tử, thống kê và bảng ánh xạ Dictionary.",
-    "inputDesc": "Danh sách các số hoặc từ khóa.",
-    "outputDesc": "Danh sách hoặc giá trị sau khi tổng hợp.",
-    "exampleIO": "Input: 3\n1\n5\n2\nOutput: 5 1",
-    "hint": "Dùng max() và min() trên danh sách.",
-    "sampleSolution": "n = int(input())\narr = [int(input()) for _ in range(n)]\nprint(f\"{max(arr)} {min(arr)}\")",
-    "initialCode": "n = int(input())\n",
+    "title": "Ghép hai danh sách và sắp xếp",
+    "difficulty": "Dễ",
+    "appliedKnowledge": "Toán tử nối list (+) và hàm sorted().",
+    "description": "Nhập vào 2 dòng, mỗi dòng là một danh sách các số nguyên. Hãy ghép 2 danh sách lại thành một và in ra danh sách tổng hợp đã được sắp xếp tăng dần.",
+    "inputDesc": "Dòng 1: Danh sách thứ nhất. Dòng 2: Danh sách thứ hai.",
+    "outputDesc": "In ra danh sách sau khi ghép và sắp xếp tăng dần.",
+    "exampleIO": "Input:\n3 1 4\n2 5 0\nOutput:\n0 1 2 3 4 5",
+    "hint": "nums = list1 + list2 rồi sắp xếp bằng sorted(nums).",
+    "sampleSolution": "l1 = [int(x) for x in input().split()]\nl2 = [int(x) for x in input().split()]\nmerged = sorted(l1 + l2)\nprint(' '.join(map(str, merged)))",
+    "initialCode": "l1 = [int(x) for x in input().split()]\nl2 = [int(x) for x in input().split()]\n# Ghép và sắp xếp 2 danh sách\n",
     "testCases": [
-      {
-        "input": "3\n1\n5\n2",
-        "expectedOutput": "5 1",
-        "description": "Max 5, Min 1"
-      }
+      { "input": "3 1 4\n2 5 0", "expectedOutput": "0 1 2 3 4 5", "description": "Ghép 2 dãy 3 phần tử" },
+      { "input": "10 5\n15 20", "expectedOutput": "5 10 15 20", "description": "Ghép 2 dãy 2 phần tử" },
+      { "input": "1\n2", "expectedOutput": "1 2", "description": "Mỗi dãy 1 phần tử" }
     ]
   },
   {
@@ -258,22 +236,20 @@ export const chapter8Exercises = [
     "code": "CH08_12",
     "chapterId": 8,
     "chapterName": "List, Tuple, Set và Dictionary",
-    "title": "Cấu trúc dữ liệu List & Dict 12",
-    "difficulty": "Trung bình",
-    "appliedKnowledge": "List, Tuple, Set, Dictionary, append, pop, sort, get.",
-    "description": "Thao tác trên danh sách mảng 1 chiều, sắp xếp, lọc phần tử, thống kê và bảng ánh xạ Dictionary.",
-    "inputDesc": "Danh sách các số hoặc từ khóa.",
-    "outputDesc": "Danh sách hoặc giá trị sau khi tổng hợp.",
-    "exampleIO": "Input: 3\n1\n5\n2\nOutput: 5 1",
-    "hint": "Dùng max() và min() trên danh sách.",
-    "sampleSolution": "n = int(input())\narr = [int(input()) for _ in range(n)]\nprint(f\"{max(arr)} {min(arr)}\")",
-    "initialCode": "n = int(input())\n",
+    "title": "Đóng gói và giải nén Tuple (Unpacking)",
+    "difficulty": "Dễ",
+    "appliedKnowledge": "Tuple unpacking x, y, z = point.",
+    "description": "Nhập vào 3 số thực là tọa độ của một điểm trong không gian 3D (x, y, z). Hãy đóng gói chúng vào một tuple, sau đó giải nén (unpack) ra và in theo định dạng: Point(x=<x>, y=<y>, z=<z>) với mỗi tọa độ làm tròn 1 chữ số thập phân.",
+    "inputDesc": "Một dòng chứa 3 số thực x, y, z cách nhau bởi dấu cách.",
+    "outputDesc": "Định dạng Point(x=..., y=..., z=...).",
+    "exampleIO": "Input:\n1.5 2.0 3.25\nOutput:\nPoint(x=1.5, y=2.0, z=3.2)",
+    "hint": "coords = tuple(float(v) for v in input().split()). Sau đó x, y, z = coords.",
+    "sampleSolution": "coords = tuple(float(v) for v in input().split())\nx, y, z = coords\nprint(f\"Point(x={x:.1f}, y={y:.1f}, z={z:.1f})\")",
+    "initialCode": "coords = tuple(float(v) for v in input().split())\n# Unpack tuple và in tọa độ\n",
     "testCases": [
-      {
-        "input": "3\n1\n5\n2",
-        "expectedOutput": "5 1",
-        "description": "Max 5, Min 1"
-      }
+      { "input": "1.5 2.0 3.25", "expectedOutput": "Point(x=1.5, y=2.0, z=3.2)", "description": "Tọa độ 3D" },
+      { "input": "0 0 0", "expectedOutput": "Point(x=0.0, y=0.0, z=0.0)", "description": "Gốc tọa độ" },
+      { "input": "-4.2 8.7 1.0", "expectedOutput": "Point(x=-4.2, y=8.7, z=1.0)", "description": "Có tọa độ âm" }
     ]
   },
   {
@@ -281,22 +257,20 @@ export const chapter8Exercises = [
     "code": "CH08_13",
     "chapterId": 8,
     "chapterName": "List, Tuple, Set và Dictionary",
-    "title": "Cấu trúc dữ liệu List & Dict 13",
-    "difficulty": "Trung bình",
-    "appliedKnowledge": "List, Tuple, Set, Dictionary, append, pop, sort, get.",
-    "description": "Thao tác trên danh sách mảng 1 chiều, sắp xếp, lọc phần tử, thống kê và bảng ánh xạ Dictionary.",
-    "inputDesc": "Danh sách các số hoặc từ khóa.",
-    "outputDesc": "Danh sách hoặc giá trị sau khi tổng hợp.",
-    "exampleIO": "Input: 3\n1\n5\n2\nOutput: 5 1",
-    "hint": "Dùng max() và min() trên danh sách.",
-    "sampleSolution": "n = int(input())\narr = [int(input()) for _ in range(n)]\nprint(f\"{max(arr)} {min(arr)}\")",
-    "initialCode": "n = int(input())\n",
+    "title": "Chuyển đổi List sang Tuple và tính bất biến",
+    "difficulty": "Dễ",
+    "appliedKnowledge": "tuple() và kiểm tra kiểu type.",
+    "description": "Nhập vào danh sách các phần tử cách nhau bởi dấu cách. Hãy chuyển danh sách đó thành một Tuple, in ra Tuple đó và in độ dài của Tuple.",
+    "inputDesc": "Một dòng chứa các phần tử.",
+    "outputDesc": "Dòng 1: Biểu diễn của tuple. Dòng 2: Độ dài của tuple.",
+    "exampleIO": "Input:\na b c\nOutput:\n('a', 'b', 'c')\n3",
+    "hint": "t = tuple(input().split()), print(t), print(len(t)).",
+    "sampleSolution": "t = tuple(input().split())\nprint(t)\nprint(len(t))",
+    "initialCode": "items = input().split()\n# Chuyển sang tuple và in\n",
     "testCases": [
-      {
-        "input": "3\n1\n5\n2",
-        "expectedOutput": "5 1",
-        "description": "Max 5, Min 1"
-      }
+      { "input": "a b c", "expectedOutput": "('a', 'b', 'c')\n3", "description": "Tuple 3 phần tử chữ" },
+      { "input": "10 20", "expectedOutput": "('10', '20')\n2", "description": "Tuple 2 phần tử" },
+      { "input": "Python", "expectedOutput": "('Python',)\n1", "description": "Tuple 1 phần tử" }
     ]
   },
   {
@@ -304,22 +278,20 @@ export const chapter8Exercises = [
     "code": "CH08_14",
     "chapterId": 8,
     "chapterName": "List, Tuple, Set và Dictionary",
-    "title": "Cấu trúc dữ liệu List & Dict 14",
-    "difficulty": "Trung bình",
-    "appliedKnowledge": "List, Tuple, Set, Dictionary, append, pop, sort, get.",
-    "description": "Thao tác trên danh sách mảng 1 chiều, sắp xếp, lọc phần tử, thống kê và bảng ánh xạ Dictionary.",
-    "inputDesc": "Danh sách các số hoặc từ khóa.",
-    "outputDesc": "Danh sách hoặc giá trị sau khi tổng hợp.",
-    "exampleIO": "Input: 3\n1\n5\n2\nOutput: 5 1",
-    "hint": "Dùng max() và min() trên danh sách.",
-    "sampleSolution": "n = int(input())\narr = [int(input()) for _ in range(n)]\nprint(f\"{max(arr)} {min(arr)}\")",
-    "initialCode": "n = int(input())\n",
+    "title": "Đếm số phần tử duy nhất bằng Set",
+    "difficulty": "Dễ",
+    "appliedKnowledge": "Tập hợp set() và len().",
+    "description": "Nhập vào một danh sách các từ cách nhau bởi dấu cách. Hãy sử dụng tập hợp (Set) để đếm xem có bao nhiêu từ duy nhất (phân biệt, có phân biệt hoa thường) trong danh sách.",
+    "inputDesc": "Một dòng chứa các từ.",
+    "outputDesc": "Số lượng từ duy nhất.",
+    "exampleIO": "Input:\napple banana apple orange banana apple\nOutput:\n3",
+    "hint": "unique_words = set(input().split()), sau đó in len(unique_words).",
+    "sampleSolution": "words = input().split()\nprint(len(set(words)))",
+    "initialCode": "words = input().split()\n# Đếm số phần tử duy nhất dùng set\n",
     "testCases": [
-      {
-        "input": "3\n1\n5\n2",
-        "expectedOutput": "5 1",
-        "description": "Max 5, Min 1"
-      }
+      { "input": "apple banana apple orange banana apple", "expectedOutput": "3", "description": "3 loại quả khác nhau" },
+      { "input": "cat dog bird fish", "expectedOutput": "4", "description": "4 từ không trùng" },
+      { "input": "same same same", "expectedOutput": "1", "description": "Tất cả trùng nhau" }
     ]
   },
   {
@@ -327,22 +299,20 @@ export const chapter8Exercises = [
     "code": "CH08_15",
     "chapterId": 8,
     "chapterName": "List, Tuple, Set và Dictionary",
-    "title": "Cấu trúc dữ liệu List & Dict 15",
+    "title": "Tìm phần tử chung của 2 danh sách (Giao - Intersection)",
     "difficulty": "Trung bình",
-    "appliedKnowledge": "List, Tuple, Set, Dictionary, append, pop, sort, get.",
-    "description": "Thao tác trên danh sách mảng 1 chiều, sắp xếp, lọc phần tử, thống kê và bảng ánh xạ Dictionary.",
-    "inputDesc": "Danh sách các số hoặc từ khóa.",
-    "outputDesc": "Danh sách hoặc giá trị sau khi tổng hợp.",
-    "exampleIO": "Input: 3\n1\n5\n2\nOutput: 5 1",
-    "hint": "Dùng max() và min() trên danh sách.",
-    "sampleSolution": "n = int(input())\narr = [int(input()) for _ in range(n)]\nprint(f\"{max(arr)} {min(arr)}\")",
-    "initialCode": "n = int(input())\n",
+    "appliedKnowledge": "Phép giao tập hợp set1 & set2 (hoặc set1.intersection(set2)).",
+    "description": "Nhập vào 2 dòng, mỗi dòng là một danh sách số nguyên. Hãy tìm các phần tử xuất hiện ở cả 2 danh sách, in ra theo thứ tự tăng dần cách nhau bởi dấu cách. Nếu không có phần tử chung nào, in 'NONE'.",
+    "inputDesc": "Dòng 1: Danh sách thứ nhất. Dòng 2: Danh sách thứ hai.",
+    "outputDesc": "Các phần tử chung sắp xếp tăng dần hoặc 'NONE'.",
+    "exampleIO": "Input:\n1 2 3 4 5\n3 4 5 6 7\nOutput:\n3 4 5",
+    "hint": "s1 = set(map(int, input().split())), s2 = set(map(int, input().split())). Giao: common = sorted(s1 & s2).",
+    "sampleSolution": "s1 = set(map(int, input().split()))\ns2 = set(map(int, input().split()))\ncommon = sorted(s1 & s2)\nif common:\n    print(' '.join(map(str, common)))\nelse:\n    print('NONE')",
+    "initialCode": "s1 = set(map(int, input().split()))\ns2 = set(map(int, input().split()))\n# Tìm phần tử chung\n",
     "testCases": [
-      {
-        "input": "3\n1\n5\n2",
-        "expectedOutput": "5 1",
-        "description": "Max 5, Min 1"
-      }
+      { "input": "1 2 3 4 5\n3 4 5 6 7", "expectedOutput": "3 4 5", "description": "Giao 3, 4, 5" },
+      { "input": "1 2 3\n4 5 6", "expectedOutput": "NONE", "description": "Không có phần tử chung" },
+      { "input": "10 20\n20 10", "expectedOutput": "10 20", "description": "Cùng phần tử" }
     ]
   },
   {
@@ -350,22 +320,20 @@ export const chapter8Exercises = [
     "code": "CH08_16",
     "chapterId": 8,
     "chapterName": "List, Tuple, Set và Dictionary",
-    "title": "Cấu trúc dữ liệu List & Dict 16",
+    "title": "Hiệu của hai tập hợp (Difference)",
     "difficulty": "Trung bình",
-    "appliedKnowledge": "List, Tuple, Set, Dictionary, append, pop, sort, get.",
-    "description": "Thao tác trên danh sách mảng 1 chiều, sắp xếp, lọc phần tử, thống kê và bảng ánh xạ Dictionary.",
-    "inputDesc": "Danh sách các số hoặc từ khóa.",
-    "outputDesc": "Danh sách hoặc giá trị sau khi tổng hợp.",
-    "exampleIO": "Input: 3\n1\n5\n2\nOutput: 5 1",
-    "hint": "Dùng max() và min() trên danh sách.",
-    "sampleSolution": "n = int(input())\narr = [int(input()) for _ in range(n)]\nprint(f\"{max(arr)} {min(arr)}\")",
-    "initialCode": "n = int(input())\n",
+    "appliedKnowledge": "Phép trừ tập hợp s1 - s2.",
+    "description": "Nhập vào 2 dòng, mỗi dòng là một danh sách số nguyên. Hãy tìm các số có mặt trong danh sách 1 nhưng KHÔNG có mặt trong danh sách 2. In ra theo thứ tự tăng dần cách nhau bởi dấu cách. Nếu không có số nào, in 'NONE'.",
+    "inputDesc": "Dòng 1: Danh sách 1. Dòng 2: Danh sách 2.",
+    "outputDesc": "Các phần tử thuộc danh sách 1 mà không thuộc danh sách 2.",
+    "exampleIO": "Input:\n1 2 3 4 5\n2 4 6\nOutput:\n1 3 5",
+    "hint": "diff = sorted(s1 - s2).",
+    "sampleSolution": "s1 = set(map(int, input().split()))\ns2 = set(map(int, input().split()))\ndiff = sorted(s1 - s2)\nif diff:\n    print(' '.join(map(str, diff)))\nelse:\n    print('NONE')",
+    "initialCode": "s1 = set(map(int, input().split()))\ns2 = set(map(int, input().split()))\n# Tìm hiệu s1 - s2\n",
     "testCases": [
-      {
-        "input": "3\n1\n5\n2",
-        "expectedOutput": "5 1",
-        "description": "Max 5, Min 1"
-      }
+      { "input": "1 2 3 4 5\n2 4 6", "expectedOutput": "1 3 5", "description": "1, 3, 5 có trong s1 nhưng không có trong s2" },
+      { "input": "1 2 3\n1 2 3", "expectedOutput": "NONE", "description": "Hai tập hợp bằng nhau" },
+      { "input": "5 10 15\n1 2 3", "expectedOutput": "5 10 15", "description": "Không có phần tử chung" }
     ]
   },
   {
@@ -373,22 +341,20 @@ export const chapter8Exercises = [
     "code": "CH08_17",
     "chapterId": 8,
     "chapterName": "List, Tuple, Set và Dictionary",
-    "title": "Cấu trúc dữ liệu List & Dict 17",
-    "difficulty": "Trung bình",
-    "appliedKnowledge": "List, Tuple, Set, Dictionary, append, pop, sort, get.",
-    "description": "Thao tác trên danh sách mảng 1 chiều, sắp xếp, lọc phần tử, thống kê và bảng ánh xạ Dictionary.",
-    "inputDesc": "Danh sách các số hoặc từ khóa.",
-    "outputDesc": "Danh sách hoặc giá trị sau khi tổng hợp.",
-    "exampleIO": "Input: 3\n1\n5\n2\nOutput: 5 1",
-    "hint": "Dùng max() và min() trên danh sách.",
-    "sampleSolution": "n = int(input())\narr = [int(input()) for _ in range(n)]\nprint(f\"{max(arr)} {min(arr)}\")",
-    "initialCode": "n = int(input())\n",
+    "title": "Hợp của hai tập hợp (Union)",
+    "difficulty": "Dễ",
+    "appliedKnowledge": "Phép hợp s1 | s2 (hoặc s1.union(s2)).",
+    "description": "Nhập vào 2 dòng danh sách số nguyên. Hãy tìm tập hợp tất cả các phần tử có trong ít nhất một trong hai danh sách (Hợp của 2 tập hợp). In kết quả theo thứ tự tăng dần cách nhau bởi dấu cách.",
+    "inputDesc": "Dòng 1: Danh sách 1. Dòng 2: Danh sách 2.",
+    "outputDesc": "Tập hợp hợp nhất sắp xếp tăng dần.",
+    "exampleIO": "Input:\n1 3 5\n2 3 4\nOutput:\n1 2 3 4 5",
+    "hint": "union_set = sorted(s1 | s2).",
+    "sampleSolution": "s1 = set(map(int, input().split()))\ns2 = set(map(int, input().split()))\nunion_res = sorted(s1 | s2)\nprint(' '.join(map(str, union_res)))",
+    "initialCode": "s1 = set(map(int, input().split()))\ns2 = set(map(int, input().split()))\n# Tìm hợp s1 | s2\n",
     "testCases": [
-      {
-        "input": "3\n1\n5\n2",
-        "expectedOutput": "5 1",
-        "description": "Max 5, Min 1"
-      }
+      { "input": "1 3 5\n2 3 4", "expectedOutput": "1 2 3 4 5", "description": "Hợp của {1,3,5} và {2,3,4}" },
+      { "input": "10 20\n30 40", "expectedOutput": "10 20 30 40", "description": "Hai tập rời nhau" },
+      { "input": "7\n7", "expectedOutput": "7", "description": "Cùng phần tử 7" }
     ]
   },
   {
@@ -396,22 +362,20 @@ export const chapter8Exercises = [
     "code": "CH08_18",
     "chapterId": 8,
     "chapterName": "List, Tuple, Set và Dictionary",
-    "title": "Cấu trúc dữ liệu List & Dict 18",
-    "difficulty": "Trung bình",
-    "appliedKnowledge": "List, Tuple, Set, Dictionary, append, pop, sort, get.",
-    "description": "Thao tác trên danh sách mảng 1 chiều, sắp xếp, lọc phần tử, thống kê và bảng ánh xạ Dictionary.",
-    "inputDesc": "Danh sách các số hoặc từ khóa.",
-    "outputDesc": "Danh sách hoặc giá trị sau khi tổng hợp.",
-    "exampleIO": "Input: 3\n1\n5\n2\nOutput: 5 1",
-    "hint": "Dùng max() và min() trên danh sách.",
-    "sampleSolution": "n = int(input())\narr = [int(input()) for _ in range(n)]\nprint(f\"{max(arr)} {min(arr)}\")",
-    "initialCode": "n = int(input())\n",
+    "title": "Tra cứu điểm sinh viên bằng Dictionary",
+    "difficulty": "Dễ",
+    "appliedKnowledge": "Dictionary key-value lookup và xử lý key không tồn tại.",
+    "description": "Nhập số nguyên n là số lượng sinh viên. n dòng tiếp theo, mỗi dòng gồm Mã SV (chuỗi) và Điểm số (số thực). Dòng cuối cùng là Mã SV cần tra cứu. Nếu tìm thấy, in ra điểm số dạng x.x; nếu không tìm thấy, in 'NOT FOUND'.",
+    "inputDesc": "Dòng 1: n. Tiếp theo n dòng <MSSV> <Điểm>. Dòng cuối: <MSSV cần tìm>.",
+    "outputDesc": "Điểm số hoặc 'NOT FOUND'.",
+    "exampleIO": "Input:\n3\nSV01 8.5\nSV02 9.0\nSV03 7.0\nSV02\nOutput:\n9.0",
+    "hint": "Lưu vào dict scores[mssv] = float(score). Tra cứu bằng dict.get(key, 'NOT FOUND').",
+    "sampleSolution": "n = int(input())\nscores = {}\nfor _ in range(n):\n    parts = input().split()\n    scores[parts[0]] = float(parts[1])\nquery = input().strip()\nif query in scores:\n    print(f\"{scores[query]:.1f}\")\nelse:\n    print('NOT FOUND')",
+    "initialCode": "n = int(input())\n# Nhập từ điển điểm sinh viên và tra cứu\n",
     "testCases": [
-      {
-        "input": "3\n1\n5\n2",
-        "expectedOutput": "5 1",
-        "description": "Max 5, Min 1"
-      }
+      { "input": "3\nSV01 8.5\nSV02 9.0\nSV03 7.0\nSV02", "expectedOutput": "9.0", "description": "Tìm thấy SV02" },
+      { "input": "2\nB21 6.5\nB22 8.0\nB99", "expectedOutput": "NOT FOUND", "description": "Không tìm thấy B99" },
+      { "input": "1\nA01 10.0\nA01", "expectedOutput": "10.0", "description": "1 sinh viên" }
     ]
   },
   {
@@ -419,22 +383,20 @@ export const chapter8Exercises = [
     "code": "CH08_19",
     "chapterId": 8,
     "chapterName": "List, Tuple, Set và Dictionary",
-    "title": "Cấu trúc dữ liệu List & Dict 19",
+    "title": "Đếm tần suất xuất hiện của các từ",
     "difficulty": "Trung bình",
-    "appliedKnowledge": "List, Tuple, Set, Dictionary, append, pop, sort, get.",
-    "description": "Thao tác trên danh sách mảng 1 chiều, sắp xếp, lọc phần tử, thống kê và bảng ánh xạ Dictionary.",
-    "inputDesc": "Danh sách các số hoặc từ khóa.",
-    "outputDesc": "Danh sách hoặc giá trị sau khi tổng hợp.",
-    "exampleIO": "Input: 3\n1\n5\n2\nOutput: 5 1",
-    "hint": "Dùng max() và min() trên danh sách.",
-    "sampleSolution": "n = int(input())\narr = [int(input()) for _ in range(n)]\nprint(f\"{max(arr)} {min(arr)}\")",
-    "initialCode": "n = int(input())\n",
+    "appliedKnowledge": "Dictionary đếm tần suất hoặc collections.Counter.",
+    "description": "Nhập vào một câu văn (chỉ gồm các từ cách nhau bởi khoảng trắng). Hãy đếm số lần xuất hiện của mỗi từ (chuyển hết về chữ thường). In ra từng từ và số lần xuất hiện theo thứ tự từ điển (alphabetical) tăng dần của từ khóa.",
+    "inputDesc": "Một dòng chứa câu văn.",
+    "outputDesc": "Mỗi dòng in: <từ>: <số lần>.",
+    "exampleIO": "Input:\napple orange apple banana orange apple\nOutput:\napple: 3\nbanana: 1\norange: 2",
+    "hint": "Tách words = input().lower().split(). Tạo dict freq: freq[w] = freq.get(w, 0) + 1. Sắp xếp key bằng sorted(freq.keys()).",
+    "sampleSolution": "words = input().lower().split()\nfreq = {}\nfor w in words:\n    freq[w] = freq.get(w, 0) + 1\nfor k in sorted(freq.keys()):\n    print(f\"{k}: {freq[k]}\")",
+    "initialCode": "words = input().lower().split()\n# Đếm tần suất từ và in theo thứ tự từ điển\n",
     "testCases": [
-      {
-        "input": "3\n1\n5\n2",
-        "expectedOutput": "5 1",
-        "description": "Max 5, Min 1"
-      }
+      { "input": "apple orange apple banana orange apple", "expectedOutput": "apple: 3\nbanana: 1\norange: 2", "description": "3 loại quả tần suất 3, 1, 2" },
+      { "input": "To be or not to be", "expectedOutput": "be: 2\nnot: 1\nor: 1\nto: 2", "description": "Câu nói To be or not to be" },
+      { "input": "python", "expectedOutput": "python: 1", "description": "1 từ duy nhất" }
     ]
   },
   {
@@ -442,22 +404,20 @@ export const chapter8Exercises = [
     "code": "CH08_20",
     "chapterId": 8,
     "chapterName": "List, Tuple, Set và Dictionary",
-    "title": "Cấu trúc dữ liệu List & Dict 20",
+    "title": "Tìm từ có tần suất xuất hiện nhiều nhất",
     "difficulty": "Trung bình",
-    "appliedKnowledge": "List, Tuple, Set, Dictionary, append, pop, sort, get.",
-    "description": "Thao tác trên danh sách mảng 1 chiều, sắp xếp, lọc phần tử, thống kê và bảng ánh xạ Dictionary.",
-    "inputDesc": "Danh sách các số hoặc từ khóa.",
-    "outputDesc": "Danh sách hoặc giá trị sau khi tổng hợp.",
-    "exampleIO": "Input: 3\n1\n5\n2\nOutput: 5 1",
-    "hint": "Dùng max() và min() trên danh sách.",
-    "sampleSolution": "n = int(input())\narr = [int(input()) for _ in range(n)]\nprint(f\"{max(arr)} {min(arr)}\")",
-    "initialCode": "n = int(input())\n",
+    "appliedKnowledge": "Tìm key tương ứng với max value trong dictionary.",
+    "description": "Nhập vào một đoạn văn bản gồm các từ cách nhau bởi dấu cách. Hãy tìm từ xuất hiện nhiều lần nhất (không phân biệt hoa thường). Nếu có nhiều từ có cùng tần suất lớn nhất, in ra từ có thứ tự từ điển nhỏ nhất.",
+    "inputDesc": "Một dòng chứa các từ.",
+    "outputDesc": "In ra: <từ> <số lần>.",
+    "exampleIO": "Input:\ncat dog cat bird dog cat\nOutput:\ncat 3",
+    "hint": "Đếm vào dict freq. Sắp xếp các cặp (word, count) theo (-count, word) rồi lấy phần tử đầu tiên.",
+    "sampleSolution": "words = input().lower().split()\nfreq = {}\nfor w in words:\n    freq[w] = freq.get(w, 0) + 1\nbest_word = min(freq.keys(), key=lambda w: (-freq[w], w))\nprint(f\"{best_word} {freq[best_word]}\")",
+    "initialCode": "words = input().lower().split()\n# Tìm từ xuất hiện nhiều nhất\n",
     "testCases": [
-      {
-        "input": "3\n1\n5\n2",
-        "expectedOutput": "5 1",
-        "description": "Max 5, Min 1"
-      }
+      { "input": "cat dog cat bird dog cat", "expectedOutput": "cat 3", "description": "cat xuất hiện 3 lần" },
+      { "input": "banana apple apple banana", "expectedOutput": "apple 2", "description": "apple và banana cùng 2 lần, apple đứng trước" },
+      { "input": "one two three", "expectedOutput": "one 1", "description": "Cùng 1 lần, one đứng đầu" }
     ]
   },
   {
@@ -465,22 +425,20 @@ export const chapter8Exercises = [
     "code": "CH08_21",
     "chapterId": 8,
     "chapterName": "List, Tuple, Set và Dictionary",
-    "title": "Cấu trúc dữ liệu List & Dict 21",
-    "difficulty": "Khó",
-    "appliedKnowledge": "List, Tuple, Set, Dictionary, append, pop, sort, get.",
-    "description": "Thao tác trên danh sách mảng 1 chiều, sắp xếp, lọc phần tử, thống kê và bảng ánh xạ Dictionary.",
-    "inputDesc": "Danh sách các số hoặc từ khóa.",
-    "outputDesc": "Danh sách hoặc giá trị sau khi tổng hợp.",
-    "exampleIO": "Input: 3\n1\n5\n2\nOutput: 5 1",
-    "hint": "Dùng max() và min() trên danh sách.",
-    "sampleSolution": "n = int(input())\narr = [int(input()) for _ in range(n)]\nprint(f\"{max(arr)} {min(arr)}\")",
-    "initialCode": "n = int(input())\n",
+    "title": "Cập nhật bảng giá hàng hóa (Merge Dict)",
+    "difficulty": "Trung bình",
+    "appliedKnowledge": "Phương thức dict.update() hoặc toán tử ghép dict (|).",
+    "description": "Cửa hàng có bảng giá cũ gồm n mặt hàng, sau đó nhận đợt cập nhật gồm m mặt hàng mới (nếu trùng tên thì ghi đè giá mới, nếu chưa có thì thêm vào). Hãy in ra bảng giá cuối cùng sau khi cập nhật, sắp xếp theo tên mặt hàng theo bảng chữ cái. Mỗi dòng: <tên> <giá>.",
+    "inputDesc": "Dòng 1: n. n dòng tiếp: <tên> <giá>. Dòng tiếp: m. m dòng tiếp: <tên> <giá mới>.",
+    "outputDesc": "Bảng giá sau cập nhật theo thứ tự tên.",
+    "exampleIO": "Input:\n2\nbut 5000\nthuoc 3000\n2\nbut 6000\ntay 2000\nOutput:\nbut 6000\ntay 2000\nthuoc 3000",
+    "hint": "Đọc bảng giá vào dict prices. Đợt 2 dùng prices[k] = v hoặc prices.update(). Sắp xếp key bằng sorted(prices.keys()).",
+    "sampleSolution": "prices = {}\nn = int(input())\nfor _ in range(n):\n    item, p = input().split()\n    prices[item] = int(p)\nm = int(input())\nfor _ in range(m):\n    item, p = input().split()\n    prices[item] = int(p)\nfor item in sorted(prices.keys()):\n    print(f\"{item} {prices[item]}\")",
+    "initialCode": "prices = {}\n# Cập nhật và in bảng giá hàng hóa\n",
     "testCases": [
-      {
-        "input": "3\n1\n5\n2",
-        "expectedOutput": "5 1",
-        "description": "Max 5, Min 1"
-      }
+      { "input": "2\nbut 5000\nthuoc 3000\n2\nbut 6000\ntay 2000", "expectedOutput": "but 6000\ntay 2000\nthuoc 3000", "description": "Cập nhật but lên 6000 và thêm tay 2000" },
+      { "input": "1\ngao 20\n1\ngao 25", "expectedOutput": "gao 25", "description": "1 mặt hàng được tăng giá" },
+      { "input": "1\nsua 15\n1\nbanh 10", "expectedOutput": "banh 10\nsua 15", "description": "Thêm mặt hàng mới" }
     ]
   },
   {
@@ -488,22 +446,20 @@ export const chapter8Exercises = [
     "code": "CH08_22",
     "chapterId": 8,
     "chapterName": "List, Tuple, Set và Dictionary",
-    "title": "Cấu trúc dữ liệu List & Dict 22",
-    "difficulty": "Khó",
-    "appliedKnowledge": "List, Tuple, Set, Dictionary, append, pop, sort, get.",
-    "description": "Thao tác trên danh sách mảng 1 chiều, sắp xếp, lọc phần tử, thống kê và bảng ánh xạ Dictionary.",
-    "inputDesc": "Danh sách các số hoặc từ khóa.",
-    "outputDesc": "Danh sách hoặc giá trị sau khi tổng hợp.",
-    "exampleIO": "Input: 3\n1\n5\n2\nOutput: 5 1",
-    "hint": "Dùng max() và min() trên danh sách.",
-    "sampleSolution": "n = int(input())\narr = [int(input()) for _ in range(n)]\nprint(f\"{max(arr)} {min(arr)}\")",
-    "initialCode": "n = int(input())\n",
+    "title": "Đảo ngược khóa và giá trị trong Dictionary",
+    "difficulty": "Trung bình",
+    "appliedKnowledge": "Dictionary comprehension: {v: k for k, v in d.items()}.",
+    "description": "Nhập vào số lượng cặp n. Tiếp theo là n dòng, mỗi dòng chứa một cặp Key Value (chuỗi cách nhau bởi dấu cách, đảm bảo các Value không bị trùng lặp). Hãy đảo ngược khóa và giá trị: Key trở thành Value, Value trở thành Key. In ra từ điển mới theo thứ tự Alphabet của Key mới.",
+    "inputDesc": "Dòng 1: n. n dòng tiếp theo: <key> <val>.",
+    "outputDesc": "In ra các dòng: <new_key>: <new_val>.",
+    "exampleIO": "Input:\n3\none 1\ntwo 2\nthree 3\nOutput:\n1: one\n2: two\n3: three",
+    "hint": "inverted = {v: k for k, v in original.items()}.",
+    "sampleSolution": "n = int(input())\nd = {}\nfor _ in range(n):\n    k, v = input().split()\n    d[v] = k\nfor k in sorted(d.keys()):\n    print(f\"{k}: {d[k]}\")",
+    "initialCode": "n = int(input())\n# Đảo ngược khóa và giá trị của từ điển\n",
     "testCases": [
-      {
-        "input": "3\n1\n5\n2",
-        "expectedOutput": "5 1",
-        "description": "Max 5, Min 1"
-      }
+      { "input": "3\none 1\ntwo 2\nthree 3", "expectedOutput": "1: one\n2: two\n3: three", "description": "Đổi chuỗi số sang số nguyên chuỗi" },
+      { "input": "2\nVN Vietnam\nUS America", "expectedOutput": "America: US\nVietnam: VN", "description": "Mã quốc gia và tên nước" },
+      { "input": "1\nA 100", "expectedOutput": "100: A", "description": "1 cặp duy nhất" }
     ]
   },
   {
@@ -511,22 +467,20 @@ export const chapter8Exercises = [
     "code": "CH08_23",
     "chapterId": 8,
     "chapterName": "List, Tuple, Set và Dictionary",
-    "title": "Cấu trúc dữ liệu List & Dict 23",
-    "difficulty": "Khó",
-    "appliedKnowledge": "List, Tuple, Set, Dictionary, append, pop, sort, get.",
-    "description": "Thao tác trên danh sách mảng 1 chiều, sắp xếp, lọc phần tử, thống kê và bảng ánh xạ Dictionary.",
-    "inputDesc": "Danh sách các số hoặc từ khóa.",
-    "outputDesc": "Danh sách hoặc giá trị sau khi tổng hợp.",
-    "exampleIO": "Input: 3\n1\n5\n2\nOutput: 5 1",
-    "hint": "Dùng max() và min() trên danh sách.",
-    "sampleSolution": "n = int(input())\narr = [int(input()) for _ in range(n)]\nprint(f\"{max(arr)} {min(arr)}\")",
-    "initialCode": "n = int(input())\n",
+    "title": "Tính tổng từng hàng trong ma trận 2D",
+    "difficulty": "Trung bình",
+    "appliedKnowledge": "Danh sách lồng nhau (Nested List / 2D List) và vòng lặp tính tổng.",
+    "description": "Nhập vào 2 số nguyên m và n là số hàng và số cột của một ma trận số nguyên. Tiếp theo là m dòng, mỗi dòng chứa n số nguyên của hàng đó. Hãy tính và in ra tổng của từng hàng, mỗi kết quả trên một dòng.",
+    "inputDesc": "Dòng 1: m n. m dòng tiếp theo: mỗi dòng n số nguyên.",
+    "outputDesc": "m dòng, mỗi dòng là tổng các phần tử của hàng tương ứng.",
+    "exampleIO": "Input:\n3 3\n1 2 3\n4 5 6\n7 8 9\nOutput:\n6\n15\n24",
+    "hint": "Với mỗi dòng trong m dòng, row = [int(x) for x in input().split()], in sum(row).",
+    "sampleSolution": "m, n = map(int, input().split())\nfor _ in range(m):\n    row = [int(x) for x in input().split()]\n    print(sum(row))",
+    "initialCode": "m, n = map(int, input().split())\n# Tính tổng từng hàng của ma trận\n",
     "testCases": [
-      {
-        "input": "3\n1\n5\n2",
-        "expectedOutput": "5 1",
-        "description": "Max 5, Min 1"
-      }
+      { "input": "3 3\n1 2 3\n4 5 6\n7 8 9", "expectedOutput": "6\n15\n24", "description": "Ma trận 3x3 các số từ 1 đến 9" },
+      { "input": "2 4\n1 1 1 1\n2 2 2 2", "expectedOutput": "4\n8", "description": "Ma trận 2x4" },
+      { "input": "1 3\n10 20 30", "expectedOutput": "60", "description": "Ma trận 1 hàng 3 cột" }
     ]
   },
   {
@@ -534,22 +488,20 @@ export const chapter8Exercises = [
     "code": "CH08_24",
     "chapterId": 8,
     "chapterName": "List, Tuple, Set và Dictionary",
-    "title": "Cấu trúc dữ liệu List & Dict 24",
-    "difficulty": "Khó",
-    "appliedKnowledge": "List, Tuple, Set, Dictionary, append, pop, sort, get.",
-    "description": "Thao tác trên danh sách mảng 1 chiều, sắp xếp, lọc phần tử, thống kê và bảng ánh xạ Dictionary.",
-    "inputDesc": "Danh sách các số hoặc từ khóa.",
-    "outputDesc": "Danh sách hoặc giá trị sau khi tổng hợp.",
-    "exampleIO": "Input: 3\n1\n5\n2\nOutput: 5 1",
-    "hint": "Dùng max() và min() trên danh sách.",
-    "sampleSolution": "n = int(input())\narr = [int(input()) for _ in range(n)]\nprint(f\"{max(arr)} {min(arr)}\")",
-    "initialCode": "n = int(input())\n",
+    "title": "Tính tổng đường chéo chính ma trận vuông",
+    "difficulty": "Trung bình",
+    "appliedKnowledge": "Truy xuất ma trận theo chỉ số hàng và cột: matrix[i][i].",
+    "description": "Nhập vào số nguyên n (kích thước ma trận vuông n x n). Tiếp theo là n dòng, mỗi dòng chứa n số nguyên biểu diễn ma trận. Hãy tính tổng các phần tử nằm trên đường chéo chính (tức các phần tử matrix[i][i] với 0 <= i < n).",
+    "inputDesc": "Dòng 1: n. n dòng tiếp theo: mỗi dòng n số nguyên.",
+    "outputDesc": "In ra tổng các phần tử trên đường chéo chính.",
+    "exampleIO": "Input:\n3\n1 2 3\n4 5 6\n7 8 9\nOutput:\n15",
+    "hint": "Đường chéo chính gồm các phần tử matrix[0][0], matrix[1][1], ..., matrix[n-1][n-1]. Tổng = 1 + 5 + 9 = 15.",
+    "sampleSolution": "n = int(input())\ndiag_sum = 0\nfor i in range(n):\n    row = [int(x) for x in input().split()]\n    diag_sum += row[i]\nprint(diag_sum)",
+    "initialCode": "n = int(input())\n# Tính tổng đường chéo chính\n",
     "testCases": [
-      {
-        "input": "3\n1\n5\n2",
-        "expectedOutput": "5 1",
-        "description": "Max 5, Min 1"
-      }
+      { "input": "3\n1 2 3\n4 5 6\n7 8 9", "expectedOutput": "15", "description": "Đường chéo chính 1 + 5 + 9 = 15" },
+      { "input": "2\n10 2\n3 20", "expectedOutput": "30", "description": "Đường chéo chính 10 + 20 = 30" },
+      { "input": "1\n42", "expectedOutput": "42", "description": "Ma trận 1x1 giá trị 42" }
     ]
   },
   {
@@ -557,22 +509,20 @@ export const chapter8Exercises = [
     "code": "CH08_25",
     "chapterId": 8,
     "chapterName": "List, Tuple, Set và Dictionary",
-    "title": "Cấu trúc dữ liệu List & Dict 25",
-    "difficulty": "Khó",
-    "appliedKnowledge": "List, Tuple, Set, Dictionary, append, pop, sort, get.",
-    "description": "Thao tác trên danh sách mảng 1 chiều, sắp xếp, lọc phần tử, thống kê và bảng ánh xạ Dictionary.",
-    "inputDesc": "Danh sách các số hoặc từ khóa.",
-    "outputDesc": "Danh sách hoặc giá trị sau khi tổng hợp.",
-    "exampleIO": "Input: 3\n1\n5\n2\nOutput: 5 1",
-    "hint": "Dùng max() và min() trên danh sách.",
-    "sampleSolution": "n = int(input())\narr = [int(input()) for _ in range(n)]\nprint(f\"{max(arr)} {min(arr)}\")",
-    "initialCode": "n = int(input())\n",
+    "title": "Làm phẳng (Flatten) ma trận 2D",
+    "difficulty": "Trung bình",
+    "appliedKnowledge": "Nested List Comprehension để chuyển ma trận 2D thành list 1D.",
+    "description": "Nhập vào 2 số m và n. Tiếp theo là m dòng ma trận mỗi dòng n số nguyên. Hãy làm phẳng (flatten) ma trận thành một danh sách 1 chiều theo thứ tự từ trái sang phải, từ trên xuống dưới, và in các số cách nhau bởi dấu cách.",
+    "inputDesc": "Dòng 1: m n. m dòng tiếp theo: mỗi dòng n số.",
+    "outputDesc": "In các số của danh sách 1D trên một dòng.",
+    "exampleIO": "Input:\n2 3\n1 2 3\n4 5 6\nOutput:\n1 2 3 4 5 6",
+    "hint": "flattened = [val for row in matrix for val in row].",
+    "sampleSolution": "m, n = map(int, input().split())\nflat = []\nfor _ in range(m):\n    flat.extend(input().split())\nprint(' '.join(flat))",
+    "initialCode": "m, n = map(int, input().split())\n# Làm phẳng ma trận 2D thành list 1D\n",
     "testCases": [
-      {
-        "input": "3\n1\n5\n2",
-        "expectedOutput": "5 1",
-        "description": "Max 5, Min 1"
-      }
+      { "input": "2 3\n1 2 3\n4 5 6", "expectedOutput": "1 2 3 4 5 6", "description": "Ma trận 2x3 phẳng hóa thành dãy 6 số" },
+      { "input": "3 1\n10\n20\n30", "expectedOutput": "10 20 30", "description": "Ma trận cột 3x1" },
+      { "input": "1 2\n7 8", "expectedOutput": "7 8", "description": "Ma trận hàng 1x2" }
     ]
   }
 ];

@@ -1,26 +1,24 @@
-// Danh sách bài tập Chương 13: Đồ án: Quản lý sinh viên Python
+// Danh sách bài tập Chương 13: Đồ án: Quản lý sinh viên và OOP (25 bài)
 export const chapter13Exercises = [
   {
     "id": 226,
     "code": "CH13_01",
     "chapterId": 13,
     "chapterName": "Đồ án: Quản lý sinh viên Python",
-    "title": "Đồ án Quản lý sinh viên - Nhiệm vụ 1",
+    "title": "Lớp Sinh viên căn bản (OOP Student)",
     "difficulty": "Dễ",
-    "appliedKnowledge": "Tổng hợp toàn bộ kiến thức 12 chương: List of Dicts, Def, While Menu, Try-Except.",
-    "description": "Nhiệm vụ số 1 trong đồ án hoàn chỉnh Quản lý sinh viên Python: Xây dựng các hàm nghiệp vụ, kiểm tra dữ liệu, định dạng bảng hiển thị và lưu tệp.",
-    "inputDesc": "Lựa chọn menu và thông tin sinh viên.",
-    "outputDesc": "Thông báo trạng thái hoặc dữ liệu bảng sinh viên.",
-    "exampleIO": "Input: 1\nSV01\nAn\nOutput: DA THEM",
-    "hint": "Sử dụng Dictionary với các key ma, ten, tuoi, diem, hoc_luc.",
-    "sampleSolution": "print(\"DA XU LY NHIEM VU\")",
-    "initialCode": "# Đồ án Quản lý sinh viên - Nhiệm vụ 1\nprint(\"DA XU LY NHIEM VU\")\n",
+    "appliedKnowledge": "Định nghĩa Class, phương thức khởi tạo __init__ và phương thức display().",
+    "description": "Xây dựng lớp `Student` gồm các thuộc tính: mã sinh viên `id`, họ tên `name`, và tuổi `age`. Viết phương thức `info()` trả về chuỗi `\"ID: {id} | Name: {name} | Age: {age}\"`. Nhập 3 thông tin trên 3 dòng, khởi tạo đối tượng và in kết quả gọi phương thức `info()`.",
+    "inputDesc": "Dòng 1: id. Dòng 2: name. Dòng 3: age.",
+    "outputDesc": "In chuỗi thông tin sinh viên.",
+    "exampleIO": "Input:\nSV01\nNguyen Van A\n20\nOutput:\nID: SV01 | Name: Nguyen Van A | Age: 20",
+    "hint": "class Student: def __init__(self, id, name, age): self.id = id; self.name = name; self.age = age.",
+    "sampleSolution": "class Student:\n    def __init__(self, id, name, age):\n        self.id = id\n        self.name = name\n        self.age = age\n\n    def info(self):\n        return f\"ID: {self.id} | Name: {self.name} | Age: {self.age}\"\n\ns_id = input().strip()\nname = input().strip()\nage = int(input())\nst = Student(s_id, name, age)\nprint(st.info())",
+    "initialCode": "class Student:\n    def __init__(self, id, name, age):\n        pass\n\n    def info(self):\n        pass\n\n# Khởi tạo và in thông tin\n",
     "testCases": [
-      {
-        "input": "test",
-        "expectedOutput": "DA XU LY NHIEM VU",
-        "description": "Kiểm tra chức năng"
-      }
+      { "input": "SV01\nNguyen Van A\n20", "expectedOutput": "ID: SV01 | Name: Nguyen Van A | Age: 20", "description": "Sinh viên SV01" },
+      { "input": "B21DCCN\nTran Thi B\n19", "expectedOutput": "ID: B21DCCN | Name: Tran Thi B | Age: 19", "description": "Sinh viên B21DCCN" },
+      { "input": "100\nJohn Doe\n22", "expectedOutput": "ID: 100 | Name: John Doe | Age: 22", "description": "Sinh viên quốc tế" }
     ]
   },
   {
@@ -28,22 +26,20 @@ export const chapter13Exercises = [
     "code": "CH13_02",
     "chapterId": 13,
     "chapterName": "Đồ án: Quản lý sinh viên Python",
-    "title": "Đồ án Quản lý sinh viên - Nhiệm vụ 2",
+    "title": "Tính điểm GPA và xếp loại học lực",
     "difficulty": "Dễ",
-    "appliedKnowledge": "Tổng hợp toàn bộ kiến thức 12 chương: List of Dicts, Def, While Menu, Try-Except.",
-    "description": "Nhiệm vụ số 2 trong đồ án hoàn chỉnh Quản lý sinh viên Python: Xây dựng các hàm nghiệp vụ, kiểm tra dữ liệu, định dạng bảng hiển thị và lưu tệp.",
-    "inputDesc": "Lựa chọn menu và thông tin sinh viên.",
-    "outputDesc": "Thông báo trạng thái hoặc dữ liệu bảng sinh viên.",
-    "exampleIO": "Input: 1\nSV01\nAn\nOutput: DA THEM",
-    "hint": "Sử dụng Dictionary với các key ma, ten, tuoi, diem, hoc_luc.",
-    "sampleSolution": "print(\"DA XU LY NHIEM VU\")",
-    "initialCode": "# Đồ án Quản lý sinh viên - Nhiệm vụ 2\nprint(\"DA XU LY NHIEM VU\")\n",
+    "appliedKnowledge": "Phương thức tính toán và phân loại logic trong Class.",
+    "description": "Trong lớp `Student`, thêm các thuộc tính điểm `math`, `phys`, `chem`. Viết phương thức `gpa()` trả về điểm trung bình 3 môn, và phương thức `rank()` trả về: 'Xuat sac' (GPA >= 9.0), 'Gioi' (8.0 <= GPA < 9.0), 'Kha' (6.5 <= GPA < 8.0), 'Trung binh' (5.0 <= GPA < 6.5), 'Yeu' (GPA < 5.0). Nhập tên và 3 điểm, in: `<Tên> - GPA: <gpa làm tròn 2 chữ số> - Rank: <rank>`.",
+    "inputDesc": "Dòng 1: Tên. Dòng 2: Điểm Toán. Dòng 3: Điểm Lý. Dòng 4: Điểm Hóa.",
+    "outputDesc": "In ra: <Tên> - GPA: <gpa> - Rank: <rank>.",
+    "exampleIO": "Input:\nNguyen Van An\n8.5\n8.0\n9.0\nOutput:\nNguyen Van An - GPA: 8.50 - Rank: Gioi",
+    "hint": "gpa = (math + phys + chem) / 3.",
+    "sampleSolution": "class Student:\n    def __init__(self, name, m, p, c):\n        self.name = name\n        self.m = m\n        self.p = p\n        self.c = c\n\n    def gpa(self):\n        return (self.m + self.p + self.c) / 3\n\n    def rank(self):\n        score = self.gpa()\n        if score >= 9.0: return 'Xuat sac'\n        if score >= 8.0: return 'Gioi'\n        if score >= 6.5: return 'Kha'\n        if score >= 5.0: return 'Trung binh'\n        return 'Yeu'\n\nname = input().strip()\nm = float(input())\np = float(input())\nc = float(input())\nst = Student(name, m, p, c)\nprint(f\"{st.name} - GPA: {st.gpa():.2f} - Rank: {st.rank()}\")",
+    "initialCode": "class Student:\n    # Hoàn thành lớp Student tính GPA và xếp loại\n    pass\n",
     "testCases": [
-      {
-        "input": "test",
-        "expectedOutput": "DA XU LY NHIEM VU",
-        "description": "Kiểm tra chức năng"
-      }
+      { "input": "Nguyen Van An\n8.5\n8.0\n9.0", "expectedOutput": "Nguyen Van An - GPA: 8.50 - Rank: Gioi", "description": "GPA 8.50 xếp loại Giỏi" },
+      { "input": "Le Thi Mai\n9.5\n9.0\n9.5", "expectedOutput": "Le Thi Mai - GPA: 9.33 - Rank: Xuat sac", "description": "GPA 9.33 xếp loại Xuất sắc" },
+      { "input": "Tran Binh\n4.0\n5.0\n4.5", "expectedOutput": "Tran Binh - GPA: 4.50 - Rank: Yeu", "description": "GPA 4.50 xếp loại Yếu" }
     ]
   },
   {
@@ -51,22 +47,20 @@ export const chapter13Exercises = [
     "code": "CH13_03",
     "chapterId": 13,
     "chapterName": "Đồ án: Quản lý sinh viên Python",
-    "title": "Đồ án Quản lý sinh viên - Nhiệm vụ 3",
+    "title": "Lớp Tọa độ Point2D và khoảng cách Euclid",
     "difficulty": "Dễ",
-    "appliedKnowledge": "Tổng hợp toàn bộ kiến thức 12 chương: List of Dicts, Def, While Menu, Try-Except.",
-    "description": "Nhiệm vụ số 3 trong đồ án hoàn chỉnh Quản lý sinh viên Python: Xây dựng các hàm nghiệp vụ, kiểm tra dữ liệu, định dạng bảng hiển thị và lưu tệp.",
-    "inputDesc": "Lựa chọn menu và thông tin sinh viên.",
-    "outputDesc": "Thông báo trạng thái hoặc dữ liệu bảng sinh viên.",
-    "exampleIO": "Input: 1\nSV01\nAn\nOutput: DA THEM",
-    "hint": "Sử dụng Dictionary với các key ma, ten, tuoi, diem, hoc_luc.",
-    "sampleSolution": "print(\"DA XU LY NHIEM VU\")",
-    "initialCode": "# Đồ án Quản lý sinh viên - Nhiệm vụ 3\nprint(\"DA XU LY NHIEM VU\")\n",
+    "appliedKnowledge": "Lớp Point và phương thức tương tác giữa 2 đối tượng `distance_to(other)`.",
+    "description": "Xây dựng lớp `Point(x, y)`. Viết phương thức `distance(other)` tính khoảng cách đường thẳng giữa điểm hiện tại và điểm `other`: d = sqrt((x1 - x2)^2 + (y1 - y2)^2). Nhập vào 2 điểm: Dòng 1 là x1 y1, Dòng 2 là x2 y2. In ra khoảng cách làm tròn 2 chữ số thập phân.",
+    "inputDesc": "Dòng 1: x1 y1. Dòng 2: x2 y2.",
+    "outputDesc": "Khoảng cách giữa 2 điểm dạng x.xx.",
+    "exampleIO": "Input:\n0 0\n3 4\nOutput:\n5.00",
+    "hint": "return ((self.x - other.x)**2 + (self.y - other.y)**2)**0.5.",
+    "sampleSolution": "class Point:\n    def __init__(self, x, y):\n        self.x = x\n        self.y = y\n\n    def distance(self, other):\n        return ((self.x - other.x)**2 + (self.y - other.y)**2)**0.5\n\nx1, y1 = map(float, input().split())\nx2, y2 = map(float, input().split())\np1 = Point(x1, y1)\np2 = Point(x2, y2)\nprint(f\"{p1.distance(p2):.2f}\")",
+    "initialCode": "class Point:\n    pass\n",
     "testCases": [
-      {
-        "input": "test",
-        "expectedOutput": "DA XU LY NHIEM VU",
-        "description": "Kiểm tra chức năng"
-      }
+      { "input": "0 0\n3 4", "expectedOutput": "5.00", "description": "Tam giác 3-4-5 kinh điển" },
+      { "input": "1 1\n4 5", "expectedOutput": "5.00", "description": "Khoảng cách 5.00" },
+      { "input": "2 3\n2 3", "expectedOutput": "0.00", "description": "Hai điểm trùng nhau" }
     ]
   },
   {
@@ -74,22 +68,20 @@ export const chapter13Exercises = [
     "code": "CH13_04",
     "chapterId": 13,
     "chapterName": "Đồ án: Quản lý sinh viên Python",
-    "title": "Đồ án Quản lý sinh viên - Nhiệm vụ 4",
+    "title": "Lớp Hình chữ nhật (Rectangle)",
     "difficulty": "Dễ",
-    "appliedKnowledge": "Tổng hợp toàn bộ kiến thức 12 chương: List of Dicts, Def, While Menu, Try-Except.",
-    "description": "Nhiệm vụ số 4 trong đồ án hoàn chỉnh Quản lý sinh viên Python: Xây dựng các hàm nghiệp vụ, kiểm tra dữ liệu, định dạng bảng hiển thị và lưu tệp.",
-    "inputDesc": "Lựa chọn menu và thông tin sinh viên.",
-    "outputDesc": "Thông báo trạng thái hoặc dữ liệu bảng sinh viên.",
-    "exampleIO": "Input: 1\nSV01\nAn\nOutput: DA THEM",
-    "hint": "Sử dụng Dictionary với các key ma, ten, tuoi, diem, hoc_luc.",
-    "sampleSolution": "print(\"DA XU LY NHIEM VU\")",
-    "initialCode": "# Đồ án Quản lý sinh viên - Nhiệm vụ 4\nprint(\"DA XU LY NHIEM VU\")\n",
+    "appliedKnowledge": "Lớp Rectangle với phương thức perimeter(), area(), is_square().",
+    "description": "Xây dựng lớp `Rectangle(w, h)` với chiều rộng w và chiều cao h (số thực). Viết các phương thức `perimeter()` (chu vi), `area()` (diện tích), và `is_square()` (trả về True nếu là hình vuông, ngược lại False). Nhập w và h trên 1 dòng, in ra: `Perimeter: <p:.1f> | Area: <a:.1f> | Square: <True/False>`.",
+    "inputDesc": "Một dòng chứa w h.",
+    "outputDesc": "Perimeter: ... | Area: ... | Square: ...",
+    "exampleIO": "Input:\n4 5\nOutput:\nPerimeter: 18.0 | Area: 20.0 | Square: False",
+    "hint": "p = 2 * (w + h); a = w * h; is_square = (w == h).",
+    "sampleSolution": "class Rectangle:\n    def __init__(self, w, h):\n        self.w = w\n        self.h = h\n\n    def perimeter(self):\n        return 2 * (self.w + self.h)\n\n    def area(self):\n        return self.w * self.h\n\n    def is_square(self):\n        return self.w == self.h\n\nw, h = map(float, input().split())\nrect = Rectangle(w, h)\nprint(f\"Perimeter: {rect.perimeter():.1f} | Area: {rect.area():.1f} | Square: {rect.is_square()}\")",
+    "initialCode": "class Rectangle:\n    pass\n",
     "testCases": [
-      {
-        "input": "test",
-        "expectedOutput": "DA XU LY NHIEM VU",
-        "description": "Kiểm tra chức năng"
-      }
+      { "input": "4 5", "expectedOutput": "Perimeter: 18.0 | Area: 20.0 | Square: False", "description": "Hình chữ nhật 4x5" },
+      { "input": "6 6", "expectedOutput": "Perimeter: 24.0 | Area: 36.0 | Square: True", "description": "Hình vuông 6x6" },
+      { "input": "2.5 4.0", "expectedOutput": "Perimeter: 13.0 | Area: 10.0 | Square: False", "description": "Kích thước số thực" }
     ]
   },
   {
@@ -97,22 +89,20 @@ export const chapter13Exercises = [
     "code": "CH13_05",
     "chapterId": 13,
     "chapterName": "Đồ án: Quản lý sinh viên Python",
-    "title": "Đồ án Quản lý sinh viên - Nhiệm vụ 5",
+    "title": "Lớp Hình tròn (Circle)",
     "difficulty": "Dễ",
-    "appliedKnowledge": "Tổng hợp toàn bộ kiến thức 12 chương: List of Dicts, Def, While Menu, Try-Except.",
-    "description": "Nhiệm vụ số 5 trong đồ án hoàn chỉnh Quản lý sinh viên Python: Xây dựng các hàm nghiệp vụ, kiểm tra dữ liệu, định dạng bảng hiển thị và lưu tệp.",
-    "inputDesc": "Lựa chọn menu và thông tin sinh viên.",
-    "outputDesc": "Thông báo trạng thái hoặc dữ liệu bảng sinh viên.",
-    "exampleIO": "Input: 1\nSV01\nAn\nOutput: DA THEM",
-    "hint": "Sử dụng Dictionary với các key ma, ten, tuoi, diem, hoc_luc.",
-    "sampleSolution": "print(\"DA XU LY NHIEM VU\")",
-    "initialCode": "# Đồ án Quản lý sinh viên - Nhiệm vụ 5\nprint(\"DA XU LY NHIEM VU\")\n",
+    "appliedKnowledge": "Lớp Circle với hằng số pi và phương thức tính toán.",
+    "description": "Xây dựng lớp `Circle(radius)`. Sử dụng pi = 3.14159, viết phương thức `circumference()` (chu vi) và `area()` (diện tích). Nhập bán kính r (số thực), in ra chu vi và diện tích cách nhau bởi dấu cách, làm tròn 2 chữ số thập phân.",
+    "inputDesc": "Một số thực r.",
+    "outputDesc": "In ra: <chu vi> <diện tích> dạng x.xx.",
+    "exampleIO": "Input:\n3\nOutput:\n18.85 28.27",
+    "hint": "c = 2 * pi * r; a = pi * r**2.",
+    "sampleSolution": "class Circle:\n    PI = 3.14159\n    def __init__(self, r):\n        self.r = r\n\n    def circumference(self):\n        return 2 * self.PI * self.r\n\n    def area(self):\n        return self.PI * (self.r ** 2)\n\nr = float(input())\nc = Circle(r)\nprint(f\"{c.circumference():.2f} {c.area():.2f}\")",
+    "initialCode": "class Circle:\n    pass\n\nr = float(input())\n",
     "testCases": [
-      {
-        "input": "test",
-        "expectedOutput": "DA XU LY NHIEM VU",
-        "description": "Kiểm tra chức năng"
-      }
+      { "input": "3", "expectedOutput": "18.85 28.27", "description": "Bán kính 3" },
+      { "input": "1", "expectedOutput": "6.28 3.14", "description": "Bán kính 1" },
+      { "input": "5.5", "expectedOutput": "34.56 95.03", "description": "Bán kính 5.5" }
     ]
   },
   {
@@ -120,22 +110,20 @@ export const chapter13Exercises = [
     "code": "CH13_06",
     "chapterId": 13,
     "chapterName": "Đồ án: Quản lý sinh viên Python",
-    "title": "Đồ án Quản lý sinh viên - Nhiệm vụ 6",
-    "difficulty": "Dễ",
-    "appliedKnowledge": "Tổng hợp toàn bộ kiến thức 12 chương: List of Dicts, Def, While Menu, Try-Except.",
-    "description": "Nhiệm vụ số 6 trong đồ án hoàn chỉnh Quản lý sinh viên Python: Xây dựng các hàm nghiệp vụ, kiểm tra dữ liệu, định dạng bảng hiển thị và lưu tệp.",
-    "inputDesc": "Lựa chọn menu và thông tin sinh viên.",
-    "outputDesc": "Thông báo trạng thái hoặc dữ liệu bảng sinh viên.",
-    "exampleIO": "Input: 1\nSV01\nAn\nOutput: DA THEM",
-    "hint": "Sử dụng Dictionary với các key ma, ten, tuoi, diem, hoc_luc.",
-    "sampleSolution": "print(\"DA XU LY NHIEM VU\")",
-    "initialCode": "# Đồ án Quản lý sinh viên - Nhiệm vụ 6\nprint(\"DA XU LY NHIEM VU\")\n",
+    "title": "Lớp Tài khoản ngân hàng (BankAccount)",
+    "difficulty": "Trung bình",
+    "appliedKnowledge": "Phương thức nạp/rút tiền kiểm tra điều kiện nghiệp vụ thực tế.",
+    "description": "Xây dựng lớp `BankAccount(owner, balance=0)`. Viết phương thức `deposit(amount)` (cộng tiền vào tài khoản), và phương thức `withdraw(amount)` (trừ tiền nếu amount <= balance, ngược lại in 'INSUFFICIENT FUNDS' và giữ nguyên số dư). Nhập tên chủ tài khoản, số dư ban đầu, số tiền gửi và số tiền rút trên 4 dòng. In ra số dư cuối cùng: `Balance: <balance>`.",
+    "inputDesc": "Dòng 1: owner. Dòng 2: balance ban đầu. Dòng 3: tiền gửi. Dòng 4: tiền rút.",
+    "outputDesc": "Thông báo lỗi nếu có và dòng: Balance: <số dư>.",
+    "exampleIO": "Input:\nAlice\n1000\n500\n2000\nOutput:\nINSUFFICIENT FUNDS\nBalance: 1500",
+    "hint": "if amount > self.balance: print('INSUFFICIENT FUNDS') else: self.balance -= amount.",
+    "sampleSolution": "class BankAccount:\n    def __init__(self, owner, balance=0):\n        self.owner = owner\n        self.balance = balance\n\n    def deposit(self, amount):\n        self.balance += amount\n\n    def withdraw(self, amount):\n        if amount > self.balance:\n            print('INSUFFICIENT FUNDS')\n        else:\n            self.balance -= amount\n\nowner = input().strip()\ninit_bal = int(input())\ndep = int(input())\nwd = int(input())\nacc = BankAccount(owner, init_bal)\nacc.deposit(dep)\nacc.withdraw(wd)\nprint(f\"Balance: {acc.balance}\")",
+    "initialCode": "class BankAccount:\n    pass\n",
     "testCases": [
-      {
-        "input": "test",
-        "expectedOutput": "DA XU LY NHIEM VU",
-        "description": "Kiểm tra chức năng"
-      }
+      { "input": "Alice\n1000\n500\n2000", "expectedOutput": "INSUFFICIENT FUNDS\nBalance: 1500", "description": "Rút quá số dư 1500" },
+      { "input": "Bob\n2000\n1000\n500", "expectedOutput": "Balance: 2500", "description": "Rút hợp lệ còn 2500" },
+      { "input": "Carol\n0\n500\n500", "expectedOutput": "Balance: 0", "description": "Rút hết số dư" }
     ]
   },
   {
@@ -143,22 +131,20 @@ export const chapter13Exercises = [
     "code": "CH13_07",
     "chapterId": 13,
     "chapterName": "Đồ án: Quản lý sinh viên Python",
-    "title": "Đồ án Quản lý sinh viên - Nhiệm vụ 7",
-    "difficulty": "Dễ",
-    "appliedKnowledge": "Tổng hợp toàn bộ kiến thức 12 chương: List of Dicts, Def, While Menu, Try-Except.",
-    "description": "Nhiệm vụ số 7 trong đồ án hoàn chỉnh Quản lý sinh viên Python: Xây dựng các hàm nghiệp vụ, kiểm tra dữ liệu, định dạng bảng hiển thị và lưu tệp.",
-    "inputDesc": "Lựa chọn menu và thông tin sinh viên.",
-    "outputDesc": "Thông báo trạng thái hoặc dữ liệu bảng sinh viên.",
-    "exampleIO": "Input: 1\nSV01\nAn\nOutput: DA THEM",
-    "hint": "Sử dụng Dictionary với các key ma, ten, tuoi, diem, hoc_luc.",
-    "sampleSolution": "print(\"DA XU LY NHIEM VU\")",
-    "initialCode": "# Đồ án Quản lý sinh viên - Nhiệm vụ 7\nprint(\"DA XU LY NHIEM VU\")\n",
+    "title": "Lớp Phân số và phương thức rút gọn (Fraction)",
+    "difficulty": "Trung bình",
+    "appliedKnowledge": "Lớp Fraction, thuật toán math.gcd để tối giản phân số.",
+    "description": "Xây dựng lớp `Fraction(num, den)` (tử số num, mẫu số den != 0). Viết phương thức `simplify()` để rút gọn phân số về dạng tối giản (nếu mẫu số âm thì chuyển dấu âm lên tử số; nếu tử số chia hết cho mẫu số thì in số nguyên). Nhập num và den trên 2 dòng và in phân số rút gọn dạng `num/den` hoặc `num` nếu den=1.",
+    "inputDesc": "Dòng 1: tử số num. Dòng 2: mẫu số den.",
+    "outputDesc": "Dạng tối giản: num/den hoặc số nguyên num.",
+    "exampleIO": "Input:\n6\n8\nOutput:\n3/4",
+    "hint": "import math. g = math.gcd(num, den). num //= g, den //= g. Nếu den < 0: num = -num, den = -den.",
+    "sampleSolution": "import math\n\nclass Fraction:\n    def __init__(self, num, den):\n        self.num = num\n        self.den = den\n        self.simplify()\n\n    def simplify(self):\n        g = math.gcd(self.num, self.den)\n        self.num //= g\n        self.den //= g\n        if self.den < 0:\n            self.num = -self.num\n            self.den = -self.den\n\n    def __str__(self):\n        if self.den == 1:\n            return str(self.num)\n        return f\"{self.num}/{self.den}\"\n\nnum = int(input())\nden = int(input())\nf = Fraction(num, den)\nprint(f)",
+    "initialCode": "class Fraction:\n    pass\n",
     "testCases": [
-      {
-        "input": "test",
-        "expectedOutput": "DA XU LY NHIEM VU",
-        "description": "Kiểm tra chức năng"
-      }
+      { "input": "6\n8", "expectedOutput": "3/4", "description": "6/8 rút gọn thành 3/4" },
+      { "input": "10\n5", "expectedOutput": "2", "description": "10/5 là số nguyên 2" },
+      { "input": "4\n-6", "expectedOutput": "-2/3", "description": "Mẫu âm chuyển lên tử" }
     ]
   },
   {
@@ -166,22 +152,20 @@ export const chapter13Exercises = [
     "code": "CH13_08",
     "chapterId": 13,
     "chapterName": "Đồ án: Quản lý sinh viên Python",
-    "title": "Đồ án Quản lý sinh viên - Nhiệm vụ 8",
-    "difficulty": "Dễ",
-    "appliedKnowledge": "Tổng hợp toàn bộ kiến thức 12 chương: List of Dicts, Def, While Menu, Try-Except.",
-    "description": "Nhiệm vụ số 8 trong đồ án hoàn chỉnh Quản lý sinh viên Python: Xây dựng các hàm nghiệp vụ, kiểm tra dữ liệu, định dạng bảng hiển thị và lưu tệp.",
-    "inputDesc": "Lựa chọn menu và thông tin sinh viên.",
-    "outputDesc": "Thông báo trạng thái hoặc dữ liệu bảng sinh viên.",
-    "exampleIO": "Input: 1\nSV01\nAn\nOutput: DA THEM",
-    "hint": "Sử dụng Dictionary với các key ma, ten, tuoi, diem, hoc_luc.",
-    "sampleSolution": "print(\"DA XU LY NHIEM VU\")",
-    "initialCode": "# Đồ án Quản lý sinh viên - Nhiệm vụ 8\nprint(\"DA XU LY NHIEM VU\")\n",
+    "title": "Nạp chồng toán tử cộng Phân số (__add__)",
+    "difficulty": "Khó",
+    "appliedKnowledge": "Nạp chồng toán tử (Operator Overloading) __add__ và phương thức __str__.",
+    "description": "Trong lớp `Fraction`, hãy định nghĩa phương thức `__add__(self, other)` cho phép cộng hai phân số: a/b + c/d = (a*d + b*c) / (b*d) và tự động rút gọn kết quả. Nhập vào 4 số nguyên trên 4 dòng lần lượt là: tử số 1, mẫu số 1, tử số 2, mẫu số 2. In ra tổng f1 + f2.",
+    "inputDesc": "4 dòng là num1, den1, num2, den2.",
+    "outputDesc": "Kết quả tổng phân số.",
+    "exampleIO": "Input:\n1\n2\n1\n3\nOutput:\n5/6",
+    "hint": "new_num = self.num * other.den + self.den * other.num; new_den = self.den * other.den; return Fraction(new_num, new_den).",
+    "sampleSolution": "import math\n\nclass Fraction:\n    def __init__(self, num, den):\n        self.num = num\n        self.den = den\n        self.simplify()\n\n    def simplify(self):\n        g = math.gcd(self.num, self.den)\n        self.num //= g\n        self.den //= g\n        if self.den < 0:\n            self.num = -self.num\n            self.den = -self.den\n\n    def __add__(self, other):\n        n = self.num * other.den + self.den * other.num\n        d = self.den * other.den\n        return Fraction(n, d)\n\n    def __str__(self):\n        if self.den == 1:\n            return str(self.num)\n        return f\"{self.num}/{self.den}\"\n\nn1, d1 = int(input()), int(input())\nn2, d2 = int(input()), int(input())\nf1 = Fraction(n1, d1)\nf2 = Fraction(n2, d2)\nprint(f1 + f2)",
+    "initialCode": "class Fraction:\n    pass\n",
     "testCases": [
-      {
-        "input": "test",
-        "expectedOutput": "DA XU LY NHIEM VU",
-        "description": "Kiểm tra chức năng"
-      }
+      { "input": "1\n2\n1\n3", "expectedOutput": "5/6", "description": "1/2 + 1/3 = 5/6" },
+      { "input": "1\n4\n3\n4", "expectedOutput": "1", "description": "1/4 + 3/4 = 4/4 = 1" },
+      { "input": "2\n5\n1\n5", "expectedOutput": "3/5", "description": "2/5 + 1/5 = 3/5" }
     ]
   },
   {
@@ -189,22 +173,20 @@ export const chapter13Exercises = [
     "code": "CH13_09",
     "chapterId": 13,
     "chapterName": "Đồ án: Quản lý sinh viên Python",
-    "title": "Đồ án Quản lý sinh viên - Nhiệm vụ 9",
+    "title": "Lớp Sách (Book) và phương thức giảm giá",
     "difficulty": "Dễ",
-    "appliedKnowledge": "Tổng hợp toàn bộ kiến thức 12 chương: List of Dicts, Def, While Menu, Try-Except.",
-    "description": "Nhiệm vụ số 9 trong đồ án hoàn chỉnh Quản lý sinh viên Python: Xây dựng các hàm nghiệp vụ, kiểm tra dữ liệu, định dạng bảng hiển thị và lưu tệp.",
-    "inputDesc": "Lựa chọn menu và thông tin sinh viên.",
-    "outputDesc": "Thông báo trạng thái hoặc dữ liệu bảng sinh viên.",
-    "exampleIO": "Input: 1\nSV01\nAn\nOutput: DA THEM",
-    "hint": "Sử dụng Dictionary với các key ma, ten, tuoi, diem, hoc_luc.",
-    "sampleSolution": "print(\"DA XU LY NHIEM VU\")",
-    "initialCode": "# Đồ án Quản lý sinh viên - Nhiệm vụ 9\nprint(\"DA XU LY NHIEM VU\")\n",
+    "appliedKnowledge": "Lớp quản lý thông tin sản phẩm và tính toán giá trị.",
+    "description": "Xây dựng lớp `Book(title, author, price)`. Viết phương thức `discount(percent)` giảm giá cuốn sách theo tỷ lệ phần trăm (0 <= percent <= 100), cập nhật lại thuộc tính `price` (làm tròn số nguyên). Nhập tiêu đề, tác giả, giá ban đầu và % giảm giá trên 4 dòng. In ra: `<title> by <author> - Price: <price>`.",
+    "inputDesc": "Dòng 1: title. Dòng 2: author. Dòng 3: price (số nguyên). Dòng 4: percent (số thực).",
+    "outputDesc": "In thông tin sách sau khi giảm giá.",
+    "exampleIO": "Input:\nPython Basics\nJohn Doe\n200000\n20\nOutput:\nPython Basics by John Doe - Price: 160000",
+    "hint": "self.price = round(self.price * (1 - percent / 100)).",
+    "sampleSolution": "class Book:\n    def __init__(self, title, author, price):\n        self.title = title\n        self.author = author\n        self.price = price\n\n    def discount(self, percent):\n        self.price = round(self.price * (1 - percent / 100))\n\ntitle = input().strip()\nauthor = input().strip()\nprice = int(input())\npercent = float(input())\nb = Book(title, author, price)\nb.discount(percent)\nprint(f\"{b.title} by {b.author} - Price: {b.price}\")",
+    "initialCode": "class Book:\n    pass\n",
     "testCases": [
-      {
-        "input": "test",
-        "expectedOutput": "DA XU LY NHIEM VU",
-        "description": "Kiểm tra chức năng"
-      }
+      { "input": "Python Basics\nJohn Doe\n200000\n20", "expectedOutput": "Python Basics by John Doe - Price: 160000", "description": "Giảm 20% của 200k là 160k" },
+      { "input": "Clean Code\nRobert Martin\n350000\n10", "expectedOutput": "Clean Code by Robert Martin - Price: 315000", "description": "Giảm 10% của 350k là 315k" },
+      { "input": "Data Science\nJane Smith\n500000\n0", "expectedOutput": "Data Science by Jane Smith - Price: 500000", "description": "Giảm 0%" }
     ]
   },
   {
@@ -212,22 +194,20 @@ export const chapter13Exercises = [
     "code": "CH13_10",
     "chapterId": 13,
     "chapterName": "Đồ án: Quản lý sinh viên Python",
-    "title": "Đồ án Quản lý sinh viên - Nhiệm vụ 10",
-    "difficulty": "Dễ",
-    "appliedKnowledge": "Tổng hợp toàn bộ kiến thức 12 chương: List of Dicts, Def, While Menu, Try-Except.",
-    "description": "Nhiệm vụ số 10 trong đồ án hoàn chỉnh Quản lý sinh viên Python: Xây dựng các hàm nghiệp vụ, kiểm tra dữ liệu, định dạng bảng hiển thị và lưu tệp.",
-    "inputDesc": "Lựa chọn menu và thông tin sinh viên.",
-    "outputDesc": "Thông báo trạng thái hoặc dữ liệu bảng sinh viên.",
-    "exampleIO": "Input: 1\nSV01\nAn\nOutput: DA THEM",
-    "hint": "Sử dụng Dictionary với các key ma, ten, tuoi, diem, hoc_luc.",
-    "sampleSolution": "print(\"DA XU LY NHIEM VU\")",
-    "initialCode": "# Đồ án Quản lý sinh viên - Nhiệm vụ 10\nprint(\"DA XU LY NHIEM VU\")\n",
+    "title": "Kế thừa OOP (Inheritance: Person -> Student)",
+    "difficulty": "Trung bình",
+    "appliedKnowledge": "Kế thừa đơn, hàm super().__init__() kế thừa thuộc tính lớp cha.",
+    "description": "Tạo lớp cha `Person(name, age)`. Tạo lớp con `Student(name, age, student_id)` kế thừa từ `Person` bằng cách gọi `super().__init__(name, age)` và lưu thêm `student_id`. Viết phương thức `introduce()` trong `Student` trả về: `\"Toi la {name}, {age} tuoi, MSSV: {student_id}\"`. Nhập 3 thông tin và in lời giới thiệu.",
+    "inputDesc": "Dòng 1: name. Dòng 2: age. Dòng 3: student_id.",
+    "outputDesc": "Chuỗi giới thiệu.",
+    "exampleIO": "Input:\nHoang Nam\n20\nSV2026\nOutput:\nToi la Hoang Nam, 20 tuoi, MSSV: SV2026",
+    "hint": "class Student(Person): def __init__(self, name, age, s_id): super().__init__(name, age); self.student_id = s_id.",
+    "sampleSolution": "class Person:\n    def __init__(self, name, age):\n        self.name = name\n        self.age = age\n\nclass Student(Person):\n    def __init__(self, name, age, student_id):\n        super().__init__(name, age)\n        self.student_id = student_id\n\n    def introduce(self):\n        return f\"Toi la {self.name}, {self.age} tuoi, MSSV: {self.student_id}\"\n\nname = input().strip()\nage = int(input())\ns_id = input().strip()\nst = Student(name, age, s_id)\nprint(st.introduce())",
+    "initialCode": "class Person:\n    pass\n\nclass Student(Person):\n    pass\n",
     "testCases": [
-      {
-        "input": "test",
-        "expectedOutput": "DA XU LY NHIEM VU",
-        "description": "Kiểm tra chức năng"
-      }
+      { "input": "Hoang Nam\n20\nSV2026", "expectedOutput": "Toi la Hoang Nam, 20 tuoi, MSSV: SV2026", "description": "Kế thừa thuộc tính tên và tuổi" },
+      { "input": "Le Lan\n18\nK68-01", "expectedOutput": "Toi la Le Lan, 18 tuoi, MSSV: K68-01", "description": "Sinh viên K68" },
+      { "input": "Bob\n25\nGRAD99", "expectedOutput": "Toi la Bob, 25 tuoi, MSSV: GRAD99", "description": "Học viên cao học" }
     ]
   },
   {
@@ -235,22 +215,20 @@ export const chapter13Exercises = [
     "code": "CH13_11",
     "chapterId": 13,
     "chapterName": "Đồ án: Quản lý sinh viên Python",
-    "title": "Đồ án Quản lý sinh viên - Nhiệm vụ 11",
+    "title": "Tính đa hình (Polymorphism: Shape -> Circle, Square)",
     "difficulty": "Trung bình",
-    "appliedKnowledge": "Tổng hợp toàn bộ kiến thức 12 chương: List of Dicts, Def, While Menu, Try-Except.",
-    "description": "Nhiệm vụ số 11 trong đồ án hoàn chỉnh Quản lý sinh viên Python: Xây dựng các hàm nghiệp vụ, kiểm tra dữ liệu, định dạng bảng hiển thị và lưu tệp.",
-    "inputDesc": "Lựa chọn menu và thông tin sinh viên.",
-    "outputDesc": "Thông báo trạng thái hoặc dữ liệu bảng sinh viên.",
-    "exampleIO": "Input: 1\nSV01\nAn\nOutput: DA THEM",
-    "hint": "Sử dụng Dictionary với các key ma, ten, tuoi, diem, hoc_luc.",
-    "sampleSolution": "print(\"DA XU LY NHIEM VU\")",
-    "initialCode": "# Đồ án Quản lý sinh viên - Nhiệm vụ 11\nprint(\"DA XU LY NHIEM VU\")\n",
+    "appliedKnowledge": "Ghi đè phương thức (Method Overriding) và duyệt danh sách đa hình.",
+    "description": "Tạo lớp cha `Shape` có phương thức `area()`. Tạo lớp con `Circle(radius)` ghi đè `area()` tính diện tích hình tròn (pi = 3.14); tạo lớp con `Square(side)` ghi đè `area()` tính diện tích hình vuông. Nhập vào: Dòng 1 là bán kính hình tròn; Dòng 2 là cạnh hình vuông. Lưu cả 2 vào một danh sách `shapes`, duyệt danh sách và in diện tích từng hình làm tròn 2 chữ số thập phân trên 2 dòng.",
+    "inputDesc": "Dòng 1: bán kính r (số thực). Dòng 2: cạnh hình vuông s (số thực).",
+    "outputDesc": "2 dòng diện tích của hình tròn và hình vuông.",
+    "exampleIO": "Input:\n2\n4\nOutput:\n12.56\n16.00",
+    "hint": "shapes = [Circle(r), Square(s)]. for sh in shapes: print(f\"{sh.area():.2f}\").",
+    "sampleSolution": "class Shape:\n    def area(self):\n        pass\n\nclass Circle(Shape):\n    def __init__(self, r):\n        self.r = r\n    def area(self):\n        return 3.14 * (self.r ** 2)\n\nclass Square(Shape):\n    def __init__(self, s):\n        self.s = s\n    def area(self):\n        return self.s ** 2\n\nr = float(input())\ns = float(input())\nshapes = [Circle(r), Square(s)]\nfor sh in shapes:\n    print(f\"{sh.area():.2f}\")",
+    "initialCode": "class Shape:\n    pass\n\nclass Circle(Shape):\n    pass\n\nclass Square(Shape):\n    pass\n",
     "testCases": [
-      {
-        "input": "test",
-        "expectedOutput": "DA XU LY NHIEM VU",
-        "description": "Kiểm tra chức năng"
-      }
+      { "input": "2\n4", "expectedOutput": "12.56\n16.00", "description": "Circle r=2 -> 12.56, Square s=4 -> 16.00" },
+      { "input": "1\n5", "expectedOutput": "3.14\n25.00", "description": "Circle r=1 -> 3.14, Square s=5 -> 25.00" },
+      { "input": "3.5\n2.5", "expectedOutput": "38.47\n6.25", "description": "Số thực" }
     ]
   },
   {
@@ -258,22 +236,20 @@ export const chapter13Exercises = [
     "code": "CH13_12",
     "chapterId": 13,
     "chapterName": "Đồ án: Quản lý sinh viên Python",
-    "title": "Đồ án Quản lý sinh viên - Nhiệm vụ 12",
-    "difficulty": "Trung bình",
-    "appliedKnowledge": "Tổng hợp toàn bộ kiến thức 12 chương: List of Dicts, Def, While Menu, Try-Except.",
-    "description": "Nhiệm vụ số 12 trong đồ án hoàn chỉnh Quản lý sinh viên Python: Xây dựng các hàm nghiệp vụ, kiểm tra dữ liệu, định dạng bảng hiển thị và lưu tệp.",
-    "inputDesc": "Lựa chọn menu và thông tin sinh viên.",
-    "outputDesc": "Thông báo trạng thái hoặc dữ liệu bảng sinh viên.",
-    "exampleIO": "Input: 1\nSV01\nAn\nOutput: DA THEM",
-    "hint": "Sử dụng Dictionary với các key ma, ten, tuoi, diem, hoc_luc.",
-    "sampleSolution": "print(\"DA XU LY NHIEM VU\")",
-    "initialCode": "# Đồ án Quản lý sinh viên - Nhiệm vụ 12\nprint(\"DA XU LY NHIEM VU\")\n",
+    "title": "Đồ án QLSV - Chức năng Thêm sinh viên (Add Student)",
+    "difficulty": "Dễ",
+    "appliedKnowledge": "Lớp StudentManager quản lý danh sách các đối tượng Student.",
+    "description": "Xây dựng lớp `StudentManager` quản lý một danh sách sinh viên `students = []`. Viết phương thức `add_student(id, name, gpa)` để tạo sinh viên và thêm vào danh sách. Nhập vào số nguyên n. Tiếp theo n dòng, mỗi dòng chứa: `<id> <name> <gpa>`. Sau khi thêm hết, in ra: `Da them <n> sinh vien vao he thong`.",
+    "inputDesc": "Dòng 1: n. n dòng tiếp theo: id name gpa.",
+    "outputDesc": "Da them <n> sinh vien vao he thong",
+    "exampleIO": "Input:\n2\nSV01 An 8.5\nSV02 Binh 7.0\nOutput:\nDa them 2 sinh vien vao he thong",
+    "hint": "sm = StudentManager(); sm.add_student(...); print(f'Da them {len(sm.students)} sinh vien vao he thong').",
+    "sampleSolution": "class Student:\n    def __init__(self, id, name, gpa):\n        self.id = id\n        self.name = name\n        self.gpa = float(gpa)\n\nclass StudentManager:\n    def __init__(self):\n        self.students = []\n\n    def add_student(self, id, name, gpa):\n        self.students.append(Student(id, name, gpa))\n\nsm = StudentManager()\nn = int(input())\nfor _ in range(n):\n    parts = input().split()\n    sm.add_student(parts[0], parts[1], parts[2])\nprint(f\"Da them {len(sm.students)} sinh vien vao he thong\")",
+    "initialCode": "class StudentManager:\n    pass\n",
     "testCases": [
-      {
-        "input": "test",
-        "expectedOutput": "DA XU LY NHIEM VU",
-        "description": "Kiểm tra chức năng"
-      }
+      { "input": "2\nSV01 An 8.5\nSV02 Binh 7.0", "expectedOutput": "Da them 2 sinh vien vao he thong", "description": "Thêm 2 sinh viên" },
+      { "input": "1\nSV03 Cuong 9.0", "expectedOutput": "Da them 1 sinh vien vao he thong", "description": "Thêm 1 sinh viên" },
+      { "input": "3\nA1 Nam 8\nA2 Hoa 7\nA3 Mai 9", "expectedOutput": "Da them 3 sinh vien vao he thong", "description": "Thêm 3 sinh viên" }
     ]
   },
   {
@@ -281,22 +257,20 @@ export const chapter13Exercises = [
     "code": "CH13_13",
     "chapterId": 13,
     "chapterName": "Đồ án: Quản lý sinh viên Python",
-    "title": "Đồ án Quản lý sinh viên - Nhiệm vụ 13",
+    "title": "Đồ án QLSV - Tìm kiếm sinh viên theo ID (Find by ID)",
     "difficulty": "Trung bình",
-    "appliedKnowledge": "Tổng hợp toàn bộ kiến thức 12 chương: List of Dicts, Def, While Menu, Try-Except.",
-    "description": "Nhiệm vụ số 13 trong đồ án hoàn chỉnh Quản lý sinh viên Python: Xây dựng các hàm nghiệp vụ, kiểm tra dữ liệu, định dạng bảng hiển thị và lưu tệp.",
-    "inputDesc": "Lựa chọn menu và thông tin sinh viên.",
-    "outputDesc": "Thông báo trạng thái hoặc dữ liệu bảng sinh viên.",
-    "exampleIO": "Input: 1\nSV01\nAn\nOutput: DA THEM",
-    "hint": "Sử dụng Dictionary với các key ma, ten, tuoi, diem, hoc_luc.",
-    "sampleSolution": "print(\"DA XU LY NHIEM VU\")",
-    "initialCode": "# Đồ án Quản lý sinh viên - Nhiệm vụ 13\nprint(\"DA XU LY NHIEM VU\")\n",
+    "appliedKnowledge": "Tìm kiếm đối tượng trong danh sách theo thuộc tính id.",
+    "description": "Trong `StudentManager`, viết phương thức `find_by_id(target_id)`: nếu tìm thấy trả về chuỗi `\"Found: {name} - GPA: {gpa:.1f}\"`; nếu không thấy trả về `\"NOT FOUND\"`. Nhập vào: Dòng 1 là n. n dòng tiếp theo: `<id> <name> <gpa>`. Dòng cuối cùng: `<target_id>` cần tìm. In kết quả tìm kiếm.",
+    "inputDesc": "Dòng 1: n. n dòng: id name gpa. Dòng cuối: target_id.",
+    "outputDesc": "Thông tin sinh viên tìm thấy hoặc 'NOT FOUND'.",
+    "exampleIO": "Input:\n2\nSV01 An 8.5\nSV02 Binh 7.0\nSV02\nOutput:\nFound: Binh - GPA: 7.0",
+    "hint": "Duyệt st in self.students: if st.id == target_id: return ... return 'NOT FOUND'.",
+    "sampleSolution": "class Student:\n    def __init__(self, id, name, gpa):\n        self.id = id\n        self.name = name\n        self.gpa = float(gpa)\n\nclass StudentManager:\n    def __init__(self):\n        self.students = []\n\n    def add(self, st):\n        self.students.append(st)\n\n    def find_by_id(self, target_id):\n        for st in self.students:\n            if st.id == target_id:\n                return f\"Found: {st.name} - GPA: {st.gpa:.1f}\"\n        return \"NOT FOUND\"\n\nsm = StudentManager()\nn = int(input())\nfor _ in range(n):\n    parts = input().split()\n    sm.add(Student(parts[0], parts[1], parts[2]))\nquery = input().strip()\nprint(sm.find_by_id(query))",
+    "initialCode": "class StudentManager:\n    pass\n",
     "testCases": [
-      {
-        "input": "test",
-        "expectedOutput": "DA XU LY NHIEM VU",
-        "description": "Kiểm tra chức năng"
-      }
+      { "input": "2\nSV01 An 8.5\nSV02 Binh 7.0\nSV02", "expectedOutput": "Found: Binh - GPA: 7.0", "description": "Tìm thấy SV02" },
+      { "input": "2\nSV01 An 8.5\nSV02 Binh 7.0\nSV99", "expectedOutput": "NOT FOUND", "description": "Không tìm thấy SV99" },
+      { "input": "1\nB21 Dung 9.2\nB21", "expectedOutput": "Found: Dung - GPA: 9.2", "description": "Tìm thấy B21" }
     ]
   },
   {
@@ -304,22 +278,20 @@ export const chapter13Exercises = [
     "code": "CH13_14",
     "chapterId": 13,
     "chapterName": "Đồ án: Quản lý sinh viên Python",
-    "title": "Đồ án Quản lý sinh viên - Nhiệm vụ 14",
+    "title": "Đồ án QLSV - Tìm kiếm sinh viên theo Tên",
     "difficulty": "Trung bình",
-    "appliedKnowledge": "Tổng hợp toàn bộ kiến thức 12 chương: List of Dicts, Def, While Menu, Try-Except.",
-    "description": "Nhiệm vụ số 14 trong đồ án hoàn chỉnh Quản lý sinh viên Python: Xây dựng các hàm nghiệp vụ, kiểm tra dữ liệu, định dạng bảng hiển thị và lưu tệp.",
-    "inputDesc": "Lựa chọn menu và thông tin sinh viên.",
-    "outputDesc": "Thông báo trạng thái hoặc dữ liệu bảng sinh viên.",
-    "exampleIO": "Input: 1\nSV01\nAn\nOutput: DA THEM",
-    "hint": "Sử dụng Dictionary với các key ma, ten, tuoi, diem, hoc_luc.",
-    "sampleSolution": "print(\"DA XU LY NHIEM VU\")",
-    "initialCode": "# Đồ án Quản lý sinh viên - Nhiệm vụ 14\nprint(\"DA XU LY NHIEM VU\")\n",
+    "appliedKnowledge": "So sánh chuỗi không phân biệt hoa thường khi lọc danh sách đối tượng.",
+    "description": "Trong `StudentManager`, viết phương thức `find_by_name(keyword)` tìm tất cả các sinh viên có tên khớp với `keyword` (không phân biệt hoa thường). In mỗi sinh viên tìm thấy trên 1 dòng: `<id> <name> <gpa:.1f>`. Nếu không có ai, in 'NOT FOUND'.",
+    "inputDesc": "Dòng 1: n. n dòng: id name gpa. Dòng cuối: keyword.",
+    "outputDesc": "Các sinh viên tìm thấy hoặc 'NOT FOUND'.",
+    "exampleIO": "Input:\n3\nSV01 Nam 8.0\nSV02 Hoa 7.5\nSV03 nam 9.0\nnam\nOutput:\nSV01 Nam 8.0\nSV03 nam 9.0",
+    "hint": "if st.name.lower() == keyword.lower(): matches.append(st).",
+    "sampleSolution": "class Student:\n    def __init__(self, id, name, gpa):\n        self.id = id\n        self.name = name\n        self.gpa = float(gpa)\n\nn = int(input())\nstudents = []\nfor _ in range(n):\n    p = input().split()\n    students.append(Student(p[0], p[1], p[2]))\nkw = input().strip().lower()\nmatches = [st for st in students if st.name.lower() == kw]\nif matches:\n    for st in matches:\n        print(f\"{st.id} {st.name} {st.gpa:.1f}\")\nelse:\n    print('NOT FOUND')",
+    "initialCode": "# Tìm kiếm theo tên sinh viên\n",
     "testCases": [
-      {
-        "input": "test",
-        "expectedOutput": "DA XU LY NHIEM VU",
-        "description": "Kiểm tra chức năng"
-      }
+      { "input": "3\nSV01 Nam 8.0\nSV02 Hoa 7.5\nSV03 nam 9.0\nnam", "expectedOutput": "SV01 Nam 8.0\nSV03 nam 9.0", "description": "Tìm thấy 2 sinh viên tên Nam" },
+      { "input": "2\nSV01 Lan 8.0\nSV02 Huong 8.5\nDung", "expectedOutput": "NOT FOUND", "description": "Không tìm thấy tên Dung" },
+      { "input": "1\nA01 Alice 9.5\nalice", "expectedOutput": "A01 Alice 9.5", "description": "Tìm thấy Alice" }
     ]
   },
   {
@@ -327,22 +299,20 @@ export const chapter13Exercises = [
     "code": "CH13_15",
     "chapterId": 13,
     "chapterName": "Đồ án: Quản lý sinh viên Python",
-    "title": "Đồ án Quản lý sinh viên - Nhiệm vụ 15",
+    "title": "Đồ án QLSV - Cập nhật điểm GPA (Update GPA)",
     "difficulty": "Trung bình",
-    "appliedKnowledge": "Tổng hợp toàn bộ kiến thức 12 chương: List of Dicts, Def, While Menu, Try-Except.",
-    "description": "Nhiệm vụ số 15 trong đồ án hoàn chỉnh Quản lý sinh viên Python: Xây dựng các hàm nghiệp vụ, kiểm tra dữ liệu, định dạng bảng hiển thị và lưu tệp.",
-    "inputDesc": "Lựa chọn menu và thông tin sinh viên.",
-    "outputDesc": "Thông báo trạng thái hoặc dữ liệu bảng sinh viên.",
-    "exampleIO": "Input: 1\nSV01\nAn\nOutput: DA THEM",
-    "hint": "Sử dụng Dictionary với các key ma, ten, tuoi, diem, hoc_luc.",
-    "sampleSolution": "print(\"DA XU LY NHIEM VU\")",
-    "initialCode": "# Đồ án Quản lý sinh viên - Nhiệm vụ 15\nprint(\"DA XU LY NHIEM VU\")\n",
+    "appliedKnowledge": "Tìm kiếm và cập nhật thuộc tính đối tượng trong danh sách.",
+    "description": "Trong `StudentManager`, viết phương thức `update_gpa(target_id, new_gpa)`: nếu tìm thấy, cập nhật `st.gpa = new_gpa` và in ra `Updated: <id> new GPA <new_gpa:.1f>`; nếu không tìm thấy in 'NOT FOUND'.",
+    "inputDesc": "Dòng 1: n. n dòng tiếp: id name gpa. Dòng tiếp theo: target_id new_gpa.",
+    "outputDesc": "Thông báo cập nhật thành công hoặc 'NOT FOUND'.",
+    "exampleIO": "Input:\n2\nSV01 An 7.0\nSV02 Binh 8.0\nSV01 8.5\nOutput:\nUpdated: SV01 new GPA 8.5",
+    "hint": "Duyệt st in students: if st.id == target_id: st.gpa = float(new_gpa); return ...",
+    "sampleSolution": "class Student:\n    def __init__(self, id, name, gpa):\n        self.id = id\n        self.name = name\n        self.gpa = float(gpa)\n\nn = int(input())\nstudents = []\nfor _ in range(n):\n    p = input().split()\n    students.append(Student(p[0], p[1], p[2]))\ntid, ngpa = input().split()\nfound = False\nfor st in students:\n    if st.id == tid:\n        st.gpa = float(ngpa)\n        print(f\"Updated: {st.id} new GPA {st.gpa:.1f}\")\n        found = True\n        break\nif not found:\n    print('NOT FOUND')",
+    "initialCode": "# Cập nhật điểm sinh viên\n",
     "testCases": [
-      {
-        "input": "test",
-        "expectedOutput": "DA XU LY NHIEM VU",
-        "description": "Kiểm tra chức năng"
-      }
+      { "input": "2\nSV01 An 7.0\nSV02 Binh 8.0\nSV01 8.5", "expectedOutput": "Updated: SV01 new GPA 8.5", "description": "Cập nhật thành công cho SV01" },
+      { "input": "1\nSV01 An 7.0\nSV99 9.0", "expectedOutput": "NOT FOUND", "description": "Không tìm thấy SV99" },
+      { "input": "2\nA1 Tu 6.0\nA2 Vy 7.5\nA2 8.0", "expectedOutput": "Updated: A2 new GPA 8.0", "description": "Cập nhật cho A2" }
     ]
   },
   {
@@ -350,22 +320,20 @@ export const chapter13Exercises = [
     "code": "CH13_16",
     "chapterId": 13,
     "chapterName": "Đồ án: Quản lý sinh viên Python",
-    "title": "Đồ án Quản lý sinh viên - Nhiệm vụ 16",
+    "title": "Đồ án QLSV - Xóa sinh viên theo ID (Delete Student)",
     "difficulty": "Trung bình",
-    "appliedKnowledge": "Tổng hợp toàn bộ kiến thức 12 chương: List of Dicts, Def, While Menu, Try-Except.",
-    "description": "Nhiệm vụ số 16 trong đồ án hoàn chỉnh Quản lý sinh viên Python: Xây dựng các hàm nghiệp vụ, kiểm tra dữ liệu, định dạng bảng hiển thị và lưu tệp.",
-    "inputDesc": "Lựa chọn menu và thông tin sinh viên.",
-    "outputDesc": "Thông báo trạng thái hoặc dữ liệu bảng sinh viên.",
-    "exampleIO": "Input: 1\nSV01\nAn\nOutput: DA THEM",
-    "hint": "Sử dụng Dictionary với các key ma, ten, tuoi, diem, hoc_luc.",
-    "sampleSolution": "print(\"DA XU LY NHIEM VU\")",
-    "initialCode": "# Đồ án Quản lý sinh viên - Nhiệm vụ 16\nprint(\"DA XU LY NHIEM VU\")\n",
+    "appliedKnowledge": "Lọc xóa đối tượng khỏi danh sách list.remove() hoặc list comprehension.",
+    "description": "Trong `StudentManager`, viết phương thức `delete_student(target_id)`: nếu tìm thấy sinh viên có mã target_id, xóa khỏi danh sách và in `Deleted: <id>`. Nếu không tìm thấy, in 'NOT FOUND'. Cuối cùng in ra: `Remaining: <số sinh viên còn lại>`.",
+    "inputDesc": "Dòng 1: n. n dòng: id name gpa. Dòng cuối: target_id cần xóa.",
+    "outputDesc": "Dòng 1: Trạng thái xóa. Dòng 2: Remaining: <số lượng>.",
+    "exampleIO": "Input:\n3\nSV01 An 8.0\nSV02 Binh 7.5\nSV03 Cuong 9.0\nSV02\nOutput:\nDeleted: SV02\nRemaining: 2",
+    "hint": "Tìm index hoặc lọc danh sách. In Deleted nếu xóa được, ngược lại NOT FOUND.",
+    "sampleSolution": "n = int(input())\nstudents = [input().split() for _ in range(n)]\ntid = input().strip()\noriginal_len = len(students)\nstudents = [st for st in students if st[0] != tid]\nif len(students) < original_len:\n    print(f\"Deleted: {tid}\")\nelse:\n    print(\"NOT FOUND\")\nprint(f\"Remaining: {len(students)}\")",
+    "initialCode": "# Xóa sinh viên theo ID\n",
     "testCases": [
-      {
-        "input": "test",
-        "expectedOutput": "DA XU LY NHIEM VU",
-        "description": "Kiểm tra chức năng"
-      }
+      { "input": "3\nSV01 An 8.0\nSV02 Binh 7.5\nSV03 Cuong 9.0\nSV02", "expectedOutput": "Deleted: SV02\nRemaining: 2", "description": "Xóa thành công SV02" },
+      { "input": "2\nSV01 An 8.0\nSV02 Binh 7.5\nSV99", "expectedOutput": "NOT FOUND\nRemaining: 2", "description": "Không tìm thấy SV99 để xóa" },
+      { "input": "1\nSV01 An 8.0\nSV01", "expectedOutput": "Deleted: SV01\nRemaining: 0", "description": "Xóa hết sinh viên" }
     ]
   },
   {
@@ -373,22 +341,20 @@ export const chapter13Exercises = [
     "code": "CH13_17",
     "chapterId": 13,
     "chapterName": "Đồ án: Quản lý sinh viên Python",
-    "title": "Đồ án Quản lý sinh viên - Nhiệm vụ 17",
+    "title": "Đồ án QLSV - Thống kê số lượng theo học lực",
     "difficulty": "Trung bình",
-    "appliedKnowledge": "Tổng hợp toàn bộ kiến thức 12 chương: List of Dicts, Def, While Menu, Try-Except.",
-    "description": "Nhiệm vụ số 17 trong đồ án hoàn chỉnh Quản lý sinh viên Python: Xây dựng các hàm nghiệp vụ, kiểm tra dữ liệu, định dạng bảng hiển thị và lưu tệp.",
-    "inputDesc": "Lựa chọn menu và thông tin sinh viên.",
-    "outputDesc": "Thông báo trạng thái hoặc dữ liệu bảng sinh viên.",
-    "exampleIO": "Input: 1\nSV01\nAn\nOutput: DA THEM",
-    "hint": "Sử dụng Dictionary với các key ma, ten, tuoi, diem, hoc_luc.",
-    "sampleSolution": "print(\"DA XU LY NHIEM VU\")",
-    "initialCode": "# Đồ án Quản lý sinh viên - Nhiệm vụ 17\nprint(\"DA XU LY NHIEM VU\")\n",
+    "appliedKnowledge": "Phân loại và đếm số lượng đối tượng theo tiêu chí.",
+    "description": "Cho danh sách n sinh viên gồm id, name, gpa. Quy ước: Gioi (GPA >= 8.0), Kha (6.5 <= GPA < 8.0), Trung binh (GPA < 6.5). Hãy thống kê và in số lượng sinh viên theo từng loại theo định dạng: `Gioi: <số lượng> | Kha: <số lượng> | Trung binh: <số lượng>`.",
+    "inputDesc": "Dòng 1: n. n dòng tiếp theo: id name gpa.",
+    "outputDesc": "Gioi: ... | Kha: ... | Trung binh: ...",
+    "exampleIO": "Input:\n3\nSV01 An 8.5\nSV02 Binh 7.0\nSV03 Cuong 5.5\nOutput:\nGioi: 1 | Kha: 1 | Trung binh: 1",
+    "hint": "Khởi tạo 3 biến đếm gioi = 0, kha = 0, tb = 0. Duyệt qua từng sinh viên và tăng biến tương ứng.",
+    "sampleSolution": "n = int(input())\ngioi = kha = tb = 0\nfor _ in range(n):\n    p = input().split()\n    gpa = float(p[2])\n    if gpa >= 8.0:\n        gioi += 1\n    elif gpa >= 6.5:\n        kha += 1\n    else:\n        tb += 1\nprint(f\"Gioi: {gioi} | Kha: {kha} | Trung binh: {tb}\")",
+    "initialCode": "# Thống kê học lực sinh viên\n",
     "testCases": [
-      {
-        "input": "test",
-        "expectedOutput": "DA XU LY NHIEM VU",
-        "description": "Kiểm tra chức năng"
-      }
+      { "input": "3\nSV01 An 8.5\nSV02 Binh 7.0\nSV03 Cuong 5.5", "expectedOutput": "Gioi: 1 | Kha: 1 | Trung binh: 1", "description": "Mỗi loại 1 sinh viên" },
+      { "input": "2\nSV01 Mai 9.0\nSV02 Lan 8.2", "expectedOutput": "Gioi: 2 | Kha: 0 | Trung binh: 0", "description": "Cả 2 loại Giỏi" },
+      { "input": "2\nSV01 Minh 5.0\nSV02 Long 6.0", "expectedOutput": "Gioi: 0 | Kha: 0 | Trung binh: 2", "description": "Cả 2 loại Trung bình" }
     ]
   },
   {
@@ -396,22 +362,20 @@ export const chapter13Exercises = [
     "code": "CH13_18",
     "chapterId": 13,
     "chapterName": "Đồ án: Quản lý sinh viên Python",
-    "title": "Đồ án Quản lý sinh viên - Nhiệm vụ 18",
-    "difficulty": "Trung bình",
-    "appliedKnowledge": "Tổng hợp toàn bộ kiến thức 12 chương: List of Dicts, Def, While Menu, Try-Except.",
-    "description": "Nhiệm vụ số 18 trong đồ án hoàn chỉnh Quản lý sinh viên Python: Xây dựng các hàm nghiệp vụ, kiểm tra dữ liệu, định dạng bảng hiển thị và lưu tệp.",
-    "inputDesc": "Lựa chọn menu và thông tin sinh viên.",
-    "outputDesc": "Thông báo trạng thái hoặc dữ liệu bảng sinh viên.",
-    "exampleIO": "Input: 1\nSV01\nAn\nOutput: DA THEM",
-    "hint": "Sử dụng Dictionary với các key ma, ten, tuoi, diem, hoc_luc.",
-    "sampleSolution": "print(\"DA XU LY NHIEM VU\")",
-    "initialCode": "# Đồ án Quản lý sinh viên - Nhiệm vụ 18\nprint(\"DA XU LY NHIEM VU\")\n",
+    "title": "Đồ án QLSV - Tìm thủ khoa (Top GPA)",
+    "difficulty": "Dễ",
+    "appliedKnowledge": "Hàm max() với tham số key=lambda trên danh sách đối tượng.",
+    "description": "Nhập vào n sinh viên gồm id, name, gpa. Hãy tìm sinh viên có điểm GPA cao nhất (Thủ khoa) và in ra: `Valedictorian: <name> ({id}) with GPA: <gpa:.1f>`. Nếu có nhiều sinh viên cùng điểm cao nhất, lấy người xuất hiện đầu tiên.",
+    "inputDesc": "Dòng 1: n. n dòng: id name gpa.",
+    "outputDesc": "Thông tin thủ khoa.",
+    "exampleIO": "Input:\n3\nSV01 An 8.5\nSV02 Binh 9.2\nSV03 Cuong 7.8\nOutput:\nValedictorian: Binh (SV02) with GPA: 9.2",
+    "hint": "top = max(students, key=lambda s: s.gpa).",
+    "sampleSolution": "class Student:\n    def __init__(self, id, name, gpa):\n        self.id = id\n        self.name = name\n        self.gpa = float(gpa)\n\nn = int(input())\nstudents = []\nfor _ in range(n):\n    p = input().split()\n    students.append(Student(p[0], p[1], p[2]))\ntop = max(students, key=lambda s: s.gpa)\nprint(f\"Valedictorian: {top.name} ({top.id}) with GPA: {top.gpa:.1f}\")",
+    "initialCode": "# Tìm thủ khoa có điểm GPA cao nhất\n",
     "testCases": [
-      {
-        "input": "test",
-        "expectedOutput": "DA XU LY NHIEM VU",
-        "description": "Kiểm tra chức năng"
-      }
+      { "input": "3\nSV01 An 8.5\nSV02 Binh 9.2\nSV03 Cuong 7.8", "expectedOutput": "Valedictorian: Binh (SV02) with GPA: 9.2", "description": "Binh 9.2 cao nhất" },
+      { "input": "2\nSV01 Dung 10.0\nSV02 Linh 9.5", "expectedOutput": "Valedictorian: Dung (SV01) with GPA: 10.0", "description": "Dung 10.0 tuyệt đối" },
+      { "input": "1\nSV01 Nam 8.0", "expectedOutput": "Valedictorian: Nam (SV01) with GPA: 8.0", "description": "1 sinh viên duy nhất" }
     ]
   },
   {
@@ -419,22 +383,20 @@ export const chapter13Exercises = [
     "code": "CH13_19",
     "chapterId": 13,
     "chapterName": "Đồ án: Quản lý sinh viên Python",
-    "title": "Đồ án Quản lý sinh viên - Nhiệm vụ 19",
+    "title": "Đồ án QLSV - Sắp xếp theo GPA giảm dần",
     "difficulty": "Trung bình",
-    "appliedKnowledge": "Tổng hợp toàn bộ kiến thức 12 chương: List of Dicts, Def, While Menu, Try-Except.",
-    "description": "Nhiệm vụ số 19 trong đồ án hoàn chỉnh Quản lý sinh viên Python: Xây dựng các hàm nghiệp vụ, kiểm tra dữ liệu, định dạng bảng hiển thị và lưu tệp.",
-    "inputDesc": "Lựa chọn menu và thông tin sinh viên.",
-    "outputDesc": "Thông báo trạng thái hoặc dữ liệu bảng sinh viên.",
-    "exampleIO": "Input: 1\nSV01\nAn\nOutput: DA THEM",
-    "hint": "Sử dụng Dictionary với các key ma, ten, tuoi, diem, hoc_luc.",
-    "sampleSolution": "print(\"DA XU LY NHIEM VU\")",
-    "initialCode": "# Đồ án Quản lý sinh viên - Nhiệm vụ 19\nprint(\"DA XU LY NHIEM VU\")\n",
+    "appliedKnowledge": "Phương thức list.sort(key=lambda ..., reverse=True).",
+    "description": "Nhập vào n sinh viên (id, name, gpa). Hãy sắp xếp danh sách theo GPA giảm dần. Nếu bằng GPA, sắp xếp theo tên theo thứ tự từ điển A-Z. In mỗi sinh viên trên một dòng: `<id> <name> <gpa:.1f>`.",
+    "inputDesc": "Dòng 1: n. n dòng: id name gpa.",
+    "outputDesc": "Danh sách đã sắp xếp.",
+    "exampleIO": "Input:\n3\nSV01 An 8.0\nSV02 Binh 9.0\nSV03 Cuong 8.0\nOutput:\nSV02 Binh 9.0\nSV01 An 8.0\nSV03 Cuong 8.0",
+    "hint": "students.sort(key=lambda s: (-s[2], s[1])).",
+    "sampleSolution": "n = int(input())\nstudents = []\nfor _ in range(n):\n    p = input().split()\n    students.append((p[0], p[1], float(p[2])))\nstudents.sort(key=lambda s: (-s[2], s[1]))\nfor id, name, gpa in students:\n    print(f\"{id} {name} {gpa:.1f}\")",
+    "initialCode": "# Sắp xếp sinh viên theo GPA giảm dần\n",
     "testCases": [
-      {
-        "input": "test",
-        "expectedOutput": "DA XU LY NHIEM VU",
-        "description": "Kiểm tra chức năng"
-      }
+      { "input": "3\nSV01 An 8.0\nSV02 Binh 9.0\nSV03 Cuong 8.0", "expectedOutput": "SV02 Binh 9.0\nSV01 An 8.0\nSV03 Cuong 8.0", "description": "Binh 9.0 đứng đầu, An đứng trước Cuong do cùng 8.0" },
+      { "input": "2\nA1 Tu 7.0\nA2 Vy 8.5", "expectedOutput": "A2 Vy 8.5\nA1 Tu 7.0", "description": "Vy 8.5 đứng trước" },
+      { "input": "1\nB1 Hoa 10.0", "expectedOutput": "B1 Hoa 10.0", "description": "1 sinh viên" }
     ]
   },
   {
@@ -442,22 +404,20 @@ export const chapter13Exercises = [
     "code": "CH13_20",
     "chapterId": 13,
     "chapterName": "Đồ án: Quản lý sinh viên Python",
-    "title": "Đồ án Quản lý sinh viên - Nhiệm vụ 20",
-    "difficulty": "Trung bình",
-    "appliedKnowledge": "Tổng hợp toàn bộ kiến thức 12 chương: List of Dicts, Def, While Menu, Try-Except.",
-    "description": "Nhiệm vụ số 20 trong đồ án hoàn chỉnh Quản lý sinh viên Python: Xây dựng các hàm nghiệp vụ, kiểm tra dữ liệu, định dạng bảng hiển thị và lưu tệp.",
-    "inputDesc": "Lựa chọn menu và thông tin sinh viên.",
-    "outputDesc": "Thông báo trạng thái hoặc dữ liệu bảng sinh viên.",
-    "exampleIO": "Input: 1\nSV01\nAn\nOutput: DA THEM",
-    "hint": "Sử dụng Dictionary với các key ma, ten, tuoi, diem, hoc_luc.",
-    "sampleSolution": "print(\"DA XU LY NHIEM VU\")",
-    "initialCode": "# Đồ án Quản lý sinh viên - Nhiệm vụ 20\nprint(\"DA XU LY NHIEM VU\")\n",
+    "title": "Đồ án QLSV - Lọc danh sách nhận học bổng",
+    "difficulty": "Dễ",
+    "appliedKnowledge": "Lọc danh sách theo ngưỡng điều kiện gpa >= 8.0.",
+    "description": "Nhà trường trao học bổng cho các sinh viên có điểm GPA >= 8.0. Nhập vào n sinh viên (id, name, gpa). Hãy in ra danh sách các sinh viên được nhận học bổng: mỗi sinh viên trên một dòng: `Scholarship: <name> - GPA: <gpa:.1f>`. Nếu không có ai, in 'NO SCHOLARSHIP'.",
+    "inputDesc": "Dòng 1: n. n dòng: id name gpa.",
+    "outputDesc": "Danh sách nhận học bổng hoặc 'NO SCHOLARSHIP'.",
+    "exampleIO": "Input:\n3\nSV01 An 8.5\nSV02 Binh 7.5\nSV03 Cuong 8.0\nOutput:\nScholarship: An - GPA: 8.5\nScholarship: Cuong - GPA: 8.0",
+    "hint": "qualified = [s for s in students if s[2] >= 8.0].",
+    "sampleSolution": "n = int(input())\nstudents = []\nfor _ in range(n):\n    p = input().split()\n    students.append((p[0], p[1], float(p[2])))\nqualified = [s for s in students if s[2] >= 8.0]\nif qualified:\n    for s in qualified:\n        print(f\"Scholarship: {s[1]} - GPA: {s[2]:.1f}\")\nelse:\n    print('NO SCHOLARSHIP')",
+    "initialCode": "# Lọc sinh viên nhận học bổng GPA >= 8.0\n",
     "testCases": [
-      {
-        "input": "test",
-        "expectedOutput": "DA XU LY NHIEM VU",
-        "description": "Kiểm tra chức năng"
-      }
+      { "input": "3\nSV01 An 8.5\nSV02 Binh 7.5\nSV03 Cuong 8.0", "expectedOutput": "Scholarship: An - GPA: 8.5\nScholarship: Cuong - GPA: 8.0", "description": "An và Cuong nhận học bổng" },
+      { "input": "2\nSV01 Tam 7.0\nSV02 Lan 6.5", "expectedOutput": "NO SCHOLARSHIP", "description": "Không ai đủ điều kiện" },
+      { "input": "1\nA1 Khoa 9.5", "expectedOutput": "Scholarship: Khoa - GPA: 9.5", "description": "Khoa nhận học bổng" }
     ]
   },
   {
@@ -465,22 +425,20 @@ export const chapter13Exercises = [
     "code": "CH13_21",
     "chapterId": 13,
     "chapterName": "Đồ án: Quản lý sinh viên Python",
-    "title": "Đồ án Quản lý sinh viên - Nhiệm vụ 21",
-    "difficulty": "Khó",
-    "appliedKnowledge": "Tổng hợp toàn bộ kiến thức 12 chương: List of Dicts, Def, While Menu, Try-Except.",
-    "description": "Nhiệm vụ số 21 trong đồ án hoàn chỉnh Quản lý sinh viên Python: Xây dựng các hàm nghiệp vụ, kiểm tra dữ liệu, định dạng bảng hiển thị và lưu tệp.",
-    "inputDesc": "Lựa chọn menu và thông tin sinh viên.",
-    "outputDesc": "Thông báo trạng thái hoặc dữ liệu bảng sinh viên.",
-    "exampleIO": "Input: 1\nSV01\nAn\nOutput: DA THEM",
-    "hint": "Sử dụng Dictionary với các key ma, ten, tuoi, diem, hoc_luc.",
-    "sampleSolution": "print(\"DA XU LY NHIEM VU\")",
-    "initialCode": "# Đồ án Quản lý sinh viên - Nhiệm vụ 21\nprint(\"DA XU LY NHIEM VU\")\n",
+    "title": "Đồ án QLSV - Tính điểm trung bình chung của lớp",
+    "difficulty": "Dễ",
+    "appliedKnowledge": "Tổng hợp thống kê trung bình trên tập hợp đối tượng.",
+    "description": "Nhập vào n sinh viên (id, name, gpa). Hãy tính điểm trung bình chung GPA của cả lớp và đếm số lượng sinh viên có GPA trên mức trung bình chung đó. In: `Class Average: <avg:.2f> | Above Average: <count>`.",
+    "inputDesc": "Dòng 1: n. n dòng: id name gpa.",
+    "outputDesc": "Class Average: ... | Above Average: ...",
+    "exampleIO": "Input:\n4\nSV01 An 8.0\nSV02 Binh 6.0\nSV03 Cuong 9.0\nSV04 Dung 7.0\nOutput:\nClass Average: 7.50 | Above Average: 2",
+    "hint": "avg = sum(gpas) / n; above = sum(1 for g in gpas if g > avg).",
+    "sampleSolution": "n = int(input())\ngpas = []\nfor _ in range(n):\n    p = input().split()\n    gpas.append(float(p[2]))\navg = sum(gpas) / n\nabove = sum(1 for g in gpas if g > avg)\nprint(f\"Class Average: {avg:.2f} | Above Average: {above}\")",
+    "initialCode": "# Tính ĐTB lớp và số sinh viên trên chuẩn\n",
     "testCases": [
-      {
-        "input": "test",
-        "expectedOutput": "DA XU LY NHIEM VU",
-        "description": "Kiểm tra chức năng"
-      }
+      { "input": "4\nSV01 An 8.0\nSV02 Binh 6.0\nSV03 Cuong 9.0\nSV04 Dung 7.0", "expectedOutput": "Class Average: 7.50 | Above Average: 2", "description": "TB 7.50, có 2 người trên TB (8.0 và 9.0)" },
+      { "input": "2\nSV01 A 8.0\nSV02 B 8.0", "expectedOutput": "Class Average: 8.00 | Above Average: 0", "description": "Bằng TB, không ai trên TB" },
+      { "input": "1\nSV01 C 9.5", "expectedOutput": "Class Average: 9.50 | Above Average: 0", "description": "1 sinh viên" }
     ]
   },
   {
@@ -488,22 +446,20 @@ export const chapter13Exercises = [
     "code": "CH13_22",
     "chapterId": 13,
     "chapterName": "Đồ án: Quản lý sinh viên Python",
-    "title": "Đồ án Quản lý sinh viên - Nhiệm vụ 22",
-    "difficulty": "Khó",
-    "appliedKnowledge": "Tổng hợp toàn bộ kiến thức 12 chương: List of Dicts, Def, While Menu, Try-Except.",
-    "description": "Nhiệm vụ số 22 trong đồ án hoàn chỉnh Quản lý sinh viên Python: Xây dựng các hàm nghiệp vụ, kiểm tra dữ liệu, định dạng bảng hiển thị và lưu tệp.",
-    "inputDesc": "Lựa chọn menu và thông tin sinh viên.",
-    "outputDesc": "Thông báo trạng thái hoặc dữ liệu bảng sinh viên.",
-    "exampleIO": "Input: 1\nSV01\nAn\nOutput: DA THEM",
-    "hint": "Sử dụng Dictionary với các key ma, ten, tuoi, diem, hoc_luc.",
-    "sampleSolution": "print(\"DA XU LY NHIEM VU\")",
-    "initialCode": "# Đồ án Quản lý sinh viên - Nhiệm vụ 22\nprint(\"DA XU LY NHIEM VU\")\n",
+    "title": "Đồ án QLSV - Xuất danh sách sang định dạng CSV",
+    "difficulty": "Dễ",
+    "appliedKnowledge": "Định dạng xuất dữ liệu dạng bảng CSV với dòng tiêu đề header.",
+    "description": "Nhập vào n sinh viên (id, name, gpa). Hãy xuất toàn bộ dữ liệu ra màn hình theo chuẩn CSV: Dòng đầu tiên là header: `id,name,gpa`. n dòng tiếp theo là dữ liệu mỗi sinh viên ngăn cách bởi dấu phẩy, điểm gpa định dạng làm tròn 1 chữ số thập phân.",
+    "inputDesc": "Dòng 1: n. n dòng: id name gpa.",
+    "outputDesc": "Định dạng bảng CSV chuẩn.",
+    "exampleIO": "Input:\n2\nSV01 Nguyen_An 8.5\nSV02 Tran_Binh 7.0\nOutput:\nid,name,gpa\nSV01,Nguyen_An,8.5\nSV02,Tran_Binh,7.0",
+    "hint": "print('id,name,gpa'); for id, name, gpa in list: print(f\"{id},{name},{gpa:.1f}\").",
+    "sampleSolution": "n = int(input())\nprint(\"id,name,gpa\")\nfor _ in range(n):\n    p = input().split()\n    print(f\"{p[0]},{p[1]},{float(p[2]):.1f}\")",
+    "initialCode": "n = int(input())\n# Xuất định dạng CSV\n",
     "testCases": [
-      {
-        "input": "test",
-        "expectedOutput": "DA XU LY NHIEM VU",
-        "description": "Kiểm tra chức năng"
-      }
+      { "input": "2\nSV01 Nguyen_An 8.5\nSV02 Tran_Binh 7.0", "expectedOutput": "id,name,gpa\nSV01,Nguyen_An,8.5\nSV02,Tran_Binh,7.0", "description": "Xuất 2 sinh viên ra CSV" },
+      { "input": "1\nB21 Le_Hoa 9.2", "expectedOutput": "id,name,gpa\nB21,Le_Hoa,9.2", "description": "1 sinh viên" },
+      { "input": "3\n1 John 8\n2 Jack 7\n3 Jill 9", "expectedOutput": "id,name,gpa\n1,John,8.0\n2,Jack,7.0\n3,Jill,9.0", "description": "3 sinh viên quốc tế" }
     ]
   },
   {
@@ -511,22 +467,20 @@ export const chapter13Exercises = [
     "code": "CH13_23",
     "chapterId": 13,
     "chapterName": "Đồ án: Quản lý sinh viên Python",
-    "title": "Đồ án Quản lý sinh viên - Nhiệm vụ 23",
-    "difficulty": "Khó",
-    "appliedKnowledge": "Tổng hợp toàn bộ kiến thức 12 chương: List of Dicts, Def, While Menu, Try-Except.",
-    "description": "Nhiệm vụ số 23 trong đồ án hoàn chỉnh Quản lý sinh viên Python: Xây dựng các hàm nghiệp vụ, kiểm tra dữ liệu, định dạng bảng hiển thị và lưu tệp.",
-    "inputDesc": "Lựa chọn menu và thông tin sinh viên.",
-    "outputDesc": "Thông báo trạng thái hoặc dữ liệu bảng sinh viên.",
-    "exampleIO": "Input: 1\nSV01\nAn\nOutput: DA THEM",
-    "hint": "Sử dụng Dictionary với các key ma, ten, tuoi, diem, hoc_luc.",
-    "sampleSolution": "print(\"DA XU LY NHIEM VU\")",
-    "initialCode": "# Đồ án Quản lý sinh viên - Nhiệm vụ 23\nprint(\"DA XU LY NHIEM VU\")\n",
+    "title": "Đồ án QLSV - Nhập danh sách từ chuỗi JSON",
+    "difficulty": "Trung bình",
+    "appliedKnowledge": "json.loads() và khởi tạo danh sách đối tượng Student.",
+    "description": "Nhập vào một chuỗi JSON mảng chứa danh sách sinh viên: `[{\"id\": \"...\", \"name\": \"...\", \"gpa\": ...}, ...]`. Sử dụng module `json` để phân tích dữ liệu, sau đó in ra thông tin từng sinh viên theo định dạng: `[<id>] <name> - <gpa:.1f>`.",
+    "inputDesc": "Một dòng chuỗi JSON hợp lệ.",
+    "outputDesc": "Mỗi sinh viên một dòng định dạng [<id>] <name> - <gpa>.",
+    "exampleIO": "Input:\n[{\"id\": \"SV01\", \"name\": \"An\", \"gpa\": 8.5}, {\"id\": \"SV02\", \"name\": \"Binh\", \"gpa\": 7.0}]\nOutput:\n[SV01] An - 8.5\n[SV02] Binh - 7.0",
+    "hint": "import json; data = json.loads(input().strip()); for item in data: print(f\"[{item['id']}] {item['name']} - {item['gpa']:.1f}\").",
+    "sampleSolution": "import json\nline = input().strip()\ndata = json.loads(line)\nfor item in data:\n    print(f\"[{item['id']}] {item['name']} - {item['gpa']:.1f}\")",
+    "initialCode": "import json\n# Phân tích mảng JSON sinh viên\n",
     "testCases": [
-      {
-        "input": "test",
-        "expectedOutput": "DA XU LY NHIEM VU",
-        "description": "Kiểm tra chức năng"
-      }
+      { "input": "[{\"id\": \"SV01\", \"name\": \"An\", \"gpa\": 8.5}, {\"id\": \"SV02\", \"name\": \"Binh\", \"gpa\": 7.0}]", "expectedOutput": "[SV01] An - 8.5\n[SV02] Binh - 7.0", "description": "2 sinh viên JSON" },
+      { "input": "[{\"id\": \"B01\", \"name\": \"Cuong\", \"gpa\": 9.0}]", "expectedOutput": "[B01] Cuong - 9.0", "description": "1 sinh viên JSON" },
+      { "input": "[{\"id\": \"1\", \"name\": \"A\", \"gpa\": 6.5}, {\"id\": \"2\", \"name\": \"B\", \"gpa\": 8.0}, {\"id\": \"3\", \"name\": \"C\", \"gpa\": 10.0}]", "expectedOutput": "[1] A - 6.5\n[2] B - 8.0\n[3] C - 10.0", "description": "3 sinh viên JSON" }
     ]
   },
   {
@@ -534,22 +488,20 @@ export const chapter13Exercises = [
     "code": "CH13_24",
     "chapterId": 13,
     "chapterName": "Đồ án: Quản lý sinh viên Python",
-    "title": "Đồ án Quản lý sinh viên - Nhiệm vụ 24",
+    "title": "Đồ án QLSV - Xử lý Menu lệnh CLI (Command Loop)",
     "difficulty": "Khó",
-    "appliedKnowledge": "Tổng hợp toàn bộ kiến thức 12 chương: List of Dicts, Def, While Menu, Try-Except.",
-    "description": "Nhiệm vụ số 24 trong đồ án hoàn chỉnh Quản lý sinh viên Python: Xây dựng các hàm nghiệp vụ, kiểm tra dữ liệu, định dạng bảng hiển thị và lưu tệp.",
-    "inputDesc": "Lựa chọn menu và thông tin sinh viên.",
-    "outputDesc": "Thông báo trạng thái hoặc dữ liệu bảng sinh viên.",
-    "exampleIO": "Input: 1\nSV01\nAn\nOutput: DA THEM",
-    "hint": "Sử dụng Dictionary với các key ma, ten, tuoi, diem, hoc_luc.",
-    "sampleSolution": "print(\"DA XU LY NHIEM VU\")",
-    "initialCode": "# Đồ án Quản lý sinh viên - Nhiệm vụ 24\nprint(\"DA XU LY NHIEM VU\")\n",
+    "appliedKnowledge": "Mô hình xử lý dòng lệnh CLI tương tác: ADD, COUNT, FIND, EXIT.",
+    "description": "Xây dựng hệ thống tiếp nhận các lệnh quản lý sinh viên qua vòng lặp: Lệnh 'ADD <id> <name>' (thêm sinh viên, in 'ADDED <id>'); Lệnh 'COUNT' (in ra tổng số sinh viên hiện có); Lệnh 'FIND <id>' (in tên sinh viên nếu có, ngược lại in 'NOT FOUND'); Lệnh 'EXIT' (kết thúc vòng lặp, in 'GOODBYE').",
+    "inputDesc": "Các dòng lệnh cho đến khi gặp lệnh EXIT.",
+    "outputDesc": "Kết quả thực thi từng lệnh.",
+    "exampleIO": "Input:\nADD SV01 An\nADD SV02 Binh\nCOUNT\nFIND SV01\nFIND SV99\nEXIT\nOutput:\nADDED SV01\nADDED SV02\nTotal: 2\nFound: An\nNOT FOUND\nGOODBYE",
+    "hint": "Dùng dict students[id] = name. Dùng while True và tách cmd.split().",
+    "sampleSolution": "students = {}\nwhile True:\n    line = input().strip()\n    if not line:\n        continue\n    parts = line.split()\n    cmd = parts[0].upper()\n    if cmd == 'ADD':\n        s_id, s_name = parts[1], parts[2]\n        students[s_id] = s_name\n        print(f\"ADDED {s_id}\")\n    elif cmd == 'COUNT':\n        print(f\"Total: {len(students)}\")\n    elif cmd == 'FIND':\n        s_id = parts[1]\n        if s_id in students:\n            print(f\"Found: {students[s_id]}\")\n        else:\n            print(\"NOT FOUND\")\n    elif cmd == 'EXIT':\n        print(\"GOODBYE\")\n        break",
+    "initialCode": "# Vòng lặp lệnh CLI tương tác\n",
     "testCases": [
-      {
-        "input": "test",
-        "expectedOutput": "DA XU LY NHIEM VU",
-        "description": "Kiểm tra chức năng"
-      }
+      { "input": "ADD SV01 An\nADD SV02 Binh\nCOUNT\nFIND SV01\nFIND SV99\nEXIT", "expectedOutput": "ADDED SV01\nADDED SV02\nTotal: 2\nFound: An\nNOT FOUND\nGOODBYE", "description": "Các lệnh ADD, COUNT, FIND, EXIT" },
+      { "input": "COUNT\nEXIT", "expectedOutput": "Total: 0\nGOODBYE", "description": "Chưa có sinh viên nào" },
+      { "input": "ADD A1 Hoa\nFIND A1\nEXIT", "expectedOutput": "ADDED A1\nFound: Hoa\nGOODBYE", "description": "Thêm và tìm thành công" }
     ]
   },
   {
@@ -557,22 +509,20 @@ export const chapter13Exercises = [
     "code": "CH13_25",
     "chapterId": 13,
     "chapterName": "Đồ án: Quản lý sinh viên Python",
-    "title": "Đồ án Quản lý sinh viên - Nhiệm vụ 25",
+    "title": "Đồ án Hoàn chỉnh: Báo cáo tổng kết sinh viên toàn diện",
     "difficulty": "Khó",
-    "appliedKnowledge": "Tổng hợp toàn bộ kiến thức 12 chương: List of Dicts, Def, While Menu, Try-Except.",
-    "description": "Nhiệm vụ số 25 trong đồ án hoàn chỉnh Quản lý sinh viên Python: Xây dựng các hàm nghiệp vụ, kiểm tra dữ liệu, định dạng bảng hiển thị và lưu tệp.",
-    "inputDesc": "Lựa chọn menu và thông tin sinh viên.",
-    "outputDesc": "Thông báo trạng thái hoặc dữ liệu bảng sinh viên.",
-    "exampleIO": "Input: 1\nSV01\nAn\nOutput: DA THEM",
-    "hint": "Sử dụng Dictionary với các key ma, ten, tuoi, diem, hoc_luc.",
-    "sampleSolution": "print(\"DA XU LY NHIEM VU\")",
-    "initialCode": "# Đồ án Quản lý sinh viên - Nhiệm vụ 25\nprint(\"DA XU LY NHIEM VU\")\n",
+    "appliedKnowledge": "Tổng hợp toàn bộ kiến thức OOP, Danh sách, Thống kê, Xử lý chuỗi.",
+    "description": "Nhập vào số lượng n sinh viên (n > 0). n dòng tiếp theo mỗi dòng gồm: `<id> <name> <gpa>`. Hãy xuất bản báo cáo tổng kết hoàn chỉnh của lớp học:\n- Dòng 1: `Total Students: <n>`\n- Dòng 2: `Class Average GPA: <avg:.2f>`\n- Dòng 3: `Top Student: <name> ({id}) with {gpa:.1f}`\n- Dòng 4: `Honors Students (GPA >= 8.5): <danh sách tên cách nhau bởi dấu phẩy và dấu cách (ví dụ 'An, Cuong'), hoặc 'None' nếu không có ai>`.",
+    "inputDesc": "Dòng 1: n. n dòng: id name gpa.",
+    "outputDesc": "Báo cáo tổng kết 4 dòng.",
+    "exampleIO": "Input:\n3\nSV01 An 8.5\nSV02 Binh 7.0\nSV03 Cuong 9.0\nOutput:\nTotal Students: 3\nClass Average GPA: 8.17\nTop Student: Cuong (SV03) with 9.0\nHonors Students (GPA >= 8.5): An, Cuong",
+    "hint": "honors = [s.name for s in students if s.gpa >= 8.5]. In ', '.join(honors) if honors else 'None'.",
+    "sampleSolution": "class Student:\n    def __init__(self, id, name, gpa):\n        self.id = id\n        self.name = name\n        self.gpa = float(gpa)\n\nn = int(input())\nstudents = []\nfor _ in range(n):\n    p = input().split()\n    students.append(Student(p[0], p[1], p[2]))\n\navg_gpa = sum(s.gpa for s in students) / n\ntop_s = max(students, key=lambda s: s.gpa)\nhonors = [s.name for s in students if s.gpa >= 8.5]\nhonors_str = ', '.join(honors) if honors else 'None'\n\nprint(f\"Total Students: {n}\")\nprint(f\"Class Average GPA: {avg_gpa:.2f}\")\nprint(f\"Top Student: {top_s.name} ({top_s.id}) with {top_s.gpa:.1f}\")\nprint(f\"Honors Students (GPA >= 8.5): {honors_str}\")",
+    "initialCode": "# Báo cáo tổng kết toàn diện lớp học\n",
     "testCases": [
-      {
-        "input": "test",
-        "expectedOutput": "DA XU LY NHIEM VU",
-        "description": "Kiểm tra chức năng"
-      }
+      { "input": "3\nSV01 An 8.5\nSV02 Binh 7.0\nSV03 Cuong 9.0", "expectedOutput": "Total Students: 3\nClass Average GPA: 8.17\nTop Student: Cuong (SV03) with 9.0\nHonors Students (GPA >= 8.5): An, Cuong", "description": "Báo cáo đầy đủ 3 sinh viên có 2 học sinh xuất sắc" },
+      { "input": "2\nSV01 Tu 6.5\nSV02 Vy 7.5", "expectedOutput": "Total Students: 2\nClass Average GPA: 7.00\nTop Student: Vy (SV02) with 7.5\nHonors Students (GPA >= 8.5): None", "description": "Không có ai đạt Honors" },
+      { "input": "1\nA1 Khoa 10.0", "expectedOutput": "Total Students: 1\nClass Average GPA: 10.00\nTop Student: Khoa (A1) with 10.0\nHonors Students (GPA >= 8.5): Khoa", "description": "1 sinh viên đạt điểm tuyệt đối" }
     ]
   }
 ];

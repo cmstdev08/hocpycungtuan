@@ -79,11 +79,11 @@ export async function runPythonCode(code, options = {}) {
           const val = inputQueue.shift();
           return String(val);
         }
-        return '';
+        return null;
       }
       const userInput = window.prompt(options.inputPrompt || 'Nhập dữ liệu cho chương trình (input):', '');
       if (userInput === null) {
-        return '';
+        return null;
       }
       // Print the input to stdout so it looks like a real terminal
       stdoutBuffer.push(userInput + '\n');

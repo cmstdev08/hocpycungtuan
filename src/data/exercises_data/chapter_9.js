@@ -1,26 +1,24 @@
-// Danh sách bài tập Chương 9: Hàm (Function - def)
+// Danh sách bài tập Chương 9: Hàm (Function - def) (25 bài)
 export const chapter9Exercises = [
   {
     "id": 160,
     "code": "CH09_01",
     "chapterId": 9,
     "chapterName": "Hàm (Function - def)",
-    "title": "Hàm Function (def) 1",
+    "title": "Hàm tính bình phương và lập phương",
     "difficulty": "Dễ",
-    "appliedKnowledge": "def, return, tham số đối số, local/global scope.",
-    "description": "Xây dựng hàm tái sử dụng, tham số mặc định, kiểm tra logic số học và phân rã chương trình.",
-    "inputDesc": "Giá trị đầu vào để truyền vào hàm.",
-    "outputDesc": "Giá trị return của hàm được in ra.",
-    "exampleIO": "Input: 4\nOutput: 16",
-    "hint": "Định nghĩa hàm def tinh_binh_phuong(x): return x * x.",
-    "sampleSolution": "def tinh_binh_phuong(x):\n    return x * x\nx = int(input())\nprint(tinh_binh_phuong(x))",
-    "initialCode": "def tinh_binh_phuong(x):\n    pass\n",
+    "appliedKnowledge": "Định nghĩa hàm với từ khóa def và trả về nhiều giá trị (tuple).",
+    "description": "Viết hàm `square_and_cube(n)` nhận vào một số nguyên n, trả về hai giá trị: bình phương và lập phương của n. Nhập vào số nguyên n và in ra 2 kết quả cách nhau bởi dấu cách.",
+    "inputDesc": "Một dòng chứa số nguyên n.",
+    "outputDesc": "In ra: <n^2> <n^3>.",
+    "exampleIO": "Input:\n3\nOutput:\n9 27",
+    "hint": "def square_and_cube(n): return n**2, n**3.",
+    "sampleSolution": "def square_and_cube(n):\n    return n**2, n**3\n\nn = int(input())\nsq, cb = square_and_cube(n)\nprint(sq, cb)",
+    "initialCode": "def square_and_cube(n):\n    # Hoàn thành hàm trả về bình phương và lập phương\n    pass\n\nn = int(input())\n",
     "testCases": [
-      {
-        "input": "4",
-        "expectedOutput": "16",
-        "description": "Bình phương của 4 là 16"
-      }
+      { "input": "3", "expectedOutput": "9 27", "description": "Số 3 có bình phương 9, lập phương 27" },
+      { "input": "5", "expectedOutput": "25 125", "description": "Số 5 có bình phương 25, lập phương 125" },
+      { "input": "-2", "expectedOutput": "4 -8", "description": "Số âm -2" }
     ]
   },
   {
@@ -28,22 +26,20 @@ export const chapter9Exercises = [
     "code": "CH09_02",
     "chapterId": 9,
     "chapterName": "Hàm (Function - def)",
-    "title": "Hàm Function (def) 2",
+    "title": "Hàm tính giai thừa",
     "difficulty": "Dễ",
-    "appliedKnowledge": "def, return, tham số đối số, local/global scope.",
-    "description": "Xây dựng hàm tái sử dụng, tham số mặc định, kiểm tra logic số học và phân rã chương trình.",
-    "inputDesc": "Giá trị đầu vào để truyền vào hàm.",
-    "outputDesc": "Giá trị return của hàm được in ra.",
-    "exampleIO": "Input: 4\nOutput: 16",
-    "hint": "Định nghĩa hàm def tinh_binh_phuong(x): return x * x.",
-    "sampleSolution": "def tinh_binh_phuong(x):\n    return x * x\nx = int(input())\nprint(tinh_binh_phuong(x))",
-    "initialCode": "def tinh_binh_phuong(x):\n    pass\n",
+    "appliedKnowledge": "Vòng lặp tính tích trong hàm và trả về kết quả return.",
+    "description": "Viết hàm `factorial(n)` tính giai thừa của số tự nhiên n (với quy ước 0! = 1). Nhập n và in kết quả gọi hàm `factorial(n)`.",
+    "inputDesc": "Một số tự nhiên n (0 <= n <= 20).",
+    "outputDesc": "Giá trị n!.",
+    "exampleIO": "Input:\n5\nOutput:\n120",
+    "hint": "Khởi tạo res = 1, duyệt i từ 1 đến n, res *= i và return res.",
+    "sampleSolution": "def factorial(n):\n    res = 1\n    for i in range(1, n + 1):\n        res *= i\n    return res\n\nn = int(input())\nprint(factorial(n))",
+    "initialCode": "def factorial(n):\n    # Viết hàm tính n!\n    pass\n\nn = int(input())\n",
     "testCases": [
-      {
-        "input": "4",
-        "expectedOutput": "16",
-        "description": "Bình phương của 4 là 16"
-      }
+      { "input": "5", "expectedOutput": "120", "description": "5! = 120" },
+      { "input": "0", "expectedOutput": "1", "description": "0! = 1" },
+      { "input": "7", "expectedOutput": "5040", "description": "7! = 5040" }
     ]
   },
   {
@@ -51,22 +47,20 @@ export const chapter9Exercises = [
     "code": "CH09_03",
     "chapterId": 9,
     "chapterName": "Hàm (Function - def)",
-    "title": "Hàm Function (def) 3",
+    "title": "Hàm kiểm tra số nguyên tố",
     "difficulty": "Dễ",
-    "appliedKnowledge": "def, return, tham số đối số, local/global scope.",
-    "description": "Xây dựng hàm tái sử dụng, tham số mặc định, kiểm tra logic số học và phân rã chương trình.",
-    "inputDesc": "Giá trị đầu vào để truyền vào hàm.",
-    "outputDesc": "Giá trị return của hàm được in ra.",
-    "exampleIO": "Input: 4\nOutput: 16",
-    "hint": "Định nghĩa hàm def tinh_binh_phuong(x): return x * x.",
-    "sampleSolution": "def tinh_binh_phuong(x):\n    return x * x\nx = int(input())\nprint(tinh_binh_phuong(x))",
-    "initialCode": "def tinh_binh_phuong(x):\n    pass\n",
+    "appliedKnowledge": "Hàm trả về kiểu Boolean (True / False).",
+    "description": "Viết hàm `is_prime(n)` nhận vào số nguyên n. Hàm trả về `True` nếu n là số nguyên tố, ngược lại trả về `False`. Nhập n và in kết quả của hàm.",
+    "inputDesc": "Một số nguyên n.",
+    "outputDesc": "In ra 'True' hoặc 'False'.",
+    "exampleIO": "Input:\n7\nOutput:\nTrue",
+    "hint": "Số <= 1 không nguyên tố. Kiểm tra chia hết từ 2 đến sqrt(n).",
+    "sampleSolution": "def is_prime(n):\n    if n < 2:\n        return False\n    for i in range(2, int(n**0.5) + 1):\n        if n % i == 0:\n            return False\n    return True\n\nn = int(input())\nprint(is_prime(n))",
+    "initialCode": "def is_prime(n):\n    # Trả về True nếu n là số nguyên tố, ngược lại False\n    pass\n\nn = int(input())\n",
     "testCases": [
-      {
-        "input": "4",
-        "expectedOutput": "16",
-        "description": "Bình phương của 4 là 16"
-      }
+      { "input": "7", "expectedOutput": "True", "description": "7 là số nguyên tố" },
+      { "input": "4", "expectedOutput": "False", "description": "4 là hợp số" },
+      { "input": "1", "expectedOutput": "False", "description": "1 không là số nguyên tố" }
     ]
   },
   {
@@ -74,22 +68,20 @@ export const chapter9Exercises = [
     "code": "CH09_04",
     "chapterId": 9,
     "chapterName": "Hàm (Function - def)",
-    "title": "Hàm Function (def) 4",
+    "title": "Hàm tìm ước chung lớn nhất (GCD)",
     "difficulty": "Dễ",
-    "appliedKnowledge": "def, return, tham số đối số, local/global scope.",
-    "description": "Xây dựng hàm tái sử dụng, tham số mặc định, kiểm tra logic số học và phân rã chương trình.",
-    "inputDesc": "Giá trị đầu vào để truyền vào hàm.",
-    "outputDesc": "Giá trị return của hàm được in ra.",
-    "exampleIO": "Input: 4\nOutput: 16",
-    "hint": "Định nghĩa hàm def tinh_binh_phuong(x): return x * x.",
-    "sampleSolution": "def tinh_binh_phuong(x):\n    return x * x\nx = int(input())\nprint(tinh_binh_phuong(x))",
-    "initialCode": "def tinh_binh_phuong(x):\n    pass\n",
+    "appliedKnowledge": "Thuật toán Euclid tính GCD bên trong hàm.",
+    "description": "Viết hàm `gcd(a, b)` nhận vào hai số nguyên dương a và b, trả về ước số chung lớn nhất của chúng theo thuật toán Euclid. Nhập a và b trên 2 dòng và in kết quả.",
+    "inputDesc": "Dòng 1: số nguyên a. Dòng 2: số nguyên b.",
+    "outputDesc": "In ra gcd(a, b).",
+    "exampleIO": "Input:\n24\n36\nOutput:\n12",
+    "hint": "while b: a, b = b, a % b. Trả về a.",
+    "sampleSolution": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a\n\na = int(input())\nb = int(input())\nprint(gcd(a, b))",
+    "initialCode": "def gcd(a, b):\n    # Thuật toán Euclid\n    pass\n\na = int(input())\nb = int(input())\n",
     "testCases": [
-      {
-        "input": "4",
-        "expectedOutput": "16",
-        "description": "Bình phương của 4 là 16"
-      }
+      { "input": "24\n36", "expectedOutput": "12", "description": "GCD của 24 và 36 là 12" },
+      { "input": "17\n5", "expectedOutput": "1", "description": "Nguyên tố cùng nhau -> 1" },
+      { "input": "100\n25", "expectedOutput": "25", "description": "100 chia hết cho 25" }
     ]
   },
   {
@@ -97,22 +89,20 @@ export const chapter9Exercises = [
     "code": "CH09_05",
     "chapterId": 9,
     "chapterName": "Hàm (Function - def)",
-    "title": "Hàm Function (def) 5",
-    "difficulty": "Dễ",
-    "appliedKnowledge": "def, return, tham số đối số, local/global scope.",
-    "description": "Xây dựng hàm tái sử dụng, tham số mặc định, kiểm tra logic số học và phân rã chương trình.",
-    "inputDesc": "Giá trị đầu vào để truyền vào hàm.",
-    "outputDesc": "Giá trị return của hàm được in ra.",
-    "exampleIO": "Input: 4\nOutput: 16",
-    "hint": "Định nghĩa hàm def tinh_binh_phuong(x): return x * x.",
-    "sampleSolution": "def tinh_binh_phuong(x):\n    return x * x\nx = int(input())\nprint(tinh_binh_phuong(x))",
-    "initialCode": "def tinh_binh_phuong(x):\n    pass\n",
+    "title": "Hàm tính tiền cước taxi",
+    "difficulty": "Trung bình",
+    "appliedKnowledge": "Cấu trúc rẽ nhánh if-elif-else trong hàm tính cước phí dịch vụ.",
+    "description": "Viết hàm `taxi_fare(km)` tính cước taxi theo km: km đầu tiên giá 10000đ; từ km thứ 2 đến km thứ 10 giá 8500đ/km; từ km thứ 11 trở đi giá 7000đ/km. Nhập số km (số thực) và in số tiền cước (số nguyên làm tròn).",
+    "inputDesc": "Một số thực km (> 0).",
+    "outputDesc": "Số tiền cước (số nguyên).",
+    "exampleIO": "Input:\n5\nOutput:\n44000",
+    "hint": "Nếu km <= 1: 10000 * km. Nếu km <= 10: 10000 + (km - 1) * 8500. Ngược lại: 10000 + 9 * 8500 + (km - 10) * 7000.",
+    "sampleSolution": "def taxi_fare(km):\n    if km <= 1:\n        fare = km * 10000\n    elif km <= 10:\n        fare = 10000 + (km - 1) * 8500\n    else:\n        fare = 10000 + 9 * 8500 + (km - 10) * 7000\n    return round(fare)\n\nkm = float(input())\nprint(taxi_fare(km))",
+    "initialCode": "def taxi_fare(km):\n    # Tính tiền cước taxi\n    pass\n\nkm = float(input())\n",
     "testCases": [
-      {
-        "input": "4",
-        "expectedOutput": "16",
-        "description": "Bình phương của 4 là 16"
-      }
+      { "input": "5", "expectedOutput": "44000", "description": "10000 + 4 * 8500 = 44000" },
+      { "input": "1", "expectedOutput": "10000", "description": "1 km giá 10000" },
+      { "input": "12", "expectedOutput": "100500", "description": "10000 + 76500 + 2 * 7000 = 100500" }
     ]
   },
   {
@@ -120,22 +110,20 @@ export const chapter9Exercises = [
     "code": "CH09_06",
     "chapterId": 9,
     "chapterName": "Hàm (Function - def)",
-    "title": "Hàm Function (def) 6",
+    "title": "Hàm tính chu vi và diện tích hình tròn",
     "difficulty": "Dễ",
-    "appliedKnowledge": "def, return, tham số đối số, local/global scope.",
-    "description": "Xây dựng hàm tái sử dụng, tham số mặc định, kiểm tra logic số học và phân rã chương trình.",
-    "inputDesc": "Giá trị đầu vào để truyền vào hàm.",
-    "outputDesc": "Giá trị return của hàm được in ra.",
-    "exampleIO": "Input: 4\nOutput: 16",
-    "hint": "Định nghĩa hàm def tinh_binh_phuong(x): return x * x.",
-    "sampleSolution": "def tinh_binh_phuong(x):\n    return x * x\nx = int(input())\nprint(tinh_binh_phuong(x))",
-    "initialCode": "def tinh_binh_phuong(x):\n    pass\n",
+    "appliedKnowledge": "Hàm trả về tuple và định dạng số thực.",
+    "description": "Viết hàm `circle_calc(r)` nhận vào bán kính r (r > 0). Hàm trả về chu vi và diện tích hình tròn sử dụng hằng số pi = 3.14159. Nhập r và in chu vi, diện tích làm tròn 2 chữ số thập phân trên một dòng.",
+    "inputDesc": "Một số thực r.",
+    "outputDesc": "In ra: <chu vi> <diện tích> dạng x.xx.",
+    "exampleIO": "Input:\n2.5\nOutput:\n15.71 19.63",
+    "hint": "perimeter = 2 * 3.14159 * r; area = 3.14159 * r**2.",
+    "sampleSolution": "def circle_calc(r):\n    pi = 3.14159\n    return 2 * pi * r, pi * r**2\n\nr = float(input())\nperi, area = circle_calc(r)\nprint(f\"{peri:.2f} {area:.2f}\")",
+    "initialCode": "def circle_calc(r):\n    pass\n\nr = float(input())\n",
     "testCases": [
-      {
-        "input": "4",
-        "expectedOutput": "16",
-        "description": "Bình phương của 4 là 16"
-      }
+      { "input": "2.5", "expectedOutput": "15.71 19.63", "description": "Bán kính 2.5" },
+      { "input": "1", "expectedOutput": "6.28 3.14", "description": "Bán kính 1" },
+      { "input": "5.0", "expectedOutput": "31.42 78.54", "description": "Bán kính 5" }
     ]
   },
   {
@@ -143,22 +131,20 @@ export const chapter9Exercises = [
     "code": "CH09_07",
     "chapterId": 9,
     "chapterName": "Hàm (Function - def)",
-    "title": "Hàm Function (def) 7",
+    "title": "Hàm với tham số mặc định (Default Argument)",
     "difficulty": "Dễ",
-    "appliedKnowledge": "def, return, tham số đối số, local/global scope.",
-    "description": "Xây dựng hàm tái sử dụng, tham số mặc định, kiểm tra logic số học và phân rã chương trình.",
-    "inputDesc": "Giá trị đầu vào để truyền vào hàm.",
-    "outputDesc": "Giá trị return của hàm được in ra.",
-    "exampleIO": "Input: 4\nOutput: 16",
-    "hint": "Định nghĩa hàm def tinh_binh_phuong(x): return x * x.",
-    "sampleSolution": "def tinh_binh_phuong(x):\n    return x * x\nx = int(input())\nprint(tinh_binh_phuong(x))",
-    "initialCode": "def tinh_binh_phuong(x):\n    pass\n",
+    "appliedKnowledge": "Tham số mặc định trong Python def power(x, n=2).",
+    "description": "Viết hàm `power(x, n=2)` tính x lũy thừa n, trong đó n có giá trị mặc định là 2. Nhập vào dòng 1 là x, dòng 2 nếu có số n thì gọi power(x, n), nếu dòng 2 để trống hoặc nhập 'DEF' thì gọi power(x) sử dụng giá trị mặc định.",
+    "inputDesc": "Dòng 1: số thực x. Dòng 2: số nguyên n hoặc chuỗi 'DEF'.",
+    "outputDesc": "In ra kết quả của hàm.",
+    "exampleIO": "Input:\n4\nDEF\nOutput:\n16.0",
+    "hint": "def power(x, n=2): return x ** n.",
+    "sampleSolution": "def power(x, n=2):\n    return x ** n\n\nx = float(input())\nopt = input().strip()\nif opt == 'DEF' or opt == '':\n    res = power(x)\nelse:\n    res = power(x, int(opt))\nprint(f\"{res:.1f}\")",
+    "initialCode": "def power(x, n=2):\n    return x ** n\n",
     "testCases": [
-      {
-        "input": "4",
-        "expectedOutput": "16",
-        "description": "Bình phương của 4 là 16"
-      }
+      { "input": "4\nDEF", "expectedOutput": "16.0", "description": "Dùng mặc định n=2 -> 4^2 = 16" },
+      { "input": "2\n3", "expectedOutput": "8.0", "description": "Truyền n=3 -> 2^3 = 8" },
+      { "input": "5\n0", "expectedOutput": "1.0", "description": "Truyền n=0 -> 5^0 = 1" }
     ]
   },
   {
@@ -166,22 +152,20 @@ export const chapter9Exercises = [
     "code": "CH09_08",
     "chapterId": 9,
     "chapterName": "Hàm (Function - def)",
-    "title": "Hàm Function (def) 8",
+    "title": "Hàm đảo ngược chuỗi",
     "difficulty": "Dễ",
-    "appliedKnowledge": "def, return, tham số đối số, local/global scope.",
-    "description": "Xây dựng hàm tái sử dụng, tham số mặc định, kiểm tra logic số học và phân rã chương trình.",
-    "inputDesc": "Giá trị đầu vào để truyền vào hàm.",
-    "outputDesc": "Giá trị return của hàm được in ra.",
-    "exampleIO": "Input: 4\nOutput: 16",
-    "hint": "Định nghĩa hàm def tinh_binh_phuong(x): return x * x.",
-    "sampleSolution": "def tinh_binh_phuong(x):\n    return x * x\nx = int(input())\nprint(tinh_binh_phuong(x))",
-    "initialCode": "def tinh_binh_phuong(x):\n    pass\n",
+    "appliedKnowledge": "Viết hàm xử lý chuỗi và trả về giá trị return.",
+    "description": "Viết hàm `reverse_str(s)` nhận vào chuỗi s và trả về chuỗi đảo ngược của s. Nhập chuỗi s và in kết quả gọi hàm.",
+    "inputDesc": "Một chuỗi s.",
+    "outputDesc": "Chuỗi đảo ngược.",
+    "exampleIO": "Input:\nhello\nOutput:\nolleh",
+    "hint": "def reverse_str(s): return s[::-1].",
+    "sampleSolution": "def reverse_str(s):\n    return s[::-1]\n\ns = input()\nprint(reverse_str(s))",
+    "initialCode": "def reverse_str(s):\n    pass\n\ns = input()\n",
     "testCases": [
-      {
-        "input": "4",
-        "expectedOutput": "16",
-        "description": "Bình phương của 4 là 16"
-      }
+      { "input": "hello", "expectedOutput": "olleh", "description": "hello đảo thành olleh" },
+      { "input": "Python 3", "expectedOutput": "3 nohtyP", "description": "Python 3" },
+      { "input": "racecar", "expectedOutput": "racecar", "description": "racecar đối xứng" }
     ]
   },
   {
@@ -189,22 +173,20 @@ export const chapter9Exercises = [
     "code": "CH09_09",
     "chapterId": 9,
     "chapterName": "Hàm (Function - def)",
-    "title": "Hàm Function (def) 9",
+    "title": "Hàm đếm số từ trong câu",
     "difficulty": "Dễ",
-    "appliedKnowledge": "def, return, tham số đối số, local/global scope.",
-    "description": "Xây dựng hàm tái sử dụng, tham số mặc định, kiểm tra logic số học và phân rã chương trình.",
-    "inputDesc": "Giá trị đầu vào để truyền vào hàm.",
-    "outputDesc": "Giá trị return của hàm được in ra.",
-    "exampleIO": "Input: 4\nOutput: 16",
-    "hint": "Định nghĩa hàm def tinh_binh_phuong(x): return x * x.",
-    "sampleSolution": "def tinh_binh_phuong(x):\n    return x * x\nx = int(input())\nprint(tinh_binh_phuong(x))",
-    "initialCode": "def tinh_binh_phuong(x):\n    pass\n",
+    "appliedKnowledge": "len(text.split()) bên trong hàm.",
+    "description": "Viết hàm `count_words(text)` nhận vào một chuỗi văn bản text và trả về số lượng từ trong đoạn văn đó (các từ được phân cách bởi khoảng trắng). Nhập text và in kết quả.",
+    "inputDesc": "Một dòng văn bản.",
+    "outputDesc": "Số lượng từ (số nguyên).",
+    "exampleIO": "Input:\nHoc lap trinh Python rat thu vi\nOutput:\n7",
+    "hint": "def count_words(text): return len(text.split()).",
+    "sampleSolution": "def count_words(text):\n    return len(text.split())\n\ntext = input()\nprint(count_words(text))",
+    "initialCode": "def count_words(text):\n    pass\n\ntext = input()\n",
     "testCases": [
-      {
-        "input": "4",
-        "expectedOutput": "16",
-        "description": "Bình phương của 4 là 16"
-      }
+      { "input": "Hoc lap trinh Python rat thu vi", "expectedOutput": "7", "description": "7 từ" },
+      { "input": "   One   Two   Three   ", "expectedOutput": "3", "description": "3 từ có khoảng trắng thừa" },
+      { "input": "SingleWord", "expectedOutput": "1", "description": "1 từ duy nhất" }
     ]
   },
   {
@@ -212,22 +194,20 @@ export const chapter9Exercises = [
     "code": "CH09_10",
     "chapterId": 9,
     "chapterName": "Hàm (Function - def)",
-    "title": "Hàm Function (def) 10",
+    "title": "Hàm kiểm tra năm nhuận",
     "difficulty": "Dễ",
-    "appliedKnowledge": "def, return, tham số đối số, local/global scope.",
-    "description": "Xây dựng hàm tái sử dụng, tham số mặc định, kiểm tra logic số học và phân rã chương trình.",
-    "inputDesc": "Giá trị đầu vào để truyền vào hàm.",
-    "outputDesc": "Giá trị return của hàm được in ra.",
-    "exampleIO": "Input: 4\nOutput: 16",
-    "hint": "Định nghĩa hàm def tinh_binh_phuong(x): return x * x.",
-    "sampleSolution": "def tinh_binh_phuong(x):\n    return x * x\nx = int(input())\nprint(tinh_binh_phuong(x))",
-    "initialCode": "def tinh_binh_phuong(x):\n    pass\n",
+    "appliedKnowledge": "Logic kiểm tra năm nhuận trong hàm trả về boolean.",
+    "description": "Viết hàm `is_leap_year(year)` trả về `True` nếu year là năm nhuận theo lịch Gregory (chia hết cho 400 hoặc chia hết cho 4 nhưng không chia hết cho 100), ngược lại trả về `False`. Nhập year và in kết quả.",
+    "inputDesc": "Một số nguyên dương year.",
+    "outputDesc": "In 'True' hoặc 'False'.",
+    "exampleIO": "Input:\n2024\nOutput:\nTrue",
+    "hint": "return (year % 400 == 0) or (year % 4 == 0 and year % 100 != 0).",
+    "sampleSolution": "def is_leap_year(year):\n    return (year % 400 == 0) or (year % 4 == 0 and year % 100 != 0)\n\nyear = int(input())\nprint(is_leap_year(year))",
+    "initialCode": "def is_leap_year(year):\n    pass\n\nyear = int(input())\n",
     "testCases": [
-      {
-        "input": "4",
-        "expectedOutput": "16",
-        "description": "Bình phương của 4 là 16"
-      }
+      { "input": "2024", "expectedOutput": "True", "description": "2024 là năm nhuận" },
+      { "input": "1900", "expectedOutput": "False", "description": "1900 không nhuận" },
+      { "input": "2000", "expectedOutput": "True", "description": "2000 là năm nhuận tròn thế kỷ" }
     ]
   },
   {
@@ -235,22 +215,20 @@ export const chapter9Exercises = [
     "code": "CH09_11",
     "chapterId": 9,
     "chapterName": "Hàm (Function - def)",
-    "title": "Hàm Function (def) 11",
-    "difficulty": "Trung bình",
-    "appliedKnowledge": "def, return, tham số đối số, local/global scope.",
-    "description": "Xây dựng hàm tái sử dụng, tham số mặc định, kiểm tra logic số học và phân rã chương trình.",
-    "inputDesc": "Giá trị đầu vào để truyền vào hàm.",
-    "outputDesc": "Giá trị return của hàm được in ra.",
-    "exampleIO": "Input: 4\nOutput: 16",
-    "hint": "Định nghĩa hàm def tinh_binh_phuong(x): return x * x.",
-    "sampleSolution": "def tinh_binh_phuong(x):\n    return x * x\nx = int(input())\nprint(tinh_binh_phuong(x))",
-    "initialCode": "def tinh_binh_phuong(x):\n    pass\n",
+    "title": "Hàm tính tổng các chữ số",
+    "difficulty": "Dễ",
+    "appliedKnowledge": "Trích xuất chữ số hoặc duyệt chuỗi ký tự trong hàm.",
+    "description": "Viết hàm `sum_digits(n)` nhận vào số nguyên n (có thể âm) và trả về tổng các chữ số của |n|. Nhập n và in kết quả gọi hàm.",
+    "inputDesc": "Một số nguyên n.",
+    "outputDesc": "Tổng các chữ số.",
+    "exampleIO": "Input:\n-1234\nOutput:\n10",
+    "hint": "def sum_digits(n): return sum(int(c) for c in str(abs(n))).",
+    "sampleSolution": "def sum_digits(n):\n    return sum(int(c) for c in str(abs(n)))\n\nn = int(input())\nprint(sum_digits(n))",
+    "initialCode": "def sum_digits(n):\n    pass\n\nn = int(input())\n",
     "testCases": [
-      {
-        "input": "4",
-        "expectedOutput": "16",
-        "description": "Bình phương của 4 là 16"
-      }
+      { "input": "-1234", "expectedOutput": "10", "description": "1+2+3+4 = 10" },
+      { "input": "905", "expectedOutput": "14", "description": "9+0+5 = 14" },
+      { "input": "0", "expectedOutput": "0", "description": "Chữ số 0" }
     ]
   },
   {
@@ -258,22 +236,20 @@ export const chapter9Exercises = [
     "code": "CH09_12",
     "chapterId": 9,
     "chapterName": "Hàm (Function - def)",
-    "title": "Hàm Function (def) 12",
-    "difficulty": "Trung bình",
-    "appliedKnowledge": "def, return, tham số đối số, local/global scope.",
-    "description": "Xây dựng hàm tái sử dụng, tham số mặc định, kiểm tra logic số học và phân rã chương trình.",
-    "inputDesc": "Giá trị đầu vào để truyền vào hàm.",
-    "outputDesc": "Giá trị return của hàm được in ra.",
-    "exampleIO": "Input: 4\nOutput: 16",
-    "hint": "Định nghĩa hàm def tinh_binh_phuong(x): return x * x.",
-    "sampleSolution": "def tinh_binh_phuong(x):\n    return x * x\nx = int(input())\nprint(tinh_binh_phuong(x))",
-    "initialCode": "def tinh_binh_phuong(x):\n    pass\n",
+    "title": "Hàm chuyển đổi nhiệt độ Celsius sang Fahrenheit",
+    "difficulty": "Dễ",
+    "appliedKnowledge": "Công thức chuyển đổi F = C * 1.8 + 32.",
+    "description": "Viết hàm `c_to_f(c)` nhận vào nhiệt độ C (số thực) và trả về nhiệt độ F tương ứng. Nhập C và in kết quả làm tròn 1 chữ số thập phân.",
+    "inputDesc": "Một số thực C.",
+    "outputDesc": "Nhiệt độ F dạng x.x.",
+    "exampleIO": "Input:\n25\nOutput:\n77.0",
+    "hint": "return c * 1.8 + 32.",
+    "sampleSolution": "def c_to_f(c):\n    return c * 1.8 + 32\n\nc = float(input())\nprint(f\"{c_to_f(c):.1f}\")",
+    "initialCode": "def c_to_f(c):\n    pass\n\nc = float(input())\n",
     "testCases": [
-      {
-        "input": "4",
-        "expectedOutput": "16",
-        "description": "Bình phương của 4 là 16"
-      }
+      { "input": "25", "expectedOutput": "77.0", "description": "25 độ C -> 77 độ F" },
+      { "input": "0", "expectedOutput": "32.0", "description": "0 độ C -> 32 độ F" },
+      { "input": "-40", "expectedOutput": "-40.0", "description": "-40 độ C -> -40 độ F" }
     ]
   },
   {
@@ -281,22 +257,20 @@ export const chapter9Exercises = [
     "code": "CH09_13",
     "chapterId": 9,
     "chapterName": "Hàm (Function - def)",
-    "title": "Hàm Function (def) 13",
+    "title": "Hàm nhận số lượng đối số tùy biến (*args)",
     "difficulty": "Trung bình",
-    "appliedKnowledge": "def, return, tham số đối số, local/global scope.",
-    "description": "Xây dựng hàm tái sử dụng, tham số mặc định, kiểm tra logic số học và phân rã chương trình.",
-    "inputDesc": "Giá trị đầu vào để truyền vào hàm.",
-    "outputDesc": "Giá trị return của hàm được in ra.",
-    "exampleIO": "Input: 4\nOutput: 16",
-    "hint": "Định nghĩa hàm def tinh_binh_phuong(x): return x * x.",
-    "sampleSolution": "def tinh_binh_phuong(x):\n    return x * x\nx = int(input())\nprint(tinh_binh_phuong(x))",
-    "initialCode": "def tinh_binh_phuong(x):\n    pass\n",
+    "appliedKnowledge": "Cú pháp *args để nhận danh sách tham số có độ dài bất kỳ.",
+    "description": "Viết hàm `sum_all(*args)` nhận vào số lượng đối số nguyên tùy ý và trả về tổng của tất cả các đối số đó. Nhập vào một danh sách các số trên một dòng, truyền vào hàm bằng cách giải nén `*nums` và in tổng.",
+    "inputDesc": "Một dòng chứa các số nguyên cách nhau bởi dấu cách.",
+    "outputDesc": "Tổng các số.",
+    "exampleIO": "Input:\n1 2 3 4 5\nOutput:\n15",
+    "hint": "def sum_all(*args): return sum(args). Gọi sum_all(*nums).",
+    "sampleSolution": "def sum_all(*args):\n    return sum(args)\n\nnums = [int(x) for x in input().split()]\nprint(sum_all(*nums))",
+    "initialCode": "def sum_all(*args):\n    pass\n\nnums = [int(x) for x in input().split()]\n",
     "testCases": [
-      {
-        "input": "4",
-        "expectedOutput": "16",
-        "description": "Bình phương của 4 là 16"
-      }
+      { "input": "1 2 3 4 5", "expectedOutput": "15", "description": "Tổng 5 số" },
+      { "input": "10 -5 20", "expectedOutput": "25", "description": "Tổng 3 số có âm" },
+      { "input": "100", "expectedOutput": "100", "description": "1 số" }
     ]
   },
   {
@@ -304,22 +278,20 @@ export const chapter9Exercises = [
     "code": "CH09_14",
     "chapterId": 9,
     "chapterName": "Hàm (Function - def)",
-    "title": "Hàm Function (def) 14",
+    "title": "Hàm tìm số lớn nhất qua *args",
     "difficulty": "Trung bình",
-    "appliedKnowledge": "def, return, tham số đối số, local/global scope.",
-    "description": "Xây dựng hàm tái sử dụng, tham số mặc định, kiểm tra logic số học và phân rã chương trình.",
-    "inputDesc": "Giá trị đầu vào để truyền vào hàm.",
-    "outputDesc": "Giá trị return của hàm được in ra.",
-    "exampleIO": "Input: 4\nOutput: 16",
-    "hint": "Định nghĩa hàm def tinh_binh_phuong(x): return x * x.",
-    "sampleSolution": "def tinh_binh_phuong(x):\n    return x * x\nx = int(input())\nprint(tinh_binh_phuong(x))",
-    "initialCode": "def tinh_binh_phuong(x):\n    pass\n",
+    "appliedKnowledge": "*args và hàm max() có điều kiện.",
+    "description": "Viết hàm `max_of_all(*args)` nhận vào số lượng số nguyên tùy ý và trả về giá trị lớn nhất trong các số đó. Nếu không có đối số nào truyền vào, trả về None. Nhập một dòng danh sách các số và in số lớn nhất.",
+    "inputDesc": "Một dòng chứa các số nguyên cách nhau bởi dấu cách.",
+    "outputDesc": "Số lớn nhất.",
+    "exampleIO": "Input:\n8 12 3 45 19\nOutput:\n45",
+    "hint": "def max_of_all(*args): return max(args) if args else None.",
+    "sampleSolution": "def max_of_all(*args):\n    return max(args) if args else None\n\nnums = [int(x) for x in input().split()]\nprint(max_of_all(*nums))",
+    "initialCode": "def max_of_all(*args):\n    pass\n\nnums = [int(x) for x in input().split()]\n",
     "testCases": [
-      {
-        "input": "4",
-        "expectedOutput": "16",
-        "description": "Bình phương của 4 là 16"
-      }
+      { "input": "8 12 3 45 19", "expectedOutput": "45", "description": "Max là 45" },
+      { "input": "-10 -2 -50", "expectedOutput": "-2", "description": "Max của các số âm là -2" },
+      { "input": "7", "expectedOutput": "7", "description": "1 số duy nhất" }
     ]
   },
   {
@@ -327,22 +299,20 @@ export const chapter9Exercises = [
     "code": "CH09_15",
     "chapterId": 9,
     "chapterName": "Hàm (Function - def)",
-    "title": "Hàm Function (def) 15",
+    "title": "Hàm giải phương trình bậc nhất",
     "difficulty": "Trung bình",
-    "appliedKnowledge": "def, return, tham số đối số, local/global scope.",
-    "description": "Xây dựng hàm tái sử dụng, tham số mặc định, kiểm tra logic số học và phân rã chương trình.",
-    "inputDesc": "Giá trị đầu vào để truyền vào hàm.",
-    "outputDesc": "Giá trị return của hàm được in ra.",
-    "exampleIO": "Input: 4\nOutput: 16",
-    "hint": "Định nghĩa hàm def tinh_binh_phuong(x): return x * x.",
-    "sampleSolution": "def tinh_binh_phuong(x):\n    return x * x\nx = int(input())\nprint(tinh_binh_phuong(x))",
-    "initialCode": "def tinh_binh_phuong(x):\n    pass\n",
+    "appliedKnowledge": "Biện luận nghiệm ax + b = 0 trong hàm.",
+    "description": "Viết hàm `solve_linear(a, b)` giải phương trình bậc nhất ax + b = 0. Hàm trả về chuỗi: 'VO SO NGHIEM' (nếu a=0, b=0), 'VO NGHIEM' (nếu a=0, b!=0), hoặc chuỗi nghiệm 'x = <giá trị làm tròn 2 chữ số thập phân>'. Nhập a và b trên 2 dòng và in kết quả.",
+    "inputDesc": "Dòng 1: hệ số a. Dòng 2: hệ số b.",
+    "outputDesc": "Kết quả chuỗi nghiệm.",
+    "exampleIO": "Input:\n2\n-4\nOutput:\nx = 2.00",
+    "hint": "Nếu a == 0: return 'VO SO NGHIEM' if b == 0 else 'VO NGHIEM'. Ngược lại: return f'x = {-b/a:.2f}'.",
+    "sampleSolution": "def solve_linear(a, b):\n    if a == 0:\n        return 'VO SO NGHIEM' if b == 0 else 'VO NGHIEM'\n    return f\"x = {-b/a:.2f}\"\n\na = float(input())\nb = float(input())\nprint(solve_linear(a, b))",
+    "initialCode": "def solve_linear(a, b):\n    pass\n\na = float(input())\nb = float(input())\n",
     "testCases": [
-      {
-        "input": "4",
-        "expectedOutput": "16",
-        "description": "Bình phương của 4 là 16"
-      }
+      { "input": "2\n-4", "expectedOutput": "x = 2.00", "description": "2x - 4 = 0 -> x = 2" },
+      { "input": "0\n5", "expectedOutput": "VO NGHIEM", "description": "0x + 5 = 0" },
+      { "input": "0\n0", "expectedOutput": "VO SO NGHIEM", "description": "0x + 0 = 0" }
     ]
   },
   {
@@ -350,22 +320,20 @@ export const chapter9Exercises = [
     "code": "CH09_16",
     "chapterId": 9,
     "chapterName": "Hàm (Function - def)",
-    "title": "Hàm Function (def) 16",
+    "title": "Hàm tính chỉ số BMI và đánh giá",
     "difficulty": "Trung bình",
-    "appliedKnowledge": "def, return, tham số đối số, local/global scope.",
-    "description": "Xây dựng hàm tái sử dụng, tham số mặc định, kiểm tra logic số học và phân rã chương trình.",
-    "inputDesc": "Giá trị đầu vào để truyền vào hàm.",
-    "outputDesc": "Giá trị return của hàm được in ra.",
-    "exampleIO": "Input: 4\nOutput: 16",
-    "hint": "Định nghĩa hàm def tinh_binh_phuong(x): return x * x.",
-    "sampleSolution": "def tinh_binh_phuong(x):\n    return x * x\nx = int(input())\nprint(tinh_binh_phuong(x))",
-    "initialCode": "def tinh_binh_phuong(x):\n    pass\n",
+    "appliedKnowledge": "Hàm phân loại giá trị nhiều ngưỡng.",
+    "description": "Viết hàm `bmi_status(weight, height)` (cân nặng kg, chiều cao m). Hàm trả về tuple: (chỉ số BMI làm tròn 1 chữ số, phân loại). Tiêu chuẩn: BMI < 18.5: 'Gay'; 18.5 <= BMI < 25: 'Binh thuong'; 25 <= BMI < 30: 'Thua can'; BMI >= 30: 'Beo phi'. Nhập weight và height trên 2 dòng và in kết quả cách nhau bởi dấu cách.",
+    "inputDesc": "Dòng 1: Cân nặng kg. Dòng 2: Chiều cao m.",
+    "outputDesc": "In ra: <BMI> <Phân loại>.",
+    "exampleIO": "Input:\n65\n1.7\nOutput:\n22.5 Binh thuong",
+    "hint": "bmi = weight / (height**2). So sánh các mốc và return f'{bmi:.1f}', status.",
+    "sampleSolution": "def bmi_status(weight, height):\n    bmi = weight / (height ** 2)\n    if bmi < 18.5:\n        st = 'Gay'\n    elif bmi < 25:\n        st = 'Binh thuong'\n    elif bmi < 30:\n        st = 'Thua can'\n    else:\n        st = 'Beo phi'\n    return f\"{bmi:.1f}\", st\n\nw = float(input())\nh = float(input())\nbmi_val, cat = bmi_status(w, h)\nprint(bmi_val, cat)",
+    "initialCode": "def bmi_status(weight, height):\n    pass\n\nw = float(input())\nh = float(input())\n",
     "testCases": [
-      {
-        "input": "4",
-        "expectedOutput": "16",
-        "description": "Bình phương của 4 là 16"
-      }
+      { "input": "65\n1.7", "expectedOutput": "22.5 Binh thuong", "description": "BMI 22.5 bình thường" },
+      { "input": "45\n1.65", "expectedOutput": "16.5 Gay", "description": "BMI 16.5 gầy" },
+      { "input": "85\n1.65", "expectedOutput": "31.2 Beo phi", "description": "BMI 31.2 béo phì" }
     ]
   },
   {
@@ -373,22 +341,20 @@ export const chapter9Exercises = [
     "code": "CH09_17",
     "chapterId": 9,
     "chapterName": "Hàm (Function - def)",
-    "title": "Hàm Function (def) 17",
-    "difficulty": "Trung bình",
-    "appliedKnowledge": "def, return, tham số đối số, local/global scope.",
-    "description": "Xây dựng hàm tái sử dụng, tham số mặc định, kiểm tra logic số học và phân rã chương trình.",
-    "inputDesc": "Giá trị đầu vào để truyền vào hàm.",
-    "outputDesc": "Giá trị return của hàm được in ra.",
-    "exampleIO": "Input: 4\nOutput: 16",
-    "hint": "Định nghĩa hàm def tinh_binh_phuong(x): return x * x.",
-    "sampleSolution": "def tinh_binh_phuong(x):\n    return x * x\nx = int(input())\nprint(tinh_binh_phuong(x))",
-    "initialCode": "def tinh_binh_phuong(x):\n    pass\n",
+    "title": "Hàm vô danh (Lambda) tính lũy thừa",
+    "difficulty": "Dễ",
+    "appliedKnowledge": "Cú pháp biểu thức lambda: sq = lambda x: x**2.",
+    "description": "Sử dụng hàm ẩn danh `lambda` để tạo một hàm gán vào biến `calc_cube = lambda x: x ** 3`. Nhập vào số nguyên x và in kết quả `calc_cube(x)`.",
+    "inputDesc": "Một số nguyên x.",
+    "outputDesc": "Lập phương x^3.",
+    "exampleIO": "Input:\n4\nOutput:\n64",
+    "hint": "calc_cube = lambda x: x ** 3.",
+    "sampleSolution": "calc_cube = lambda x: x ** 3\nx = int(input())\nprint(calc_cube(x))",
+    "initialCode": "# Sử dụng lambda để tính x^3\nx = int(input())\n",
     "testCases": [
-      {
-        "input": "4",
-        "expectedOutput": "16",
-        "description": "Bình phương của 4 là 16"
-      }
+      { "input": "4", "expectedOutput": "64", "description": "4^3 = 64" },
+      { "input": "-3", "expectedOutput": "-27", "description": "(-3)^3 = -27" },
+      { "input": "10", "expectedOutput": "1000", "description": "10^3 = 1000" }
     ]
   },
   {
@@ -396,22 +362,20 @@ export const chapter9Exercises = [
     "code": "CH09_18",
     "chapterId": 9,
     "chapterName": "Hàm (Function - def)",
-    "title": "Hàm Function (def) 18",
+    "title": "Lambda kết hợp map() biến đổi danh sách",
     "difficulty": "Trung bình",
-    "appliedKnowledge": "def, return, tham số đối số, local/global scope.",
-    "description": "Xây dựng hàm tái sử dụng, tham số mặc định, kiểm tra logic số học và phân rã chương trình.",
-    "inputDesc": "Giá trị đầu vào để truyền vào hàm.",
-    "outputDesc": "Giá trị return của hàm được in ra.",
-    "exampleIO": "Input: 4\nOutput: 16",
-    "hint": "Định nghĩa hàm def tinh_binh_phuong(x): return x * x.",
-    "sampleSolution": "def tinh_binh_phuong(x):\n    return x * x\nx = int(input())\nprint(tinh_binh_phuong(x))",
-    "initialCode": "def tinh_binh_phuong(x):\n    pass\n",
+    "appliedKnowledge": "Sử dụng map(lambda x: ..., list) để biến đổi dữ liệu.",
+    "description": "Nhập vào một danh sách các số nguyên cách nhau bởi dấu cách. Hãy sử dụng hàm `map()` cùng với một biểu thức `lambda` để nhân đôi tất cả các phần tử trong danh sách và in ra kết quả cách nhau bởi dấu cách.",
+    "inputDesc": "Một dòng danh sách số nguyên.",
+    "outputDesc": "Danh sách các số sau khi nhân đôi.",
+    "exampleIO": "Input:\n1 2 3 4 5\nOutput:\n2 4 6 8 10",
+    "hint": "doubled = list(map(lambda x: x * 2, nums)).",
+    "sampleSolution": "nums = [int(x) for x in input().split()]\ndoubled = list(map(lambda x: x * 2, nums))\nprint(' '.join(map(str, doubled)))",
+    "initialCode": "nums = [int(x) for x in input().split()]\n# Sử dụng map và lambda để nhân đôi từng phần tử\n",
     "testCases": [
-      {
-        "input": "4",
-        "expectedOutput": "16",
-        "description": "Bình phương của 4 là 16"
-      }
+      { "input": "1 2 3 4 5", "expectedOutput": "2 4 6 8 10", "description": "Nhân đôi dãy 1..5" },
+      { "input": "-3 0 7", "expectedOutput": "-6 0 14", "description": "Có số âm và số 0" },
+      { "input": "100", "expectedOutput": "200", "description": "1 phần tử" }
     ]
   },
   {
@@ -419,22 +383,20 @@ export const chapter9Exercises = [
     "code": "CH09_19",
     "chapterId": 9,
     "chapterName": "Hàm (Function - def)",
-    "title": "Hàm Function (def) 19",
+    "title": "Lambda kết hợp filter() lọc các số chẵn",
     "difficulty": "Trung bình",
-    "appliedKnowledge": "def, return, tham số đối số, local/global scope.",
-    "description": "Xây dựng hàm tái sử dụng, tham số mặc định, kiểm tra logic số học và phân rã chương trình.",
-    "inputDesc": "Giá trị đầu vào để truyền vào hàm.",
-    "outputDesc": "Giá trị return của hàm được in ra.",
-    "exampleIO": "Input: 4\nOutput: 16",
-    "hint": "Định nghĩa hàm def tinh_binh_phuong(x): return x * x.",
-    "sampleSolution": "def tinh_binh_phuong(x):\n    return x * x\nx = int(input())\nprint(tinh_binh_phuong(x))",
-    "initialCode": "def tinh_binh_phuong(x):\n    pass\n",
+    "appliedKnowledge": "Sử dụng filter(lambda x: ..., list) để trích xuất phần tử thỏa điều kiện.",
+    "description": "Nhập vào một danh sách các số nguyên. Hãy sử dụng `filter()` và `lambda` để lọc ra tất cả các số chẵn trong danh sách. In các số chẵn tìm được cách nhau bởi dấu cách. Nếu không có số chẵn nào, in 'EMPTY'.",
+    "inputDesc": "Một dòng danh sách số nguyên.",
+    "outputDesc": "Các số chẵn hoặc 'EMPTY'.",
+    "exampleIO": "Input:\n1 3 4 7 8 10\nOutput:\n4 8 10",
+    "hint": "evens = list(filter(lambda x: x % 2 == 0, nums)).",
+    "sampleSolution": "nums = [int(x) for x in input().split()]\nevens = list(filter(lambda x: x % 2 == 0, nums))\nif evens:\n    print(' '.join(map(str, evens)))\nelse:\n    print('EMPTY')",
+    "initialCode": "nums = [int(x) for x in input().split()]\n# Sử dụng filter và lambda để lọc số chẵn\n",
     "testCases": [
-      {
-        "input": "4",
-        "expectedOutput": "16",
-        "description": "Bình phương của 4 là 16"
-      }
+      { "input": "1 3 4 7 8 10", "expectedOutput": "4 8 10", "description": "Lọc được 4, 8, 10" },
+      { "input": "1 3 5 7", "expectedOutput": "EMPTY", "description": "Toàn bộ là số lẻ" },
+      { "input": "-4 -2 0", "expectedOutput": "-4 -2 0", "description": "Số âm chẵn và số 0" }
     ]
   },
   {
@@ -442,22 +404,20 @@ export const chapter9Exercises = [
     "code": "CH09_20",
     "chapterId": 9,
     "chapterName": "Hàm (Function - def)",
-    "title": "Hàm Function (def) 20",
+    "title": "Lambda kết hợp sorted() sắp xếp theo tiêu chí",
     "difficulty": "Trung bình",
-    "appliedKnowledge": "def, return, tham số đối số, local/global scope.",
-    "description": "Xây dựng hàm tái sử dụng, tham số mặc định, kiểm tra logic số học và phân rã chương trình.",
-    "inputDesc": "Giá trị đầu vào để truyền vào hàm.",
-    "outputDesc": "Giá trị return của hàm được in ra.",
-    "exampleIO": "Input: 4\nOutput: 16",
-    "hint": "Định nghĩa hàm def tinh_binh_phuong(x): return x * x.",
-    "sampleSolution": "def tinh_binh_phuong(x):\n    return x * x\nx = int(input())\nprint(tinh_binh_phuong(x))",
-    "initialCode": "def tinh_binh_phuong(x):\n    pass\n",
+    "appliedKnowledge": "sorted(list, key=lambda item: ...) sắp xếp nhiều trường.",
+    "description": "Nhập vào số lượng n sinh viên. n dòng tiếp theo, mỗi dòng gồm Tên (chuỗi) và Điểm thi (số thực). Hãy sắp xếp danh sách sinh viên theo Điểm thi giảm dần bằng hàm `sorted()` kèm khóa `key=lambda...`. Nếu bằng điểm nhau, sắp theo thứ tự Tên bảng chữ cái tăng dần. In mỗi sinh viên trên một dòng: <Tên> <Điểm>.",
+    "inputDesc": "Dòng 1: n. n dòng tiếp theo: <Tên> <Điểm>.",
+    "outputDesc": "Danh sách sinh viên đã sắp xếp.",
+    "exampleIO": "Input:\n3\nAn 8.5\nBinh 9.0\nCuong 8.5\nOutput:\nBinh 9.0\nAn 8.5\nCuong 8.5",
+    "hint": "students.sort(key=lambda s: (-s[1], s[0])).",
+    "sampleSolution": "n = int(input())\nstudents = []\nfor _ in range(n):\n    name, score = input().split()\n    students.append((name, float(score)))\nstudents.sort(key=lambda s: (-s[1], s[0]))\nfor name, score in students:\n    print(f\"{name} {score:.1f}\")",
+    "initialCode": "n = int(input())\n# Sắp xếp danh sách sinh viên dùng key=lambda\n",
     "testCases": [
-      {
-        "input": "4",
-        "expectedOutput": "16",
-        "description": "Bình phương của 4 là 16"
-      }
+      { "input": "3\nAn 8.5\nBinh 9.0\nCuong 8.5", "expectedOutput": "Binh 9.0\nAn 8.5\nCuong 8.5", "description": "Binh 9.0 cao nhất, An và Cuong cùng 8.5 thì An đứng trước" },
+      { "input": "2\nLan 7.0\nHai 10.0", "expectedOutput": "Hai 10.0\nLan 7.0", "description": "Điểm khác nhau rõ rệt" },
+      { "input": "1\nNam 8.0", "expectedOutput": "Nam 8.0", "description": "1 sinh viên" }
     ]
   },
   {
@@ -465,22 +425,20 @@ export const chapter9Exercises = [
     "code": "CH09_21",
     "chapterId": 9,
     "chapterName": "Hàm (Function - def)",
-    "title": "Hàm Function (def) 21",
-    "difficulty": "Khó",
-    "appliedKnowledge": "def, return, tham số đối số, local/global scope.",
-    "description": "Xây dựng hàm tái sử dụng, tham số mặc định, kiểm tra logic số học và phân rã chương trình.",
-    "inputDesc": "Giá trị đầu vào để truyền vào hàm.",
-    "outputDesc": "Giá trị return của hàm được in ra.",
-    "exampleIO": "Input: 4\nOutput: 16",
-    "hint": "Định nghĩa hàm def tinh_binh_phuong(x): return x * x.",
-    "sampleSolution": "def tinh_binh_phuong(x):\n    return x * x\nx = int(input())\nprint(tinh_binh_phuong(x))",
-    "initialCode": "def tinh_binh_phuong(x):\n    pass\n",
+    "title": "Hàm nhận tham số từ khóa biến đổi (**kwargs)",
+    "difficulty": "Trung bình",
+    "appliedKnowledge": "Cú pháp **kwargs nhận từ điển tham số đặt tên.",
+    "description": "Viết hàm `format_profile(**kwargs)` nhận các cặp thông tin cá nhân tùy ý dưới dạng `**kwargs`. Hàm in ra từng cặp thông tin theo thứ tự bảng chữ cái của tên trường (key), định dạng: `<key>: <value>`. Nhập vào số lượng thông tin k, k dòng tiếp theo mỗi dòng là `<key> <value>`.",
+    "inputDesc": "Dòng 1: k. k dòng tiếp theo: <key> <value>.",
+    "outputDesc": "In ra mỗi dòng: <key>: <value> theo thứ tự key tăng dần.",
+    "exampleIO": "Input:\n3\nname Alice\nage 20\nmajor CS\nOutput:\nage: 20\nmajor: CS\nname: Alice",
+    "hint": "def format_profile(**kwargs): for k in sorted(kwargs): print(f'{k}: {kwargs[k]}').",
+    "sampleSolution": "def format_profile(**kwargs):\n    for k in sorted(kwargs):\n        print(f\"{k}: {kwargs[k]}\")\n\nk = int(input())\ndata = {}\nfor _ in range(k):\n    key, val = input().split()\n    data[key] = val\nformat_profile(**data)",
+    "initialCode": "def format_profile(**kwargs):\n    pass\n\nk = int(input())\n",
     "testCases": [
-      {
-        "input": "4",
-        "expectedOutput": "16",
-        "description": "Bình phương của 4 là 16"
-      }
+      { "input": "3\nname Alice\nage 20\nmajor CS", "expectedOutput": "age: 20\nmajor: CS\nname: Alice", "description": "age, major, name theo thứ tự alphabet" },
+      { "input": "2\ncity Hanoi\ncountry VN", "expectedOutput": "city: Hanoi\ncountry: VN", "description": "2 thông tin địa lý" },
+      { "input": "1\nid 001", "expectedOutput": "id: 001", "description": "1 thông tin" }
     ]
   },
   {
@@ -488,22 +446,20 @@ export const chapter9Exercises = [
     "code": "CH09_22",
     "chapterId": 9,
     "chapterName": "Hàm (Function - def)",
-    "title": "Hàm Function (def) 22",
-    "difficulty": "Khó",
-    "appliedKnowledge": "def, return, tham số đối số, local/global scope.",
-    "description": "Xây dựng hàm tái sử dụng, tham số mặc định, kiểm tra logic số học và phân rã chương trình.",
-    "inputDesc": "Giá trị đầu vào để truyền vào hàm.",
-    "outputDesc": "Giá trị return của hàm được in ra.",
-    "exampleIO": "Input: 4\nOutput: 16",
-    "hint": "Định nghĩa hàm def tinh_binh_phuong(x): return x * x.",
-    "sampleSolution": "def tinh_binh_phuong(x):\n    return x * x\nx = int(input())\nprint(tinh_binh_phuong(x))",
-    "initialCode": "def tinh_binh_phuong(x):\n    pass\n",
+    "title": "Hàm kiểm tra số hoàn hảo (Perfect Number)",
+    "difficulty": "Trung bình",
+    "appliedKnowledge": "Hàm tính tổng các ước số thực sự và so sánh bằng chính nó.",
+    "description": "Một số nguyên dương n được gọi là số hoàn hảo nếu tổng tất cả các ước số nguyên dương của nó (không kể chính nó) bằng chính n. Viết hàm `is_perfect(n)` trả về `True` nếu n hoàn hảo, ngược lại trả về `False`. Nhập n và in kết quả.",
+    "inputDesc": "Một số nguyên dương n.",
+    "outputDesc": "In 'True' hoặc 'False'.",
+    "exampleIO": "Input:\n6\nOutput:\nTrue",
+    "hint": "Ước của 6 là 1, 2, 3 và 1 + 2 + 3 = 6 -> True. 28 có 1 + 2 + 4 + 7 + 14 = 28 -> True.",
+    "sampleSolution": "def is_perfect(n):\n    if n <= 1:\n        return False\n    div_sum = 1\n    for i in range(2, int(n**0.5) + 1):\n        if n % i == 0:\n            div_sum += i\n            if i*i != n:\n                div_sum += n // i\n    return div_sum == n\n\nn = int(input())\nprint(is_perfect(n))",
+    "initialCode": "def is_perfect(n):\n    pass\n\nn = int(input())\n",
     "testCases": [
-      {
-        "input": "4",
-        "expectedOutput": "16",
-        "description": "Bình phương của 4 là 16"
-      }
+      { "input": "6", "expectedOutput": "True", "description": "6 là số hoàn hảo" },
+      { "input": "28", "expectedOutput": "True", "description": "28 là số hoàn hảo" },
+      { "input": "10", "expectedOutput": "False", "description": "10 có tổng ước 1+2+5=8 != 10" }
     ]
   },
   {
@@ -511,22 +467,20 @@ export const chapter9Exercises = [
     "code": "CH09_23",
     "chapterId": 9,
     "chapterName": "Hàm (Function - def)",
-    "title": "Hàm Function (def) 23",
-    "difficulty": "Khó",
-    "appliedKnowledge": "def, return, tham số đối số, local/global scope.",
-    "description": "Xây dựng hàm tái sử dụng, tham số mặc định, kiểm tra logic số học và phân rã chương trình.",
-    "inputDesc": "Giá trị đầu vào để truyền vào hàm.",
-    "outputDesc": "Giá trị return của hàm được in ra.",
-    "exampleIO": "Input: 4\nOutput: 16",
-    "hint": "Định nghĩa hàm def tinh_binh_phuong(x): return x * x.",
-    "sampleSolution": "def tinh_binh_phuong(x):\n    return x * x\nx = int(input())\nprint(tinh_binh_phuong(x))",
-    "initialCode": "def tinh_binh_phuong(x):\n    pass\n",
+    "title": "Hàm lọc danh sách số nguyên tố",
+    "difficulty": "Trung bình",
+    "appliedKnowledge": "Kết hợp hàm is_prime với hàm filter_primes nhận danh sách.",
+    "description": "Viết hàm `filter_primes(numbers)` nhận vào một danh sách các số nguyên và trả về danh sách chỉ chứa các số nguyên tố có trong danh sách theo thứ tự xuất hiện ban đầu. Nhập vào một danh sách số nguyên, in các số nguyên tố cách nhau bởi dấu cách. Nếu không có số nào, in 'EMPTY'.",
+    "inputDesc": "Một dòng chứa danh sách số nguyên.",
+    "outputDesc": "Các số nguyên tố tìm được hoặc 'EMPTY'.",
+    "exampleIO": "Input:\n4 7 10 13 15 2\nOutput:\n7 13 2",
+    "hint": "Viết hàm phụ trợ is_prime(x), sau đó dùng list comprehension: [x for x in numbers if is_prime(x)].",
+    "sampleSolution": "def is_prime(x):\n    if x < 2:\n        return False\n    for i in range(2, int(x**0.5) + 1):\n        if x % i == 0:\n            return False\n    return True\n\ndef filter_primes(numbers):\n    return [x for x in numbers if is_prime(x)]\n\nnums = [int(x) for x in input().split()]\nprimes = filter_primes(nums)\nif primes:\n    print(' '.join(map(str, primes)))\nelse:\n    print('EMPTY')",
+    "initialCode": "def filter_primes(numbers):\n    pass\n\nnums = [int(x) for x in input().split()]\n",
     "testCases": [
-      {
-        "input": "4",
-        "expectedOutput": "16",
-        "description": "Bình phương của 4 là 16"
-      }
+      { "input": "4 7 10 13 15 2", "expectedOutput": "7 13 2", "description": "Các số nguyên tố là 7, 13, 2" },
+      { "input": "4 6 8 9", "expectedOutput": "EMPTY", "description": "Không có số nguyên tố nào" },
+      { "input": "2 3 5", "expectedOutput": "2 3 5", "description": "Toàn bộ là số nguyên tố" }
     ]
   },
   {
@@ -534,22 +488,20 @@ export const chapter9Exercises = [
     "code": "CH09_24",
     "chapterId": 9,
     "chapterName": "Hàm (Function - def)",
-    "title": "Hàm Function (def) 24",
-    "difficulty": "Khó",
-    "appliedKnowledge": "def, return, tham số đối số, local/global scope.",
-    "description": "Xây dựng hàm tái sử dụng, tham số mặc định, kiểm tra logic số học và phân rã chương trình.",
-    "inputDesc": "Giá trị đầu vào để truyền vào hàm.",
-    "outputDesc": "Giá trị return của hàm được in ra.",
-    "exampleIO": "Input: 4\nOutput: 16",
-    "hint": "Định nghĩa hàm def tinh_binh_phuong(x): return x * x.",
-    "sampleSolution": "def tinh_binh_phuong(x):\n    return x * x\nx = int(input())\nprint(tinh_binh_phuong(x))",
-    "initialCode": "def tinh_binh_phuong(x):\n    pass\n",
+    "title": "Hàm chuẩn hóa chuỗi đường dẫn (Slugify)",
+    "difficulty": "Dễ",
+    "appliedKnowledge": "Hàm xử lý chuỗi với các phương thức strip(), lower(), split(), join().",
+    "description": "Viết hàm `slugify(text)` nhận vào chuỗi text, loại bỏ khoảng trắng ở hai đầu, chuyển toàn bộ về chữ thường và thay thế các chuỗi khoảng trắng ở giữa bằng một dấu gạch ngang '-'. Nhập text và in kết quả gọi hàm.",
+    "inputDesc": "Một dòng văn bản.",
+    "outputDesc": "Chuỗi slug chuẩn hóa.",
+    "exampleIO": "Input:\n  Learn   Python  Programming  Fast \nOutput:\nlearn-python-programming-fast",
+    "hint": "def slugify(text): return '-'.join(text.strip().lower().split()).",
+    "sampleSolution": "def slugify(text):\n    return '-'.join(text.strip().lower().split())\n\ntext = input()\nprint(slugify(text))",
+    "initialCode": "def slugify(text):\n    pass\n\ntext = input()\n",
     "testCases": [
-      {
-        "input": "4",
-        "expectedOutput": "16",
-        "description": "Bình phương của 4 là 16"
-      }
+      { "input": "  Learn   Python  Programming  Fast ", "expectedOutput": "learn-python-programming-fast", "description": "Nhiều khoảng trắng thừa" },
+      { "input": "Django Web Framework", "expectedOutput": "django-web-framework", "description": "Tiêu đề chuẩn" },
+      { "input": "python", "expectedOutput": "python", "description": "1 từ duy nhất" }
     ]
   },
   {
@@ -557,22 +509,20 @@ export const chapter9Exercises = [
     "code": "CH09_25",
     "chapterId": 9,
     "chapterName": "Hàm (Function - def)",
-    "title": "Hàm Function (def) 25",
-    "difficulty": "Khó",
-    "appliedKnowledge": "def, return, tham số đối số, local/global scope.",
-    "description": "Xây dựng hàm tái sử dụng, tham số mặc định, kiểm tra logic số học và phân rã chương trình.",
-    "inputDesc": "Giá trị đầu vào để truyền vào hàm.",
-    "outputDesc": "Giá trị return của hàm được in ra.",
-    "exampleIO": "Input: 4\nOutput: 16",
-    "hint": "Định nghĩa hàm def tinh_binh_phuong(x): return x * x.",
-    "sampleSolution": "def tinh_binh_phuong(x):\n    return x * x\nx = int(input())\nprint(tinh_binh_phuong(x))",
-    "initialCode": "def tinh_binh_phuong(x):\n    pass\n",
+    "title": "Hàm tính tiền lương làm thêm giờ (Overtime Pay)",
+    "difficulty": "Trung bình",
+    "appliedKnowledge": "Thiết kế hàm tính toán tài chính với nhiều tham số và điều kiện.",
+    "description": "Viết hàm `calculate_pay(hours, rate)` tính tiền lương cho nhân viên: tiêu chuẩn là 40 giờ đầu tiên hưởng mức lương cơ bản `rate` đ/giờ; số giờ vượt quá 40 giờ được tính là làm thêm với mức lương 1.5 lần `rate`. Nhập vào số giờ làm `hours` (số thực) và mức lương `rate` (số nguyên) trên 2 dòng, in ra tổng tiền lương (số nguyên làm tròn).",
+    "inputDesc": "Dòng 1: hours. Dòng 2: rate.",
+    "outputDesc": "Tổng tiền lương (số nguyên).",
+    "exampleIO": "Input:\n45\n100000\nOutput:\n4750000",
+    "hint": "Nếu hours <= 40: pay = hours * rate. Ngược lại: pay = 40 * rate + (hours - 40) * rate * 1.5.",
+    "sampleSolution": "def calculate_pay(hours, rate):\n    if hours <= 40:\n        pay = hours * rate\n    else:\n        pay = 40 * rate + (hours - 40) * rate * 1.5\n    return round(pay)\n\nhours = float(input())\nrate = int(input())\nprint(calculate_pay(hours, rate))",
+    "initialCode": "def calculate_pay(hours, rate):\n    pass\n\nhours = float(input())\nrate = int(input())\n",
     "testCases": [
-      {
-        "input": "4",
-        "expectedOutput": "16",
-        "description": "Bình phương của 4 là 16"
-      }
+      { "input": "45\n100000", "expectedOutput": "4750000", "description": "40*100k + 5*150k = 4750k" },
+      { "input": "40\n50000", "expectedOutput": "2000000", "description": "Đúng 40 giờ" },
+      { "input": "30\n80000", "expectedOutput": "2400000", "description": "Dưới 40 giờ" }
     ]
   }
 ];
