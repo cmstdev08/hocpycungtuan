@@ -24,6 +24,12 @@ const menuItems = [
 ];
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
+  const handleNavClick = () => {
+    if (typeof window !== 'undefined' && window.innerWidth <= 768 && isOpen) {
+      toggleSidebar();
+    }
+  };
+
   return (
     <nav className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
       {/* Logo */}
@@ -50,6 +56,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             key={item.path}
             to={item.path}
             end={item.end}
+            onClick={handleNavClick}
             className={({ isActive }) => `menu-item ${isActive ? 'active' : ''}`}
           >
             <item.icon size={18} className="menu-icon" />
