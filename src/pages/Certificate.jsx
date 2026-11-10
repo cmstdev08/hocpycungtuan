@@ -101,6 +101,18 @@ const Certificate = () => {
     link.click();
   };
 
+  const handleNameChange = (e) => {
+    const val = e.target.value;
+    setUserName(val);
+    try {
+      const p = getUserProfile();
+      p.fullName = val;
+      localStorage.setItem('python_user_profile', JSON.stringify(p));
+    } catch (err) {
+      console.warn('Lỗi lưu tên học viên:', err);
+    }
+  };
+
   return (
     <div style={{ maxWidth: 1000, margin: '0 auto' }}>
       <div style={{ marginBottom: '1.5rem' }}>

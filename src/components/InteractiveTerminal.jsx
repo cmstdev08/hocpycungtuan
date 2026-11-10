@@ -97,11 +97,14 @@ const InteractiveTerminal = forwardRef(({ onStatusChange, onExecutionDone }, ref
         }
       } else if (data.type === 'stdout') {
         if (term) {
-          term.write(data.text);
+          // Chuẩn hóa \n thành \r\n theo chuẩn Terminal VT100 để xuống dòng và về đầu dòng
+          const formatted = data.text ? data.text.replace(/\r?\n/g, '\r\n') : '';
+          term.write(formatted);
         }
       } else if (data.type === 'stderr') {
         if (term) {
-          term.write(`\x1b[91m${data.text}\x1b[0m`);
+          const formatted = data.text ? data.text.replace(/\r?\n/g, '\r\n') : '';
+          term.write(`\x1b[91m${formatted}\x1b[0m`);
         }
         setLastError((prev) => (prev ? prev + '\n' + data.text : data.text));
       } else if (data.type === 'stdin_prompt') {
@@ -122,7 +125,8 @@ const InteractiveTerminal = forwardRef(({ onStatusChange, onExecutionDone }, ref
         } else {
           if (term) {
             if (data.error && !lastError) {
-              term.write(`\r\n\x1b[91m${data.error}\x1b[0m\r\n`);
+              const formattedErr = data.error.replace(/\r?\n/g, '\r\n');
+              term.write(`\r\n\x1b[91m${formattedErr}\x1b[0m\r\n`);
             }
             term.write(`\r\n\x1b[90m----------------------------------------\x1b[0m\r\n\x1b[91m✖ Chương trình dừng lại do có lỗi\x1b[0m\r\n`);
           }

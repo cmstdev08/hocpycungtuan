@@ -89,6 +89,21 @@ async function getPyodideInstance(controlBuffer, dataBuffer) {
     });
 
     pyodide = p;
+
+    // Kích hoạt line buffering để flush ngay lập tức khi in \n
+    try {
+      await p.runPythonAsync(`
+import sys
+try:
+    sys.stdout.reconfigure(line_buffering=True)
+    sys.stderr.reconfigure(line_buffering=True)
+except Exception:
+    pass
+`);
+    } catch (e) {
+      // ignore
+    }
+
     self.postMessage({
       type: 'status',
       status: 'ready',

@@ -52,17 +52,20 @@ export async function runPythonCode(code, options = {}) {
 
   let stdoutBuffer = [];
   let stderrBuffer = [];
+  const textDecoder = new TextDecoder('utf-8');
 
-  // Custom standard streams capture
+  // Custom standard streams capture using write to preserve exact \n newlines
   pyodide.setStdout({
-    batched: (text) => {
-      stdoutBuffer.push(text);
+    write: (buffer) => {
+      stdoutBuffer.push(textDecoder.decode(buffer));
+      return buffer.length;
     },
   });
 
   pyodide.setStderr({
-    batched: (text) => {
-      stderrBuffer.push(text);
+    write: (buffer) => {
+      stderrBuffer.push(textDecoder.decode(buffer));
+      return buffer.length;
     },
   });
 
