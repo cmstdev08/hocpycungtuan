@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Activity, Play, Pause, RotateCcw, StepForward, StepBack, Info, Database, Layers, CheckCircle } from 'lucide-react';
+import {
+  Activity, Play, Pause, RotateCcw, StepForward, StepBack, Info,
+  Database, Code2, Sparkles, Terminal, AlertTriangle, Edit3, CheckCircle2
+} from 'lucide-react';
+import { tracePythonCode } from '../utils/pyodideRunner.js';
 
 const SAMPLES = [
   {
@@ -252,20 +256,49 @@ const SAMPLES = [
   },
 ];
 
+const DEFAULT_CUSTOM_CODE = `# Dán hoặc viết code Python của bạn tại đây để mô phỏng:
+x = 10
+y = 20
+tong = x + y
+
+for i in range(1, 4):
+    tong += i
+
+print("Tổng kết quả:", tong)`;
+
 const Visualizer = () => {
+  const [mode, setMode] = useState('samples'); // 'samples' | 'custom'
+  
+  // State cho Sample Mode
   const [selectedSampleIdx, setSelectedSampleIdx] = useState(0);
+
+  // State cho Custom Code Mode
+  const [customCodeInput, setCustomCodeInput] = useState(DEFAULT_CUSTOM_CODE);
+  const [customProgram, setCustomProgram] = useState(null); // { code: string[], steps: Array, stdout: string }
+  const [analyzing, setAnalyzing] = useState(false);
+  const [customError, setCustomError] = useState(null);
+  const [isEditingCode, setIsEditingCode] = useState(false);
+
+  // Trạng thái bước hiện tại & Auto Play
   const [currentStep, setCurrentStep] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const timerRef = useRef(null);
 
-  const sample = SAMPLES[selectedSampleIdx];
-  const activeStep = sample.steps[currentStep];
+  // Chọn chương trình đang hiển thị
+  const activeProgram = mode === 'samples'
+    ? SAMPLES[selectedSampleIdx]
+    : customProgram;
 
+  const steps = activeProgram ? activeProgram.steps : [];
+  const codeLines = activeProgram ? activeProgram.code : [];
+  const activeStep = steps[currentStep] || { line: 0, vars: {}, desc: 'Chưa có bước thực thi' };
+
+  // Timer cho Auto Play
   useEffect(() => {
-    if (isPlaying) {
+    if (isPlaying && steps.length > 0) {
       timerRef.current = setInterval(() => {
         setCurrentStep((prev) => {
-          if (prev < sample.steps.length - 1) {
+          if (prev < steps.length - 1) {
             return prev + 1;
           } else {
             setIsPlaying(false);
@@ -277,10 +310,10 @@ const Visualizer = () => {
       clearInterval(timerRef.current);
     }
     return () => clearInterval(timerRef.current);
-  }, [isPlaying, sample.steps.length]);
+  }, [isPlaying, steps.length]);
 
   const handleNext = () => {
-    if (currentStep < sample.steps.length - 1) {
+    if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
     }
   };
@@ -297,14 +330,61 @@ const Visualizer = () => {
   };
 
   const togglePlay = () => {
-    if (currentStep >= sample.steps.length - 1) {
+    if (currentStep >= steps.length - 1) {
       setCurrentStep(0);
     }
     setIsPlaying(!isPlaying);
   };
 
+  // Phân tích code tùy chỉnh của người dùng
+  const handleAnalyzeCustomCode = async () => {
+    if (!customCodeInput.trim()) {
+      setCustomError('Vui lòng nhập hoặc dán ít nhất 1 dòng code Python.');
+      return;
+    }
+
+    setAnalyzing(true);
+    setCustomError(null);
+    setIsPlaying(false);
+
+    try {
+      const result = await tracePythonCode(customCodeInput.trim(), 150);
+
+      if (!result.success && (!result.steps || result.steps.length === 0)) {
+        setCustomError(`Lỗi phân tích mã nguồn: ${result.error || 'Cú pháp không hợp lệ'}`);
+        setCustomProgram(null);
+      } else {
+        const rawLines = customCodeInput.trim().split('\n');
+        setCustomProgram({
+          name: 'Code người dùng tùy chỉnh',
+          category: 'Tùy chỉnh',
+          code: rawLines,
+          steps: result.steps,
+          stdout: result.stdout,
+          error: result.error,
+        });
+        setCurrentStep(0);
+        setIsEditingCode(false);
+      }
+    } catch (err) {
+      setCustomError(`Lỗi hệ thống: ${err.message}`);
+      setCustomProgram(null);
+    } finally {
+      setAnalyzing(false);
+    }
+  };
+
+  const handleCopySampleToCustom = () => {
+    const sample = SAMPLES[selectedSampleIdx];
+    setCustomCodeInput(sample.code.join('\n'));
+    setMode('custom');
+    setIsEditingCode(true);
+    setCustomProgram(null);
+    setCustomError(null);
+  };
+
   return (
-    <div style={{ maxWidth: 1040, margin: '0 auto', paddingBottom: '3rem' }}>
+    <div style={{ maxWidth: 1060, margin: '0 auto', paddingBottom: '3rem' }}>
       {/* Header */}
       <div style={{ marginBottom: '1.2rem' }}>
         <h2 style={{
@@ -318,216 +398,446 @@ const Visualizer = () => {
           <Activity size={26} color="var(--color-primary)" /> Mô phỏng từng bước chạy của Code (Code Visualizer)
         </h2>
         <p style={{ color: 'var(--color-text-secondary)', margin: 0, fontSize: '0.92rem' }}>
-          Trực quan hóa sự biến đổi của các ô nhớ trong RAM và con trỏ dòng lệnh từng bước một qua 12 bài toán kinh điển.
+          Trực quan hóa sự biến đổi của các ô nhớ trong RAM và con trỏ dòng lệnh từng bước một. Hỗ trợ cả 12 bài toán kinh điển lẫn <strong>tự dán code Python của bạn</strong>!
         </p>
       </div>
 
-      {/* Select sample */}
-      <div style={{ marginBottom: '1.2rem' }}>
-        <select
-          className="sample-select"
-          style={{ width: '100%', padding: '0.65rem 0.9rem', fontSize: '0.95rem' }}
-          value={selectedSampleIdx}
-          onChange={(e) => {
+      {/* Mode Switcher Tabs */}
+      <div style={{
+        display: 'flex',
+        gap: '0.6rem',
+        marginBottom: '1.2rem',
+        borderBottom: '1px solid var(--color-border)',
+        paddingBottom: '0.6rem',
+        flexWrap: 'wrap',
+      }}>
+        <button
+          onClick={() => {
+            setMode('samples');
             setIsPlaying(false);
-            setSelectedSampleIdx(Number(e.target.value));
             setCurrentStep(0);
           }}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 6,
+            padding: '0.5rem 1rem',
+            borderRadius: 8,
+            fontSize: '0.88rem',
+            fontWeight: 700,
+            cursor: 'pointer',
+            border: mode === 'samples' ? '1.5px solid var(--color-primary)' : '1px solid var(--color-border)',
+            background: mode === 'samples' ? 'var(--color-primary)' : 'var(--color-card)',
+            color: mode === 'samples' ? '#ffffff' : 'var(--color-text)',
+            transition: 'all 0.2s ease',
+          }}
         >
-          {SAMPLES.map((s, idx) => (
-            <option key={idx} value={idx}>
-              [{s.category}] {s.name}
-            </option>
-          ))}
-        </select>
+          <Code2 size={16} /> 📚 12 Bài mẫu chuẩn
+        </button>
+
+        <button
+          onClick={() => {
+            setMode('custom');
+            setIsPlaying(false);
+            if (!customProgram) {
+              setIsEditingCode(true);
+            }
+          }}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 6,
+            padding: '0.5rem 1rem',
+            borderRadius: 8,
+            fontSize: '0.88rem',
+            fontWeight: 700,
+            cursor: 'pointer',
+            border: mode === 'custom' ? '1.5px solid var(--color-cyan)' : '1px solid var(--color-border)',
+            background: mode === 'custom' ? 'var(--color-cyan)' : 'var(--color-card)',
+            color: mode === 'custom' ? '#ffffff' : 'var(--color-text)',
+            transition: 'all 0.2s ease',
+          }}
+        >
+          <Sparkles size={16} /> ✨ Dán Code của tôi
+        </button>
       </div>
 
-      {/* Layout Grid: Stacks on mobile <= 768px */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-        gap: '1.2rem',
-        alignItems: 'start',
-      }}>
-        {/* Left: Code Box with Active Line */}
-        <div className="card" style={{ padding: 0, overflow: 'hidden', border: '1px solid var(--color-border)' }}>
-          <div style={{
-            padding: '0.65rem 1rem',
-            background: 'var(--color-input-bg)',
-            borderBottom: '1px solid var(--color-border)',
-            fontWeight: 700,
-            fontSize: '0.88rem',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}>
-            <span>Mã nguồn Python</span>
-            <span style={{ fontSize: '0.78rem', color: 'var(--color-text-secondary)' }}>
-              Dòng {activeStep.line + 1}
-            </span>
+      {/* --- MODE 1: SAMPLES SELECTOR --- */}
+      {mode === 'samples' && (
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: '1.2rem',
+          flexWrap: 'wrap',
+          gap: '0.8rem',
+        }}>
+          <div style={{ flex: '1 1 300px' }}>
+            <select
+              className="sample-select"
+              style={{ width: '100%', padding: '0.65rem 0.9rem', fontSize: '0.95rem' }}
+              value={selectedSampleIdx}
+              onChange={(e) => {
+                setIsPlaying(false);
+                setSelectedSampleIdx(Number(e.target.value));
+                setCurrentStep(0);
+              }}
+            >
+              {SAMPLES.map((s, idx) => (
+                <option key={idx} value={idx}>
+                  [{s.category}] {s.name}
+                </option>
+              ))}
+            </select>
           </div>
 
-          <div style={{
-            padding: '0.8rem 0',
-            fontFamily: 'Consolas, Monaco, "Courier New", monospace',
-            fontSize: 'clamp(0.85rem, 2.5vw, 0.95rem)',
-            background: 'var(--color-code-bg)',
-            minHeight: 180,
-          }}>
-            {sample.code.map((line, idx) => {
-              const isActive = activeStep.line === idx;
-              return (
-                <div
-                  key={idx}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    padding: '0.35rem 0.9rem',
-                    background: isActive ? 'rgba(37,99,235,0.22)' : 'transparent',
-                    borderLeft: isActive ? '4px solid var(--color-primary)' : '4px solid transparent',
-                    color: isActive ? 'var(--color-primary)' : 'var(--color-text)',
-                    fontWeight: isActive ? 700 : 400,
-                    transition: 'all 0.15s ease',
-                  }}
-                >
-                  <span style={{ width: 28, color: 'var(--color-text-secondary)', userSelect: 'none', fontSize: '0.82rem' }}>
-                    {idx + 1}
-                  </span>
-                  <span style={{ whiteSpace: 'pre', overflowX: 'auto' }}>{line}</span>
-                  {isActive && (
-                    <span style={{ marginLeft: 'auto', fontSize: '0.75rem', color: 'var(--color-cyan)', paddingLeft: 8 }}>
-                      👈 Đang chạy
-                    </span>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Controls Bar */}
-          <div style={{
-            padding: '0.7rem 0.9rem',
-            display: 'flex',
-            gap: '0.4rem',
-            borderTop: '1px solid var(--color-border)',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-          }}>
-            <button
-              className="btn btn-primary"
-              onClick={handleNext}
-              disabled={currentStep >= sample.steps.length - 1}
-              style={{ padding: '0.45rem 0.9rem', fontSize: '0.85rem' }}
-              title="Bước tiếp theo"
-            >
-              <StepForward size={15} /> Bước tiếp
-            </button>
-            <button
-              className="btn btn-ghost"
-              onClick={handlePrev}
-              disabled={currentStep <= 0}
-              style={{ padding: '0.45rem 0.7rem', fontSize: '0.85rem' }}
-              title="Quay lại bước trước"
-            >
-              <StepBack size={15} /> Lùi lại
-            </button>
-            <button
-              className="btn btn-ghost"
-              onClick={togglePlay}
-              style={{ padding: '0.45rem 0.7rem', fontSize: '0.85rem' }}
-              title={isPlaying ? 'Tạm dừng tự động' : 'Tự động chạy'}
-            >
-              {isPlaying ? <Pause size={15} color="var(--color-warning)" /> : <Play size={15} color="var(--color-success)" />}
-              <span>{isPlaying ? 'Tạm dừng' : 'Tự chạy'}</span>
-            </button>
-            <button
-              className="btn btn-ghost"
-              onClick={handleReset}
-              style={{ padding: '0.45rem 0.6rem' }}
-              title="Chạy lại từ đầu"
-            >
-              <RotateCcw size={15} />
-            </button>
-            <span style={{ marginLeft: 'auto', fontSize: '0.8rem', color: 'var(--color-text-secondary)', fontWeight: 600 }}>
-              {currentStep + 1} / {sample.steps.length}
-            </span>
-          </div>
+          <button
+            className="btn btn-outline"
+            onClick={handleCopySampleToCustom}
+            style={{ padding: '0.55rem 1rem', fontSize: '0.85rem' }}
+            title="Lấy đoạn code này sang trình chỉnh sửa tùy chỉnh"
+          >
+            <Edit3 size={15} /> Chỉnh sửa bài này bằng code của tôi ➡️
+          </button>
         </div>
+      )}
 
-        {/* Right: RAM Variables & Explanation */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          {/* Step Explanation Card */}
-          <div className="card" style={{ padding: '1rem 1.2rem', border: '1px solid var(--color-border)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontWeight: 700, color: 'var(--color-cyan)', marginBottom: '0.4rem', fontSize: '0.9rem' }}>
-              <Info size={16} /> Diễn giải bước hiện tại:
-            </div>
-            <p style={{ margin: 0, fontSize: '0.92rem', color: 'var(--color-text)', lineHeight: 1.6 }}>
-              {activeStep.desc}
-            </p>
+      {/* --- MODE 2: CUSTOM CODE INPUT FORM --- */}
+      {mode === 'custom' && (isEditingCode || !customProgram) && (
+        <div className="card" style={{ padding: '1.2rem', marginBottom: '1.5rem', border: '1.5px solid var(--color-cyan)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.8rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+            <span style={{ fontWeight: 700, fontSize: '0.95rem', color: 'var(--color-cyan)', display: 'flex', alignItems: 'center', gap: 6 }}>
+              <Edit3 size={18} /> Nhập hoặc dán mã nguồn Python của bạn:
+            </span>
+            <span style={{ fontSize: '0.78rem', color: 'var(--color-text-secondary)' }}>
+              (Hỗ trợ gán biến, toán tử, if/else, vòng lặp for/while, print, list, dict)
+            </span>
           </div>
 
-          {/* RAM Variables Inspector */}
-          <div className="card" style={{ padding: 0, overflow: 'hidden', border: '1px solid var(--color-border)' }}>
+          <textarea
+            rows={8}
+            value={customCodeInput}
+            onChange={(e) => setCustomCodeInput(e.target.value)}
+            spellCheck={false}
+            placeholder="# Dán code Python tại đây..."
+            style={{
+              width: '100%',
+              boxSizing: 'border-box',
+              padding: '0.85rem',
+              borderRadius: 8,
+              border: '1px solid var(--color-border)',
+              background: 'var(--color-code-bg)',
+              color: 'var(--color-text)',
+              fontFamily: 'Consolas, Monaco, "Courier New", monospace',
+              fontSize: 'clamp(0.85rem, 2.5vw, 0.95rem)',
+              lineHeight: 1.6,
+              resize: 'vertical',
+              outline: 'none',
+              marginBottom: '1rem',
+            }}
+          />
+
+          {customError && (
             <div style={{
-              padding: '0.65rem 1rem',
-              background: 'var(--color-input-bg)',
-              borderBottom: '1px solid var(--color-border)',
-              fontWeight: 700,
+              padding: '0.75rem 1rem',
+              background: 'rgba(239,68,68,0.12)',
+              border: '1px solid var(--color-danger)',
+              borderRadius: 6,
+              color: 'var(--color-danger)',
               fontSize: '0.88rem',
+              marginBottom: '1rem',
               display: 'flex',
               alignItems: 'center',
-              gap: 6,
-              color: 'var(--color-primary)',
+              gap: 8,
             }}>
-              <Database size={16} /> Trạng thái các ô nhớ trong RAM:
+              <AlertTriangle size={18} />
+              <span>{customError}</span>
             </div>
+          )}
 
-            <div style={{ padding: '1rem' }}>
-              {Object.keys(activeStep.vars).length === 0 ? (
-                <div style={{ color: 'var(--color-text-secondary)', fontSize: '0.88rem', fontStyle: 'italic' }}>
-                  Chưa có biến nào được khởi tạo trong bộ nhớ.
-                </div>
-              ) : (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
-                  {Object.entries(activeStep.vars).map(([varName, varVal]) => (
+          <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
+            <button
+              className="btn btn-cyan"
+              onClick={handleAnalyzeCustomCode}
+              disabled={analyzing}
+              style={{ padding: '0.6rem 1.4rem', fontSize: '0.92rem' }}
+            >
+              <Play size={16} /> {analyzing ? 'Đang phân tích từng dòng lệnh... ⏳' : '🚀 Phân tích & Bắt đầu mô phỏng'}
+            </button>
+            {customProgram && (
+              <button
+                className="btn btn-ghost"
+                onClick={() => setIsEditingCode(false)}
+                style={{ padding: '0.6rem 1rem', fontSize: '0.9rem' }}
+              >
+                Hủy bỏ & Quay lại visualizer
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* --- VISUALIZER DISPLAY BOARD --- */}
+      {activeProgram && (!isEditingCode || mode === 'samples') && (
+        <div>
+          {/* Custom Mode Switchback Toolbar */}
+          {mode === 'custom' && (
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: '1rem',
+              padding: '0.6rem 0.9rem',
+              background: 'var(--color-card)',
+              border: '1px solid var(--color-border)',
+              borderRadius: 8,
+              flexWrap: 'wrap',
+              gap: '0.5rem',
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <CheckCircle2 size={18} color="var(--color-success)" />
+                <span style={{ fontWeight: 600, fontSize: '0.88rem', color: 'var(--color-text)' }}>
+                  Đã phân tích thành công <strong>{steps.length} bước thực thi</strong> từ mã nguồn của bạn.
+                </span>
+              </div>
+              <button
+                className="btn btn-ghost"
+                onClick={() => setIsEditingCode(true)}
+                style={{ padding: '0.35rem 0.8rem', fontSize: '0.82rem' }}
+              >
+                <Edit3 size={15} /> Chỉnh sửa code
+              </button>
+            </div>
+          )}
+
+          {/* Layout Grid: Stacks on mobile <= 768px */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gap: '1.2rem',
+            alignItems: 'start',
+          }}>
+            {/* Left: Code Box with Active Line */}
+            <div className="card" style={{ padding: 0, overflow: 'hidden', border: '1px solid var(--color-border)' }}>
+              <div style={{
+                padding: '0.65rem 1rem',
+                background: 'var(--color-input-bg)',
+                borderBottom: '1px solid var(--color-border)',
+                fontWeight: 700,
+                fontSize: '0.88rem',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}>
+                <span>Mã nguồn Python</span>
+                <span style={{ fontSize: '0.78rem', color: 'var(--color-text-secondary)' }}>
+                  Dòng {activeStep.line + 1}
+                </span>
+              </div>
+
+              <div style={{
+                padding: '0.8rem 0',
+                fontFamily: 'Consolas, Monaco, "Courier New", monospace',
+                fontSize: 'clamp(0.85rem, 2.5vw, 0.95rem)',
+                background: 'var(--color-code-bg)',
+                minHeight: 180,
+                maxHeight: 380,
+                overflowY: 'auto',
+              }}>
+                {codeLines.map((line, idx) => {
+                  const isActive = activeStep.line === idx;
+                  return (
                     <div
-                      key={varName}
+                      key={idx}
                       style={{
                         display: 'flex',
                         alignItems: 'center',
-                        justifyContent: 'space-between',
-                        padding: '0.5rem 0.8rem',
-                        background: 'var(--color-hover)',
-                        border: '1px solid var(--color-border)',
-                        borderRadius: 6,
-                        fontFamily: 'monospace',
-                        fontSize: '0.9rem',
-                        flexWrap: 'wrap',
-                        gap: '0.4rem',
+                        padding: '0.35rem 0.9rem',
+                        background: isActive ? 'rgba(37,99,235,0.22)' : 'transparent',
+                        borderLeft: isActive ? '4px solid var(--color-primary)' : '4px solid transparent',
+                        color: isActive ? 'var(--color-primary)' : 'var(--color-text)',
+                        fontWeight: isActive ? 700 : 400,
+                        transition: 'all 0.15s ease',
                       }}
                     >
-                      <span style={{ fontWeight: 700, color: 'var(--color-primary)' }}>
-                        {varName}
+                      <span style={{ width: 28, color: 'var(--color-text-secondary)', userSelect: 'none', fontSize: '0.82rem' }}>
+                        {idx + 1}
                       </span>
-                      <span style={{
-                        color: 'var(--color-text)',
-                        background: 'var(--color-card)',
-                        padding: '0.15rem 0.5rem',
-                        borderRadius: 4,
-                        border: '1px solid var(--color-border)',
-                        maxWidth: '70%',
-                        overflowX: 'auto',
-                      }}>
-                        {String(varVal)}
-                      </span>
+                      <span style={{ whiteSpace: 'pre', overflowX: 'auto' }}>{line}</span>
+                      {isActive && (
+                        <span style={{ marginLeft: 'auto', fontSize: '0.75rem', color: 'var(--color-cyan)', paddingLeft: 8, whiteSpace: 'nowrap' }}>
+                          👈 Đang chạy
+                        </span>
+                      )}
                     </div>
-                  ))}
+                  );
+                })}
+              </div>
+
+              {/* Controls Bar */}
+              <div style={{
+                padding: '0.7rem 0.9rem',
+                display: 'flex',
+                gap: '0.4rem',
+                borderTop: '1px solid var(--color-border)',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+              }}>
+                <button
+                  className="btn btn-primary"
+                  onClick={handleNext}
+                  disabled={currentStep >= steps.length - 1}
+                  style={{ padding: '0.45rem 0.9rem', fontSize: '0.85rem' }}
+                  title="Bước tiếp theo"
+                >
+                  <StepForward size={15} /> Bước tiếp
+                </button>
+                <button
+                  className="btn btn-ghost"
+                  onClick={handlePrev}
+                  disabled={currentStep <= 0}
+                  style={{ padding: '0.45rem 0.7rem', fontSize: '0.85rem' }}
+                  title="Quay lại bước trước"
+                >
+                  <StepBack size={15} /> Lùi lại
+                </button>
+                <button
+                  className="btn btn-ghost"
+                  onClick={togglePlay}
+                  style={{ padding: '0.45rem 0.7rem', fontSize: '0.85rem' }}
+                  title={isPlaying ? 'Tạm dừng tự động' : 'Tự động chạy'}
+                >
+                  {isPlaying ? <Pause size={15} color="var(--color-warning)" /> : <Play size={15} color="var(--color-success)" />}
+                  <span>{isPlaying ? 'Tạm dừng' : 'Tự chạy'}</span>
+                </button>
+                <button
+                  className="btn btn-ghost"
+                  onClick={handleReset}
+                  style={{ padding: '0.45rem 0.6rem' }}
+                  title="Chạy lại từ đầu"
+                >
+                  <RotateCcw size={15} />
+                </button>
+                <span style={{ marginLeft: 'auto', fontSize: '0.8rem', color: 'var(--color-text-secondary)', fontWeight: 600 }}>
+                  {steps.length > 0 ? `${currentStep + 1} / ${steps.length}` : '0 / 0'}
+                </span>
+              </div>
+            </div>
+
+            {/* Right: RAM Variables, Explanation & Console Output */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              {/* Step Explanation Card */}
+              <div className="card" style={{ padding: '1rem 1.2rem', border: '1px solid var(--color-border)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontWeight: 700, color: 'var(--color-cyan)', marginBottom: '0.4rem', fontSize: '0.9rem' }}>
+                  <Info size={16} /> Diễn giải bước hiện tại:
+                </div>
+                <p style={{ margin: 0, fontSize: '0.92rem', color: 'var(--color-text)', lineHeight: 1.6 }}>
+                  {activeStep.desc}
+                </p>
+                {activeProgram.error && currentStep === steps.length - 1 && (
+                  <div style={{ marginTop: '0.5rem', color: 'var(--color-danger)', fontSize: '0.85rem', fontWeight: 600 }}>
+                    ⚠️ Tại bước này phát sinh ngoại lệ: {activeProgram.error}
+                  </div>
+                )}
+              </div>
+
+              {/* RAM Variables Inspector */}
+              <div className="card" style={{ padding: 0, overflow: 'hidden', border: '1px solid var(--color-border)' }}>
+                <div style={{
+                  padding: '0.65rem 1rem',
+                  background: 'var(--color-input-bg)',
+                  borderBottom: '1px solid var(--color-border)',
+                  fontWeight: 700,
+                  fontSize: '0.88rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  color: 'var(--color-primary)',
+                }}>
+                  <Database size={16} /> Trạng thái các ô nhớ trong RAM:
+                </div>
+
+                <div style={{ padding: '1rem' }}>
+                  {Object.keys(activeStep.vars || {}).length === 0 ? (
+                    <div style={{ color: 'var(--color-text-secondary)', fontSize: '0.88rem', fontStyle: 'italic' }}>
+                      Chưa có biến nào được tạo trong bộ nhớ ở bước này.
+                    </div>
+                  ) : (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
+                      {Object.entries(activeStep.vars).map(([varName, varVal]) => (
+                        <div
+                          key={varName}
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            padding: '0.5rem 0.8rem',
+                            background: 'var(--color-hover)',
+                            border: '1px solid var(--color-border)',
+                            borderRadius: 6,
+                            fontFamily: 'monospace',
+                            fontSize: '0.9rem',
+                            flexWrap: 'wrap',
+                            gap: '0.4rem',
+                          }}
+                        >
+                          <span style={{ fontWeight: 700, color: 'var(--color-primary)' }}>
+                            {varName}
+                          </span>
+                          <span style={{
+                            color: 'var(--color-text)',
+                            background: 'var(--color-card)',
+                            padding: '0.15rem 0.5rem',
+                            borderRadius: 4,
+                            border: '1px solid var(--color-border)',
+                            maxWidth: '75%',
+                            overflowX: 'auto',
+                          }}>
+                            {String(varVal)}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Console Output Box (if any stdout was captured) */}
+              {activeProgram.stdout && (
+                <div className="card" style={{ padding: 0, overflow: 'hidden', border: '1px solid var(--color-border)' }}>
+                  <div style={{
+                    padding: '0.5rem 0.9rem',
+                    background: 'var(--color-input-bg)',
+                    borderBottom: '1px solid var(--color-border)',
+                    fontWeight: 700,
+                    fontSize: '0.82rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    color: 'var(--color-text-secondary)',
+                  }}>
+                    <Terminal size={14} /> Output in ra màn hình console:
+                  </div>
+                  <pre style={{
+                    margin: 0,
+                    padding: '0.8rem 1rem',
+                    fontFamily: 'monospace',
+                    fontSize: '0.85rem',
+                    background: 'var(--color-code-bg)',
+                    color: 'var(--color-success)',
+                    whiteSpace: 'pre-wrap',
+                    wordBreak: 'break-word',
+                    maxHeight: 120,
+                    overflowY: 'auto',
+                  }}>
+                    {activeProgram.stdout}
+                  </pre>
                 </div>
               )}
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

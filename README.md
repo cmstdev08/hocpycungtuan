@@ -223,22 +223,17 @@ WEBPYTHON/
   6. *OOP & Xử lý File:* Khai báo Class & Constructor, kế thừa `Inheritance`, ngoại lệ `try-catch` vs `try-except`.
 - **Tính năng mở rộng:** Hộp phân tích mấu chốt kỹ thuật, nút Copy mã Python, nút mở sang Compiler chạy thử, layout tự chuyển 1 cột trên điện thoại.
 
-### G. Mô phỏng từng bước chạy của Code (Code Visualizer 12 bài toán + Auto Play)
-- **Vị trí file:** `src/pages/Visualizer.jsx`.
-- **Số lượng bài toán:** 12 kịch bản minh họa:
-  1. Vòng lặp For & Tính tổng tích lũy.
-  2. Hoán đổi 2 phần tử (Swap biến trong RAM).
-  3. Thao tác trên List động (`append`, `pop`, index).
-  4. Tìm số lớn nhất (Max tracking loop).
-  5. Đảo ngược chuỗi ký tự (`rev = char + rev`).
-  6. Đếm số lượng chẵn và lẻ (`if-else`).
-  7. Tính giai thừa $n!$ bằng vòng lặp.
-  8. Tìm kiếm tuyến tính (Linear Search).
-  9. Thao tác trên Dictionary (thêm, sửa, xóa `del`).
-  10. Dãy Fibonacci (dịch chuyển đồng thời $a, b = b, a + b$).
-  11. Tìm kiếm nhị phân (Binary Search).
-  12. Sắp xếp nổi bọt (Bubble Sort 1 Pass).
-- **Tính năng điều khiển:** Nút "Bước tiếp", nút "Lùi lại" (Step Back), chế độ "Tự chạy" (Auto-Play / Pause sau mỗi 1.3s), bảng biến RAM phân biệt giá trị trực quan.
+### G. Mô phỏng từng bước chạy của Code (Code Visualizer: 12 bài mẫu + Tự dán Code tùy chỉnh)
+- **Vị trí file:** `src/pages/Visualizer.jsx` và hàm lõi `tracePythonCode` trong `src/utils/pyodideRunner.js`.
+- **Hỗ trợ 2 chế độ linh hoạt:**
+  1. **📚 12 Bài toán kinh điển chuẩn:** Vòng lặp tổng tích lũy, Hoán đổi biến swap, Thao tác List, Max tracking, Đảo chuỗi, Đếm chẵn lẻ, Giai thừa n!, Tìm kiếm tuyến tính, Thao tác Dictionary, Dãy Fibonacci, Tìm kiếm nhị phân, Sắp xếp nổi bọt. Có giải thích sư phạm chi tiết từng bước.
+  2. **✨ Dán code Python tùy chỉnh của người dùng (Custom Code Mode):**
+     - Người dùng có thể dán hoặc gõ bất kỳ đoạn code Python nào vào ô soạn thảo.
+     - Hệ thống sử dụng hook `sys.settrace()` trong CPython để ghi nhận từng sự kiện `line`, trích xuất toàn bộ biến trong ô nhớ RAM (`frame.f_locals`), đồng thời gom toàn bộ `stdout` được in ra.
+     - Tự động bắt lỗi cú pháp (SyntaxError) hoặc ngoại lệ thời gian chạy (Runtime Error) và dừng tại đúng dòng bị lỗi để người học quan sát.
+     - Giới hạn an toàn `max_steps = 150` bước để chống đóng băng trình duyệt nếu người dùng vô tình viết vòng lặp vô tận.
+- **Tính năng điều khiển:** Nút "Bước tiếp" (Next), nút "Lùi lại" (Step Back), chế độ "Tự chạy" (Auto-Play / Pause sau mỗi 1.3s), bảng biến RAM phân biệt kiểu dữ liệu trực quan, khung Output console thời gian thực.
+- **Nút "Chỉnh sửa code":** Giúp người học dễ dàng quay lại sửa mã nguồn và phân tích lại ngay lập tức.
 
 ### H. Tối ưu hóa giao diện đa nền tảng (Mobile Responsive UI)
 - **Sidebar tự động đóng trên Mobile:**
